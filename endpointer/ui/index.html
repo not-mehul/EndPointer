@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Endpointer</title>
+<link rel="stylesheet" href="/app.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='8' cy='16' r='5' fill='%233b82f6'/%3E%3Ccircle cx='24' cy='8' r='4' fill='%2310b981'/%3E%3Ccircle cx='24' cy='24' r='4' fill='%23f59e0b'/%3E%3Cpath d='M12 14 21 9M12 18l9 5' stroke='%2364748b' stroke-width='2'/%3E%3C/svg%3E">
+<script>window.ENDPOINTER_TOKEN = "__ENDPOINTER_TOKEN__";</script>
+</head>
+<body>
+<header class="top">
+  <div class="brand"><span class="logo"></span>Endpointer</div>
+  <select id="capture" title="Which capture you're looking at"></select>
+  <div class="spacer"></div>
+  <button id="rec" class="rec" title="Pause or resume recording"><span class="dot"></span><span class="label">Off</span></button>
+  <button id="menu-btn" class="icon" title="More" aria-haspopup="true">⋯</button>
+  <div id="menu" class="menu" hidden>
+    <button data-act="new">New capture</button>
+    <button data-act="rename">Rename capture…</button>
+    <button data-act="import">Import HAR…</button>
+    <button data-act="export">Export as HAR</button>
+    <hr>
+    <button data-act="attach">Attach to a running browser…</button>
+    <button data-act="stop">Close capture browser</button>
+    <hr>
+    <button data-act="delete" class="danger">Delete this capture</button>
+  </div>
+  <input id="har-file" type="file" accept=".har,application/json" hidden>
+</header>
+
+<form id="go" class="go">
+  <input id="url" type="text" placeholder="Open a site in the capture browser, e.g. app.example.com" autocomplete="off" spellcheck="false">
+  <button type="submit" class="primary">Open</button>
+</form>
+<div id="banner" class="banner" hidden></div>
+
+<nav class="tabs" role="tablist">
+  <button data-tab="calls" class="active">Calls <span class="count" id="n-calls"></span></button>
+  <button data-tab="endpoints">Endpoints <span class="count" id="n-endpoints"></span></button>
+  <button data-tab="graph">Graph</button>
+  <button data-tab="drift">Drift</button>
+  <button data-tab="library">Library <span class="count" id="n-library"></span></button>
+</nav>
+
+<main>
+  <section id="view-calls" class="view active">
+    <div class="toolbar">
+      <input class="search" data-for="calls" type="search" placeholder="Filter calls">
+      <label class="toggle"><input type="checkbox" id="show-all"> show noise</label>
+    </div>
+    <div class="list" id="calls-list"></div>
+  </section>
+
+  <section id="view-endpoints" class="view">
+    <div class="toolbar">
+      <input class="search" data-for="endpoints" type="search" placeholder="Filter endpoints">
+      <button id="save-all" class="ghost" title="Save every endpoint shown to your library">Save all</button>
+    </div>
+    <div class="list" id="endpoints-list"></div>
+  </section>
+
+  <section id="view-graph" class="view">
+    <div class="toolbar">
+      <span class="hint">An arrow means a value from one response was used by the next request.</span>
+      <button id="graph-fit" class="ghost">Fit</button>
+    </div>
+    <div class="graph-wrap"><svg id="graph" role="img" aria-label="Dependencies between endpoints"></svg><div id="graph-empty" class="empty" hidden></div></div>
+  </section>
+
+  <section id="view-drift" class="view">
+    <div class="toolbar">
+      <label>Compare with <select id="against"></select></label>
+      <button id="check" class="primary" title="Replay every saved GET from the capture browser, then compare">Re-check library</button>
+    </div>
+    <div id="drift-summary" class="summary"></div>
+    <div class="list" id="drift-list"></div>
+  </section>
+
+  <section id="view-library" class="view">
+    <div class="toolbar"><input class="search" data-for="library" type="search" placeholder="Filter your library"></div>
+    <div class="list" id="library-list"></div>
+  </section>
+</main>
+
+<aside id="detail" class="detail" hidden>
+  <div class="detail-head">
+    <button id="detail-close" class="icon" title="Close">✕</button>
+    <div id="detail-title" class="detail-title"></div>
+  </div>
+  <div id="detail-body" class="detail-body"></div>
+</aside>
+<div id="toast" class="toast" hidden></div>
+<script src="/app.js"></script>
+</body>
+</html>
