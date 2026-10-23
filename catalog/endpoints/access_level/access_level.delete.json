@@ -1,0 +1,26 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "access_level.delete",
+  "title": "Delete access level",
+  "api": "command",
+  "host": "vcerberus",
+  "method": "DELETE",
+  "path": "access/v2/user/schedules/{{schedule_id}}",
+  "effect": "delete",
+  "params": {
+    "schedule_id": {}
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object"
+    },
+    "example": {}
+  },
+  "tags": ["access_level"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["delete_access_level"]
+  },
+  "updated": "2026-10-23"
+}

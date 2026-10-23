@@ -1,0 +1,28 @@
+{
+  "$schema": "../schema/scenario.schema.json",
+  "id": "org-settings",
+  "title": "Org settings",
+  "kind": "settings",
+  "description": "Changes org-wide settings the way vCommander's Commission/Decommission do: enables custom roles, turns Global Site Admin on then off (it ends OFF), grants your account Access Control System/User Admin, allows face unlock, signs the LPR agreement and enables the LPR-related features. These changes are NOT undone.",
+  "steps": [
+    {"name": "Enable custom roles", "call": "org.custom_roles"},
+    {"name": "Turn Global Site Admin on", "call": "permissions.global_site_admin.enable"},
+    {"name": "Turn Global Site Admin off", "call": "permissions.global_site_admin.disable"},
+    {"name": "Grant yourself Access Control System Admin", "call": "permissions.access_system_admin.enable"},
+    {"name": "Grant yourself Access Control User Admin", "call": "permissions.access_user_admin.enable"},
+    {"name": "Allow face unlock", "call": "org.allow_face_unlock"},
+    {"name": "Sign the LPR agreement", "call": "org.sign_agreement", "with": {"agreement_key": "LPR"}},
+    {
+      "name": "Enable the LPR-related features",
+      "call": "org.features",
+      "with": {
+        "features": {
+          "ai-summarization": true,
+          "license-plate-recognition": true,
+          "natural-language-search": true,
+          "vehicle-history": true
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "alarm.partition.delete",
+  "title": "Delete alarm partition",
+  "api": "command",
+  "host": "vproconfig",
+  "method": "POST",
+  "path": "partition/delete",
+  "effect": "delete",
+  "params": {
+    "partition_id": {}
+  },
+  "request": {
+    "body": {
+      "partitionId": "{{partition_id}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "partition": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": ["string", "number", "boolean"]
+            },
+            "alarmSystemId": {
+              "type": ["string", "number", "boolean"]
+            },
+            "name": {
+              "type": ["string", "number", "boolean"]
+            },
+            "deleted": {
+              "type": "boolean"
+            },
+            "responseConfigId": {
+              "type": ["string", "number", "boolean"]
+            }
+          },
+          "required": ["alarmSystemId", "deleted", "id", "name", "responseConfigId"]
+        }
+      },
+      "required": ["partition"]
+    },
+    "example": {
+      "partition": {
+        "id": "<partition_id>",
+        "alarmSystemId": "<alarm_system_id>",
+        "name": "<partition_name>",
+        "deleted": true,
+        "responseConfigId": "<alarm_response_id>"
+      }
+    }
+  },
+  "tags": ["alarm"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["delete_alarm_partition"]
+  },
+  "updated": "2026-10-23"
+}

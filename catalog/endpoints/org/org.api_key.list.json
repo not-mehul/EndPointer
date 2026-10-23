@@ -1,0 +1,48 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "org.api_key.list",
+  "title": "List public-API keys",
+  "api": "command",
+  "host": "apiadmin",
+  "method": "GET",
+  "path": "admin/orgs/{{org_id}}/v2/apikeys",
+  "effect": "read",
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "apiKeys": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "apiKeyId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "apiKeyName": {
+                "type": ["string", "number", "boolean"]
+              }
+            },
+            "required": ["apiKeyId", "apiKeyName"]
+          }
+        }
+      },
+      "required": ["apiKeys"]
+    },
+    "example": {
+      "apiKeys": [
+        {
+          "apiKeyId": "<api_key_id>",
+          "apiKeyName": "<api_key_name>"
+        }
+      ]
+    }
+  },
+  "tags": ["org"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["delete_created_api_keys", "get_external_api_key"]
+  },
+  "updated": "2026-10-23"
+}

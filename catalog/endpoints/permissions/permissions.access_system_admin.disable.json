@@ -1,0 +1,37 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "permissions.access_system_admin.disable",
+  "title": "Revoke Access Control System Admin",
+  "api": "command",
+  "host": "vprovision",
+  "method": "POST",
+  "path": "org/set_user_permissions",
+  "effect": "update",
+  "request": {
+    "body": {
+      "grant": [],
+      "organizationId": "{{org_id}}",
+      "returnPermissions": false,
+      "revoke": [
+        {
+          "entityId": "{{org_id}}",
+          "permission": "ACCESS_CONTROL_SYSTEM_ADMIN"
+        }
+      ],
+      "targetUserId": "{{user_id}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object"
+    },
+    "example": {}
+  },
+  "tags": ["permissions"],
+  "source": {
+    "from": "vCommander",
+    "note": "In vCommander's endpoint registry; its client doesn't call it."
+  },
+  "updated": "2026-10-23"
+}

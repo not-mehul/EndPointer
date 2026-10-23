@@ -1,0 +1,52 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "visitor_access_type.list",
+  "title": "List visitor access templates",
+  "api": "command",
+  "host": "api",
+  "method": "GET",
+  "path": "access/v3/user/visit_types",
+  "effect": "read",
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "visitTypes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": ["string", "number", "boolean"]
+              },
+              "organizationId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "visitTypeId": {
+                "type": ["string", "number", "boolean"]
+              }
+            },
+            "required": ["name", "organizationId", "visitTypeId"]
+          }
+        }
+      },
+      "required": ["visitTypes"]
+    },
+    "example": {
+      "visitTypes": [
+        {
+          "name": "<visitor_access_type_name>",
+          "organizationId": "<org_id>",
+          "visitTypeId": "<visitor_access_type_id>"
+        }
+      ]
+    }
+  },
+  "tags": ["visitor_access_type"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["get_visitor_access_template"]
+  },
+  "updated": "2026-10-23"
+}

@@ -1,0 +1,59 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "group.list",
+  "title": "List security groups",
+  "api": "command",
+  "host": "vauth",
+  "method": "POST",
+  "path": "security_entity_group/list",
+  "effect": "read",
+  "request": {
+    "body": {
+      "organizationId": "{{org_id}}",
+      "includeMembers": true,
+      "includeMemberCount": false
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "securityEntityGroup": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "entityGroupId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "name": {
+                "type": "string"
+              },
+              "verkadaManaged": {
+                "type": "boolean"
+              }
+            },
+            "required": ["entityGroupId", "name", "verkadaManaged"]
+          }
+        }
+      },
+      "required": ["securityEntityGroup"]
+    },
+    "example": {
+      "securityEntityGroup": [
+        {
+          "entityGroupId": "<group_id>",
+          "name": "13 Admins",
+          "verkadaManaged": false
+        }
+      ]
+    }
+  },
+  "tags": ["group"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["get_group"]
+  },
+  "updated": "2026-10-23"
+}

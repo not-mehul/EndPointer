@@ -1,0 +1,54 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "public.persons_of_interest.list",
+  "title": "List persons of interest",
+  "api": "public",
+  "method": "GET",
+  "path": "cameras/v1/people/person_of_interest",
+  "effect": "read",
+  "request": {
+    "query": {
+      "page_size": "200"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "persons_of_interest": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "person_id": {
+                "type": ["string", "number", "boolean"]
+              },
+              "label": {
+                "type": ["string", "number", "boolean"]
+              }
+            },
+            "required": ["label", "person_id"]
+          }
+        },
+        "next_page_token": {}
+      },
+      "required": ["next_page_token", "persons_of_interest"]
+    },
+    "example": {
+      "persons_of_interest": [
+        {
+          "person_id": "<person_id>",
+          "label": "<label>"
+        }
+      ],
+      "next_page_token": null
+    }
+  },
+  "tags": ["public", "persons_of_interest"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["get_person_of_interest"]
+  },
+  "updated": "2026-10-23"
+}

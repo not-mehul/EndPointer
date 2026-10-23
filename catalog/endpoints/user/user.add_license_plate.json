@@ -1,0 +1,50 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "user.add_license_plate",
+  "title": "Add a license plate to a user",
+  "api": "command",
+  "host": "api",
+  "method": "POST",
+  "path": "access/v2/user/license_plate",
+  "effect": "create",
+  "params": {
+    "license_plate_number": {},
+    "target_user_id": {}
+  },
+  "request": {
+    "body": {
+      "userId": "{{target_user_id}}",
+      "licensePlateNumber": "{{license_plate_number}}",
+      "organizationId": "{{org_id}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "licensePlateNumber": {
+          "type": ["string", "number", "boolean"]
+        },
+        "organizationId": {
+          "type": ["string", "number", "boolean"]
+        },
+        "userId": {
+          "type": ["string", "number", "boolean"]
+        }
+      },
+      "required": ["licensePlateNumber", "organizationId", "userId"]
+    },
+    "example": {
+      "licensePlateNumber": "<license_plate_number>",
+      "organizationId": "<org_id>",
+      "userId": "<user_id>"
+    }
+  },
+  "tags": ["user"],
+  "source": {
+    "from": "vCommander",
+    "note": "In vCommander's endpoint registry; its client doesn't call it."
+  },
+  "updated": "2026-10-23"
+}

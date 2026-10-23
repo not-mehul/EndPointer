@@ -1,0 +1,40 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "access_group.create",
+  "title": "Create an access group",
+  "api": "command",
+  "host": "api",
+  "method": "POST",
+  "path": "user_groups/add_group",
+  "effect": "create",
+  "params": {
+    "group_name": {}
+  },
+  "request": {
+    "body": {
+      "organizationId": "{{org_id}}",
+      "groupName": "{{group_name}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "groupId": {
+          "type": ["string", "number", "boolean"]
+        }
+      },
+      "required": ["groupId"]
+    },
+    "example": {
+      "groupId": "<access_group_id>"
+    }
+  },
+  "tags": ["access_group"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["create_access_group"]
+  },
+  "updated": "2026-10-23"
+}

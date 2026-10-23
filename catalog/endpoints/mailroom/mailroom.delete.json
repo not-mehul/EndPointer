@@ -1,0 +1,39 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "mailroom.delete",
+  "title": "Delete a mailroom site",
+  "api": "command",
+  "host": "vdoorman",
+  "method": "DELETE",
+  "path": "package_site/org/{{org_id}}",
+  "effect": "delete",
+  "params": {
+    "site_id": {}
+  },
+  "request": {
+    "query": {
+      "siteId": "{{site_id}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "siteId": {
+          "type": ["string", "number", "boolean"]
+        }
+      },
+      "required": ["siteId"]
+    },
+    "example": {
+      "siteId": "<site_id>"
+    }
+  },
+  "tags": ["mailroom"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["delete_mailroom_site"]
+  },
+  "updated": "2026-10-23"
+}

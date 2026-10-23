@@ -1,0 +1,29 @@
+{
+  "$schema": "../schema/scenario.schema.json",
+  "id": "public-api-access",
+  "title": "Public API access",
+  "kind": "setup",
+  "description": "Runs automatically the first time a public-API endpoint is called: creates a temporary API key (expires after an hour), exchanges it for a token, and deletes the key at the end of the run.",
+  "vars": {
+    "api_key_name": "endpoint-checker {{$stamp}}"
+  },
+  "steps": [
+    {
+      "name": "Create a temporary API key",
+      "call": "org.api_key.create",
+      "with": {"expires_at": "{{$now+3600}}"},
+      "save": {"api_key": "apiKey"},
+      "cleanup": {
+        "name": "Find the temporary API key",
+        "call": "org.api_key.list",
+        "save": {"api_key_id": "apiKeys[?apiKeyName=={{api_key_name}}].apiKeyId"},
+        "cleanup": {"name": "Delete the temporary API key", "call": "org.api_key.delete"}
+      }
+    },
+    {
+      "name": "Exchange the key for an API token",
+      "call": "public.token",
+      "save": {"public_token": "token"}
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "permissions.global_site_admin.enable",
+  "title": "Turn Global Site Admin on",
+  "api": "command",
+  "host": "vprovision",
+  "method": "POST",
+  "path": "org/settings/update",
+  "effect": "update",
+  "warning": "Changes an org-wide setting.",
+  "request": {
+    "body": {
+      "organizationId": "{{org_id}}",
+      "settings": {
+        "globalSiteAdmin": true
+      }
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object"
+    },
+    "example": {}
+  },
+  "tags": ["permissions"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["enable_global_site_admin"]
+  },
+  "updated": "2026-10-23"
+}

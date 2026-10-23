@@ -1,0 +1,85 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "user.create",
+  "title": "Invite a user",
+  "api": "command",
+  "host": "vprovision",
+  "method": "POST",
+  "path": "org/invite",
+  "effect": "create",
+  "params": {
+    "first_name": {},
+    "invite_email": {},
+    "last_name": {}
+  },
+  "request": {
+    "body": {
+      "organizationId": "{{org_id}}",
+      "email": "{{invite_email}}",
+      "orgAdmin": false,
+      "commandUserAdmin": false,
+      "firstName": "{{first_name}}",
+      "lastName": "{{last_name}}",
+      "inviteFf": true
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "orgInvitation": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "orgInvitationId": {
+                "type": ["string", "number", "boolean"]
+              }
+            },
+            "required": ["orgInvitationId"]
+          }
+        },
+        "users": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "userId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "email": {
+                "type": ["string", "number", "boolean"]
+              },
+              "name": {
+                "type": ["string", "number", "boolean"]
+              }
+            },
+            "required": ["email", "name", "userId"]
+          }
+        }
+      },
+      "required": ["orgInvitation", "users"]
+    },
+    "example": {
+      "orgInvitation": [
+        {
+          "orgInvitationId": "<inv_id>"
+        }
+      ],
+      "users": [
+        {
+          "userId": "<user_id>",
+          "email": "<email>",
+          "name": "<full_name>"
+        }
+      ]
+    }
+  },
+  "tags": ["user"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["invite_user"]
+  },
+  "updated": "2026-10-23"
+}

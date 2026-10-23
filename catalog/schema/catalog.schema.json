@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "catalog.schema.json",
+  "title": "Endpoint catalog",
+  "type": "object",
+  "required": ["format", "apis"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {"type": "string"},
+    "format": {"const": "endpoint-catalog/1"},
+    "name": {"type": "string"},
+    "description": {"type": "string"},
+    "apis": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["base_url"],
+        "additionalProperties": false,
+        "properties": {
+          "title": {"type": "string"},
+          "base_url": {"type": "string", "description": "e.g. https://{{host}}.command.verkada.com/__v/{{org_short_name}}/"},
+          "headers": {"type": "object", "additionalProperties": {"type": "string"}},
+          "cookies": {"type": "object", "additionalProperties": {"type": "string"}},
+          "setup": {"type": "string", "description": "Scenario (kind 'setup') run before the first call to this API."}
+        }
+      }
+    },
+    "login": {
+      "type": "object",
+      "properties": {
+        "endpoint": {"type": "string"},
+        "success": {"type": "object", "properties": {"path": {"type": "string"}, "equals": {}}},
+        "save": {"type": "object", "additionalProperties": {"type": "string"}},
+        "mfa": {
+          "type": "object",
+          "properties": {
+            "when_message_contains": {"type": "string"},
+            "otp_field": {"type": "string"},
+            "sms_enabled": {"type": "string"},
+            "sms_endpoint": {"type": "string"},
+            "sms_contact": {"type": "string"}
+          }
+        }
+      }
+    },
+    "defaults": {"type": "object", "description": "Default variable values (e.g. lab address)."}
+  }
+}

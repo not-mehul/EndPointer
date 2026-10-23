@@ -1,0 +1,88 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "alarm.guard.list",
+  "title": "List alarm guards",
+  "api": "command",
+  "host": "vguard",
+  "method": "POST",
+  "path": "web/guard_list",
+  "effect": "read",
+  "params": {
+    "site_id": {}
+  },
+  "request": {
+    "body": {
+      "organizationId": "{{org_id}}",
+      "siteId": "{{site_id}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guards": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": ["string", "number", "boolean"]
+              },
+              "orgId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "siteId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "name": {
+                "type": ["string", "number", "boolean"]
+              },
+              "responseConfigId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "timezoneIana": {
+                "type": ["string", "number", "boolean"]
+              },
+              "cameraIds": {
+                "type": "array",
+                "items": {
+                  "type": ["string", "number", "boolean"]
+                }
+              }
+            },
+            "required": [
+              "cameraIds",
+              "id",
+              "name",
+              "orgId",
+              "responseConfigId",
+              "siteId",
+              "timezoneIana"
+            ]
+          }
+        }
+      },
+      "required": ["guards"]
+    },
+    "example": {
+      "guards": [
+        {
+          "id": "<guard_id>",
+          "orgId": "<org_id>",
+          "siteId": "<site_id>",
+          "name": "<camera_partition_name>",
+          "responseConfigId": "<response_id>",
+          "timezoneIana": "<timezone>",
+          "cameraIds": ["<camera_id>"]
+        }
+      ]
+    }
+  },
+  "tags": ["alarm"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["get_alarm_guard", "get_alarm_guard_all"]
+  },
+  "updated": "2026-10-23"
+}

@@ -1,0 +1,65 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "auth.login",
+  "title": "Log in with email and password (2FA: same call with \"otp\")",
+  "api": "command",
+  "host": "vprovision",
+  "method": "POST",
+  "path": "user/login",
+  "effect": "action",
+  "auth": "none",
+  "params": {
+    "password": {
+      "description": "Your Command password (prompted, never stored)"
+    }
+  },
+  "request": {
+    "body": {
+      "email": "{{email}}",
+      "orgShortName": "{{org_short_name}}",
+      "termsAcked": false,
+      "password": "{{password}}",
+      "loginMethod": "password",
+      "shard": "{{shard}}",
+      "subdomain": true
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "loggedIn": {
+          "type": "boolean"
+        },
+        "csrfToken": {
+          "type": ["string", "number", "boolean"]
+        },
+        "userToken": {
+          "type": ["string", "number", "boolean"]
+        },
+        "organizationId": {
+          "type": ["string", "number", "boolean"]
+        },
+        "userId": {
+          "type": ["string", "number", "boolean"]
+        }
+      },
+      "required": ["csrfToken", "loggedIn", "organizationId", "userId", "userToken"]
+    },
+    "example": {
+      "loggedIn": true,
+      "csrfToken": "<csrf>",
+      "userToken": "<user_token>",
+      "organizationId": "<org_id>",
+      "userId": "<user_id>"
+    }
+  },
+  "tags": ["auth"],
+  "notes": "Answers 200 with loggedIn=true on success. When 2FA is needed the message contains \"2FA invalid\" and data.smsEnabled/qrEnabled say which factors exist; the same request is then repeated with an \"otp\" field.",
+  "source": {
+    "from": "vCommander",
+    "note": "In vCommander's endpoint registry; its client doesn't call it."
+  },
+  "updated": "2026-10-23"
+}

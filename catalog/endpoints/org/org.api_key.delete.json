@@ -1,0 +1,38 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "org.api_key.delete",
+  "title": "Delete a public-API key",
+  "api": "command",
+  "host": "apiadmin",
+  "method": "DELETE",
+  "path": "admin/orgs/{{org_id}}/v2/apikeys/{{api_key_id}}",
+  "effect": "delete",
+  "params": {
+    "api_key_id": {}
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "apiKeyId": {
+          "type": ["string", "number", "boolean"]
+        },
+        "apiKeyName": {
+          "type": ["string", "number", "boolean"]
+        }
+      },
+      "required": ["apiKeyId", "apiKeyName"]
+    },
+    "example": {
+      "apiKeyId": "<api_key_id>",
+      "apiKeyName": "<api_key_name>"
+    }
+  },
+  "tags": ["org"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["delete_external_api_key"]
+  },
+  "updated": "2026-10-23"
+}

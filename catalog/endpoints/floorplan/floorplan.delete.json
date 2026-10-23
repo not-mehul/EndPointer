@@ -1,0 +1,31 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "floorplan.delete",
+  "title": "Delete floorplan",
+  "api": "command",
+  "host": "vprovision",
+  "method": "POST",
+  "path": "floor_plan/delete",
+  "effect": "delete",
+  "params": {
+    "floor_plan_id": {}
+  },
+  "request": {
+    "body": {
+      "floorPlanId": "{{floor_plan_id}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object"
+    },
+    "example": {}
+  },
+  "tags": ["floorplan"],
+  "source": {
+    "from": "vCommander",
+    "note": "In vCommander's endpoint registry; its client doesn't call it."
+  },
+  "updated": "2026-10-23"
+}

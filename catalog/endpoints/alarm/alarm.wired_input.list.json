@@ -1,0 +1,89 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "alarm.wired_input.list",
+  "title": "List alarm wired inputs",
+  "api": "command",
+  "host": "vproconfig",
+  "method": "POST",
+  "path": "alarm_system/get_devices",
+  "effect": "read",
+  "params": {
+    "alarm_system_id": {}
+  },
+  "request": {
+    "body": {
+      "alarmSystemId": "{{alarm_system_id}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "devices": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": ["string", "number", "boolean"]
+              },
+              "alarmSystemId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "name": {
+                "type": ["string", "number", "boolean"]
+              },
+              "type": {
+                "type": "string"
+              },
+              "partitionId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "wiredInputConfig": {
+                "type": "object",
+                "properties": {
+                  "hubId": {
+                    "type": ["string", "number", "boolean"]
+                  },
+                  "pinNum": {
+                    "type": "integer"
+                  },
+                  "normalState": {
+                    "type": "string"
+                  }
+                },
+                "required": ["hubId", "normalState", "pinNum"]
+              }
+            },
+            "required": ["alarmSystemId", "id", "name", "type"]
+          }
+        }
+      },
+      "required": ["devices"]
+    },
+    "example": {
+      "devices": [
+        {
+          "id": "<wired_input_id>",
+          "alarmSystemId": "<alarm_system_id>",
+          "name": "<wired_input_name>",
+          "type": "WIRED_CONTACT_SENSOR",
+          "partitionId": "<partition_id>",
+          "wiredInputConfig": {
+            "hubId": "<alarm_panel_id>",
+            "pinNum": 0,
+            "normalState": "CLOSED"
+          }
+        }
+      ]
+    }
+  },
+  "tags": ["alarm"],
+  "notes": "Same request as alarm.panel.list, alarm.keypad.list, alarm.expander.list, alarm.wireless_contact_sensor.list, alarm.wireless_panic_button.list, alarm.wireless_universal_transmitter.list, alarm.wired_output.list; vCommander reads a different part of the response.",
+  "source": {
+    "from": "vCommander",
+    "methods": ["get_wired_input", "get_wired_input_all"]
+  },
+  "updated": "2026-10-23"
+}

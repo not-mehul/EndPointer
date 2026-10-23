@@ -1,0 +1,52 @@
+{
+  "$schema": "../schema/scenario.schema.json",
+  "id": "alarms",
+  "title": "Alarms",
+  "kind": "write",
+  "description": "Creates a test site, an alarm site on it (activates the alarm software trial for that site), sets it to self-monitored, creates an alarm system with a general keycode and a partition, then deletes everything.",
+  "vars": {
+    "name": "Endpoint check {{$stamp}}",
+    "keycode": "{{$digits:6}}"
+  },
+  "steps": [
+    {
+      "name": "Create a test site",
+      "call": "site.create",
+      "with": {"site_name": "{{name}}"},
+      "save": {"site_id": "cameraGroups[0].cameraGroupId"},
+      "cleanup": {
+        "name": "Delete the test site",
+        "call": "site.delete",
+        "otherwise": {"name": "Rename the site that couldn't be deleted", "call": "site.rename", "with": {"new_name": "{{name}} (delete me)"}}
+      }
+    },
+    {
+      "name": "Create an alarm site",
+      "call": "alarm.site.create",
+      "with": {"business_name": "{{name}}"},
+      "save": {"alarm_site_id": "responseSite.id", "response_config_id": "responseConfigs[0].id"},
+      "cleanup": {"name": "Delete the alarm site", "call": "alarm.site.delete"}
+    },
+    {"name": "Activate the alarm trial for the site", "call": "alarm.site.activate_trial"},
+    {"name": "Find the alarm site", "call": "alarm.site.list", "expect": {"equals": {"responseSite.id": "{{alarm_site_id}}"}}},
+    {"name": "Set the alarm site to self-monitored", "call": "alarm.site.set_self_monitored"},
+    {
+      "name": "Create an alarm system",
+      "call": "alarm.system.create",
+      "save": {"alarm_system_id": "alarmSystem.id"},
+      "cleanup": {"name": "Delete the alarm system", "call": "alarm.system.delete"}
+    },
+    {"name": "Create a general keycode", "call": "alarm.system.create_general_keycode", "with": {"name": "{{name}}", "code": "{{keycode}}"}},
+    {"name": "Find the alarm system", "call": "alarm.system.list", "expect": {"contains": {"alarmSystems[*].id": "{{alarm_system_id}}"}}},
+    {
+      "name": "Create a partition",
+      "call": "alarm.partition.create",
+      "with": {"name": "{{name}}"},
+      "save": {"partition_id": "partition.id"},
+      "cleanup": {"name": "Delete the partition", "call": "alarm.partition.delete"}
+    },
+    {"name": "Assign the response config to the partition", "call": "alarm.partition.assign_response"},
+    {"name": "Find the partition", "call": "alarm.partition.list", "expect": {"contains": {"partitions[*].id": "{{partition_id}}"}}},
+    {"name": "List guards on the test site", "call": "alarm.guard.list"}
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "alarm.wireless_universal_transmitter.create",
+  "title": "Attaches a wireless universal transmitter to a partition",
+  "api": "command",
+  "host": "vproconfig",
+  "method": "POST",
+  "path": "unassigned_device/bulk_set_up_universal_transmitter",
+  "effect": "create",
+  "params": {
+    "alarm_system_id": {},
+    "device_id": {},
+    "name": {},
+    "partition_id": {},
+    "serial_number": {}
+  },
+  "request": {
+    "body": {
+      "alarmSystemId": "{{alarm_system_id}}",
+      "devices": [
+        {
+          "deviceId": "{{device_id}}",
+          "alarmSystemId": "{{alarm_system_id}}",
+          "serialNumber": "{{serial_number}}",
+          "name": "{{name}}",
+          "partitionId": "{{partition_id}}"
+        }
+      ]
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "devices": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": ["string", "number", "boolean"]
+              },
+              "alarmSystemId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "type": {
+                "type": "string"
+              },
+              "verkadaDeviceConfig": {
+                "type": "object",
+                "properties": {
+                  "serialNumber": {
+                    "type": ["string", "number", "boolean"]
+                  }
+                },
+                "required": ["serialNumber"]
+              }
+            },
+            "required": ["alarmSystemId", "id", "type", "verkadaDeviceConfig"]
+          }
+        }
+      },
+      "required": ["devices"]
+    },
+    "example": {
+      "devices": [
+        {
+          "id": "<wireless_universal_transmitter_id>",
+          "alarmSystemId": "<alarm_system_id>",
+          "type": "UNIVERSAL_TRANSMITTER",
+          "verkadaDeviceConfig": {
+            "serialNumber": "<serial_number>"
+          }
+        }
+      ]
+    }
+  },
+  "tags": ["alarm"],
+  "notes": "Needs a real device on the org.",
+  "source": {
+    "from": "vCommander",
+    "methods": ["configure_wireless_universal_transmitter"]
+  },
+  "updated": "2026-10-23"
+}

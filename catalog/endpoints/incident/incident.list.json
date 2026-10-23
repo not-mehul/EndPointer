@@ -1,0 +1,54 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "incident.list",
+  "title": "List investigation incidents (one page)",
+  "api": "command",
+  "host": "vinvestigate",
+  "method": "POST",
+  "path": "v2/incident/list",
+  "effect": "read",
+  "request": {
+    "body": {
+      "organizationId": "{{org_id}}",
+      "limit": 99
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "incidents": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "incidentId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "name": {
+                "type": ["string", "number", "boolean"]
+              }
+            },
+            "required": ["incidentId", "name"]
+          }
+        }
+      },
+      "required": ["incidents"]
+    },
+    "example": {
+      "incidents": [
+        {
+          "incidentId": "<incident_id>",
+          "name": "<incident_name>"
+        }
+      ]
+    }
+  },
+  "tags": ["incident"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["get_incident"]
+  },
+  "updated": "2026-10-23"
+}

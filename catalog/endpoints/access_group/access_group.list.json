@@ -1,0 +1,49 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "access_group.list",
+  "title": "List access groups",
+  "api": "command",
+  "host": "api",
+  "method": "POST",
+  "path": "user_groups/get",
+  "effect": "read",
+  "request": {
+    "body": {
+      "organizationId": "{{org_id}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "children": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": ["string", "number", "boolean"]
+              }
+            },
+            "required": ["name"]
+          }
+        }
+      },
+      "required": ["children"]
+    },
+    "example": {
+      "children": {
+        "<access_group_id>": {
+          "name": "<access_group_name>"
+        }
+      }
+    }
+  },
+  "tags": ["access_group"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["get_access_group"]
+  },
+  "updated": "2026-10-23"
+}

@@ -1,0 +1,22 @@
+{
+  "$schema": "../schema/scenario.schema.json",
+  "id": "read-alarms",
+  "title": "Alarm listings",
+  "kind": "read",
+  "description": "Alarm endpoints need a site or an alarm system id: uses the org's first site and first alarm system. Steps are skipped when the org has none.",
+  "steps": [
+    {"name": "List sites", "call": "site.list", "save": {"site_id": "sites[0].siteId?"}},
+    {"name": "Alarm site of the first site", "call": "alarm.site.list"},
+    {"name": "Alarm guards on the first site", "call": "alarm.guard.list"},
+    {"name": "List alarm systems", "call": "alarm.system.list", "save": {"alarm_system_id": "alarmSystems[0].id?"}},
+    {"name": "Alarm panels", "call": "alarm.panel.list"},
+    {"name": "Alarm keypads", "call": "alarm.keypad.list"},
+    {"name": "Alarm expanders", "call": "alarm.expander.list"},
+    {"name": "Wireless contact sensors", "call": "alarm.wireless_contact_sensor.list"},
+    {"name": "Wireless panic buttons", "call": "alarm.wireless_panic_button.list"},
+    {"name": "Wireless universal transmitters", "call": "alarm.wireless_universal_transmitter.list"},
+    {"name": "Wired inputs", "call": "alarm.wired_input.list"},
+    {"name": "Wired outputs", "call": "alarm.wired_output.list"},
+    {"name": "Alarm partitions", "call": "alarm.partition.list"}
+  ]
+}

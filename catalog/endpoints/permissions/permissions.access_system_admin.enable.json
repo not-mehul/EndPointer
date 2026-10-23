@@ -1,0 +1,37 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "permissions.access_system_admin.enable",
+  "title": "Grant Access Control System Admin",
+  "api": "command",
+  "host": "vprovision",
+  "method": "POST",
+  "path": "org/set_user_permissions",
+  "effect": "update",
+  "request": {
+    "body": {
+      "organizationId": "{{org_id}}",
+      "targetUserId": "{{user_id}}",
+      "returnPermissions": false,
+      "grant": [
+        {
+          "entityId": "{{org_id}}",
+          "permission": "ACCESS_CONTROL_SYSTEM_ADMIN"
+        }
+      ],
+      "revoke": []
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object"
+    },
+    "example": {}
+  },
+  "tags": ["permissions"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["enable_access_admin"]
+  },
+  "updated": "2026-10-23"
+}

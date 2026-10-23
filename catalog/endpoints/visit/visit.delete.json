@@ -1,0 +1,50 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "visit.delete",
+  "title": "Delete a visit",
+  "api": "command",
+  "host": "api",
+  "method": "DELETE",
+  "path": "access/v2/user/visits/{{visit_id}}",
+  "effect": "delete",
+  "params": {
+    "visit_id": {}
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "deleted": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": ["string", "number", "boolean"]
+        },
+        "organizationId": {
+          "type": ["string", "number", "boolean"]
+        },
+        "visitId": {
+          "type": ["string", "number", "boolean"]
+        },
+        "visitorId": {
+          "type": ["string", "number", "boolean"]
+        }
+      },
+      "required": ["deleted", "name", "organizationId", "visitId", "visitorId"]
+    },
+    "example": {
+      "deleted": true,
+      "name": "<visit_name>",
+      "organizationId": "<org_id>",
+      "visitId": "<visit_id>",
+      "visitorId": "<visitor_id>"
+    }
+  },
+  "tags": ["visit"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["delete_visit"]
+  },
+  "updated": "2026-10-23"
+}

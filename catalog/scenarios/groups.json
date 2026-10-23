@@ -1,0 +1,51 @@
+{
+  "$schema": "../schema/scenario.schema.json",
+  "id": "groups",
+  "title": "Groups",
+  "kind": "write",
+  "description": "Creates a security group, an access group (internal API) and an access group (public API) named 'Endpoint check <time>', adds you to each, checks they are listed, then deletes them.",
+  "vars": {
+    "name": "Endpoint check {{$stamp}}"
+  },
+  "steps": [
+    {
+      "name": "Create a security group",
+      "call": "group.create",
+      "with": {"group_name": "{{name}}"},
+      "save": {"group_id": "securityEntityGroup[0].entityGroupId"},
+      "cleanup": {"name": "Delete the security group", "call": "group.delete"}
+    },
+    {"name": "Add yourself to the security group", "call": "group.add_members", "with": {"user_ids": ["{{user_id}}"]}},
+    {"name": "Find the security group", "call": "group.list", "expect": {"contains": {"securityEntityGroup[*].entityGroupId": "{{group_id}}"}}},
+    {
+      "name": "Create an access group (internal API)",
+      "call": "access_group.create",
+      "with": {"group_name": "{{name}}"},
+      "save": {"access_group_id": "groupId"},
+      "cleanup": {"name": "Delete the access group (internal API)", "call": "access_group.delete", "with": {"group_id": "{{access_group_id}}"}}
+    },
+    {
+      "name": "Add yourself to the access group (internal API)",
+      "call": "access_group.add_user",
+      "with": {"group_id": "{{access_group_id}}", "target_user_id": "{{user_id}}"}
+    },
+    {"name": "Find the access group (internal API)", "call": "access_group.list", "expect": {"exists": ["children.{{access_group_id}}"]}},
+    {
+      "name": "Create an access group (public API)",
+      "call": "public.access_group.create",
+      "with": {"group_name": "{{name}} (public)"},
+      "save": {"public_group_id": "group_id"},
+      "cleanup": {"name": "Delete the access group (public API)", "call": "public.access_group.delete", "with": {"group_id": "{{public_group_id}}"}}
+    },
+    {
+      "name": "Add yourself to the access group (public API)",
+      "call": "public.access_group.add_user",
+      "with": {"group_id": "{{public_group_id}}", "target_user_id": "{{user_id}}"}
+    },
+    {
+      "name": "Find the access group (public API)",
+      "call": "public.access_groups.list",
+      "expect": {"contains": {"access_groups[*].group_id": "{{public_group_id}}"}}
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "site.list",
+  "title": "List sites",
+  "api": "command",
+  "host": "vprovision",
+  "method": "POST",
+  "path": "org/site/list",
+  "effect": "read",
+  "request": {
+    "body": {
+      "orgId": "{{org_id}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "sites": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "siteId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "name": {
+                "type": ["string", "number", "boolean"]
+              }
+            },
+            "required": ["name", "siteId"]
+          }
+        }
+      },
+      "required": ["sites"]
+    },
+    "example": {
+      "sites": [
+        {
+          "siteId": "<id>",
+          "name": "<name>"
+        }
+      ]
+    }
+  },
+  "tags": ["site"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["get_alarm_guard_all", "get_alarm_site", "get_site"]
+  },
+  "updated": "2026-10-23"
+}

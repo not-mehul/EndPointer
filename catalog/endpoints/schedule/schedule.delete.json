@@ -1,0 +1,39 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "schedule.delete",
+  "title": "Delete door schedules (upsert-style PUT)",
+  "api": "command",
+  "host": "vcerberus",
+  "method": "PUT",
+  "path": "organizations/{{org_id}}/schedules",
+  "effect": "delete",
+  "params": {
+    "schedule_id": {},
+    "schedule_type": {}
+  },
+  "request": {
+    "body": {
+      "sitesEnabled": true,
+      "schedules": [
+        {
+          "id": "{{schedule_id}}",
+          "type": "{{schedule_type}}",
+          "deleted": true
+        }
+      ]
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object"
+    },
+    "example": {}
+  },
+  "tags": ["schedule"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["delete_schedule"]
+  },
+  "updated": "2026-10-23"
+}

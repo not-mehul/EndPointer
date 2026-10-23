@@ -1,0 +1,26 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "public.persons_of_interest.delete",
+  "title": "Delete a person of interest",
+  "api": "public",
+  "method": "DELETE",
+  "path": "cameras/v1/people/person_of_interest",
+  "effect": "delete",
+  "params": {
+    "person_id": {}
+  },
+  "request": {
+    "query": {
+      "person_id": "{{person_id}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"]
+  },
+  "tags": ["public", "persons_of_interest"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["delete_persons_of_interest"]
+  },
+  "updated": "2026-10-23"
+}

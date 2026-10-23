@@ -1,0 +1,61 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "visit.list",
+  "title": "List active visits (one page)",
+  "api": "command",
+  "host": "vcerberus",
+  "method": "GET",
+  "path": "access/v3/user/visits",
+  "effect": "read",
+  "request": {
+    "query": {
+      "page_size": "99"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "visits": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "visitId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "visitorId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "organizationId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": ["name", "organizationId", "visitId", "visitorId"]
+          }
+        }
+      },
+      "required": ["visits"]
+    },
+    "example": {
+      "visits": [
+        {
+          "visitId": "<visit_id>",
+          "visitorId": "<visitor_id>",
+          "organizationId": "<org_id>",
+          "name": "visit_name"
+        }
+      ]
+    }
+  },
+  "tags": ["visit"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["get_visit"]
+  },
+  "updated": "2026-10-23"
+}

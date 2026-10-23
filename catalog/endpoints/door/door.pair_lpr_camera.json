@@ -1,0 +1,62 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "door.pair_lpr_camera",
+  "title": "Pair an LPR camera with a door",
+  "api": "command",
+  "host": "api",
+  "method": "POST",
+  "path": "door/{{door_id}}/device_io",
+  "effect": "update",
+  "params": {
+    "door_id": {},
+    "lpr_camera_id": {}
+  },
+  "request": {
+    "body": {
+      "configs": {
+        "lprCameraId": "{{lpr_camera_id}}"
+      },
+      "ioDeviceTypeName": "lpr-camera",
+      "ioSlotType": "lpr-camera",
+      "ioSlotIndex": 0
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "accessControllerId": {
+          "type": ["string", "number", "boolean"]
+        },
+        "configs": {
+          "type": "object",
+          "properties": {
+            "lprCameraId": {
+              "type": ["string", "number", "boolean"]
+            }
+          },
+          "required": ["lprCameraId"]
+        },
+        "deviceId": {
+          "type": ["string", "number", "boolean"]
+        }
+      },
+      "required": ["accessControllerId", "configs", "deviceId"]
+    },
+    "example": {
+      "accessControllerId": "<access_controller_id>",
+      "configs": {
+        "lprCameraId": "<camera_id>"
+      },
+      "deviceId": "<door_id>"
+    }
+  },
+  "tags": ["door"],
+  "notes": "Needs a real device on the org.",
+  "source": {
+    "from": "vCommander",
+    "methods": ["pair_lpr_camera"]
+  },
+  "updated": "2026-10-23"
+}

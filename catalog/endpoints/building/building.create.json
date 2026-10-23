@@ -1,0 +1,110 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "building.create",
+  "title": "Creates a building with the given address and floor list",
+  "api": "command",
+  "host": "vprovision",
+  "method": "POST",
+  "path": "building/create",
+  "effect": "create",
+  "params": {
+    "building_name": {},
+    "floors": {}
+  },
+  "request": {
+    "body": {
+      "name": "{{building_name}}",
+      "organizationId": "{{org_id}}",
+      "address": "{{address_label}}",
+      "latitude": "{{latitude}}",
+      "longitude": "{{longitude}}",
+      "floors": "{{floors}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "buildings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "address": {
+                "type": ["string", "number", "boolean"]
+              },
+              "buildingId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "floors": {
+                "type": "array",
+                "items": {
+                  "type": ["string", "number", "boolean"]
+                }
+              },
+              "name": {
+                "type": ["string", "number", "boolean"]
+              },
+              "organizationId": {
+                "type": ["string", "number", "boolean"]
+              }
+            },
+            "required": ["address", "buildingId", "floors", "name", "organizationId"]
+          }
+        },
+        "floors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "buildingId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "floorId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "name": {
+                "type": ["string", "number", "boolean"]
+              },
+              "shortName": {
+                "type": "string"
+              },
+              "sortOrder": {
+                "type": "integer"
+              }
+            },
+            "required": ["buildingId", "floorId", "name", "shortName", "sortOrder"]
+          }
+        }
+      },
+      "required": ["buildings", "floors"]
+    },
+    "example": {
+      "buildings": [
+        {
+          "address": "<address>",
+          "buildingId": "<building_id>",
+          "floors": ["<floor_id>"],
+          "name": "<building_name>",
+          "organizationId": "<org_id>"
+        }
+      ],
+      "floors": [
+        {
+          "buildingId": "<building_id>",
+          "floorId": "<floor_id>",
+          "name": "<floor_name>",
+          "shortName": "1",
+          "sortOrder": 0
+        }
+      ]
+    }
+  },
+  "tags": ["building"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["create_building"]
+  },
+  "updated": "2026-10-23"
+}

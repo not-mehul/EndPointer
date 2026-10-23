@@ -1,0 +1,32 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "door.delete",
+  "title": "Delete door",
+  "api": "command",
+  "host": "api",
+  "method": "POST",
+  "path": "door/delete",
+  "effect": "delete",
+  "params": {
+    "door_id": {}
+  },
+  "request": {
+    "body": {
+      "doorId": "{{door_id}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object"
+    },
+    "example": {}
+  },
+  "tags": ["door"],
+  "notes": "Needs a real device on the org.",
+  "source": {
+    "from": "vCommander",
+    "methods": ["delete_door"]
+  },
+  "updated": "2026-10-23"
+}

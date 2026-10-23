@@ -1,0 +1,950 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "guest_type.create",
+  "title": "Create guest type",
+  "api": "command",
+  "host": "vdoorman",
+  "method": "POST",
+  "path": "visitor_type/v2/standard/org/{{org_id}}/site/{{site_id}}",
+  "effect": "create",
+  "params": {
+    "site_id": {}
+  },
+  "request": {
+    "body": {
+      "visitorType": {
+        "checkInOutConfig": "CHECK_IN_AND_OUT",
+        "guestSelfSignOut": "ANYWHERE",
+        "printBadge": true,
+        "reviewVisitInformation": true,
+        "invitesEnabled": true,
+        "enableFastpass": true,
+        "enableFaceMatch": false,
+        "hasVisitorTypeAccessEnabled": false,
+        "badgeConfig": {
+          "printName": true,
+          "printHost": true,
+          "printPhoto": true,
+          "enableBotd": true,
+          "badgeOrientationPortrait": {
+            "defaultSelectedValue": false,
+            "rules": []
+          },
+          "badgeBorderTreatment": {
+            "defaultSelectedValue": "NONE",
+            "rules": []
+          },
+          "badgeBorderColor": {
+            "defaultSelectedValue": "#000000",
+            "rules": []
+          }
+        },
+        "badgeConfigV2": {
+          "designedFor": "monochrome",
+          "featureMode": "basic",
+          "badgeStyles": {
+            "orientation": "landscape",
+            "border": {
+              "style": "NONE",
+              "color": "#000000",
+              "colorValue": {
+                "hex": "#000000"
+              }
+            },
+            "background": {
+              "color": "",
+              "colorValue": {
+                "hex": "",
+                "colorSchemeKey": "backgroundColor"
+              }
+            }
+          },
+          "components": [
+            {
+              "id": "guestPhoto-a7ba8af2-4094-43df-999b-16ba3d9ccc99",
+              "type": "guestPhoto",
+              "landscape": {
+                "x": 17,
+                "y": 0,
+                "width": 15,
+                "height": 15,
+                "imageShape": "circle",
+                "zIndex": 0
+              },
+              "portrait": {
+                "x": 0,
+                "y": 8,
+                "width": 14,
+                "height": 14,
+                "imageShape": "circle",
+                "zIndex": 0
+              },
+              "commonData": {}
+            },
+            {
+              "id": "logo-c5c3513a-e520-4002-b985-f6a7057b2e1f",
+              "type": "logo",
+              "landscape": {
+                "x": 0,
+                "y": 0,
+                "width": 13,
+                "height": 3,
+                "layoutAlignment": "flex-start",
+                "zIndex": 0
+              },
+              "portrait": {
+                "x": 0,
+                "y": 0,
+                "width": 12,
+                "height": 3,
+                "layoutAlignment": "flex-start",
+                "zIndex": 0
+              },
+              "commonData": {}
+            },
+            {
+              "id": "badgeDate-f280b3e0-70b6-48d8-8115-74cd2f5710a6",
+              "type": "badgeDate",
+              "landscape": {
+                "x": 27,
+                "y": 17,
+                "width": 5,
+                "height": 7,
+                "textStyle": "transparentBackground",
+                "dateLayout": "vertical",
+                "zIndex": 0
+              },
+              "portrait": {
+                "x": 19,
+                "y": 0,
+                "width": 5,
+                "height": 7,
+                "textStyle": "transparentBackground",
+                "dateLayout": "vertical",
+                "zIndex": 0
+              },
+              "commonData": {}
+            },
+            {
+              "id": "guestType-5392228b-a57f-46f4-b318-7b755fdd2346",
+              "type": "guestType",
+              "landscape": {
+                "x": 0,
+                "y": 4,
+                "width": 16,
+                "height": 4,
+                "layoutAlignment": "flex-start",
+                "zIndex": 0
+              },
+              "portrait": {
+                "x": 0,
+                "y": 4,
+                "width": 17,
+                "height": 3,
+                "layoutAlignment": "flex-start",
+                "zIndex": 0
+              },
+              "commonData": {}
+            },
+            {
+              "id": "guestName-4f90cd88-da37-45a4-9265-c4894879c8e8",
+              "type": "guestName",
+              "landscape": {
+                "x": 0,
+                "y": 15,
+                "width": 27,
+                "height": 9,
+                "textStyle": "transparentBackground",
+                "layoutAlignment": "flex-start",
+                "nameLines": "double",
+                "nameParts": "full",
+                "zIndex": 0
+              },
+              "portrait": {
+                "x": 0,
+                "y": 23,
+                "width": 24,
+                "height": 9,
+                "textStyle": "transparentBackground",
+                "layoutAlignment": "flex-start",
+                "nameLines": "double",
+                "nameParts": "full",
+                "zIndex": 0
+              },
+              "commonData": {}
+            }
+          ]
+        },
+        "translations": {
+          "en_US": {
+            "name": "GuestTypeName",
+            "locale": "en_US",
+            "closingMessage": "Thank you for signing into Site 1"
+          }
+        },
+        "issueWifiCredentials": false,
+        "smsWifiCredentials": false,
+        "sendHostWifiCredentials": false,
+        "_visitorTypeCategory": "STANDARD"
+      }
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "visitorType": {
+          "type": "object",
+          "properties": {
+            "accessControlVisitorType": {},
+            "allowIntercomCheckIn": {
+              "type": "boolean"
+            },
+            "allowSelfSignOut": {
+              "type": "boolean"
+            },
+            "applicantVisitorTypeIds": {
+              "type": "array"
+            },
+            "attendance": {},
+            "attendanceCode": {},
+            "badgeConfig": {
+              "type": "object",
+              "properties": {
+                "badgeBorderColor": {
+                  "type": "object",
+                  "properties": {
+                    "defaultSelectedValue": {
+                      "type": "string"
+                    },
+                    "rules": {
+                      "type": "array"
+                    }
+                  },
+                  "required": ["defaultSelectedValue", "rules"]
+                },
+                "badgeBorderTreatment": {
+                  "type": "object",
+                  "properties": {
+                    "defaultSelectedValue": {
+                      "type": "string"
+                    },
+                    "rules": {
+                      "type": "array"
+                    }
+                  },
+                  "required": ["defaultSelectedValue", "rules"]
+                },
+                "badgeOrientationPortrait": {
+                  "type": "object",
+                  "properties": {
+                    "defaultSelectedValue": {
+                      "type": "boolean"
+                    },
+                    "rules": {
+                      "type": "array"
+                    }
+                  },
+                  "required": ["defaultSelectedValue", "rules"]
+                },
+                "enableBotd": {
+                  "type": "boolean"
+                },
+                "printHost": {
+                  "type": "boolean"
+                },
+                "printName": {
+                  "type": "boolean"
+                },
+                "printPhoto": {
+                  "type": "boolean"
+                },
+                "printQuestionResponse": {}
+              },
+              "required": [
+                "badgeBorderColor",
+                "badgeBorderTreatment",
+                "badgeOrientationPortrait",
+                "enableBotd",
+                "printHost",
+                "printName",
+                "printPhoto",
+                "printQuestionResponse"
+              ]
+            },
+            "badgeConfigV2": {
+              "type": "object",
+              "properties": {
+                "badgeStyles": {
+                  "type": "object",
+                  "properties": {
+                    "background": {
+                      "type": "object",
+                      "properties": {
+                        "color": {
+                          "type": "string"
+                        },
+                        "colorValue": {
+                          "type": "object",
+                          "properties": {
+                            "colorSchemeKey": {
+                              "type": "string"
+                            },
+                            "hex": {
+                              "type": "string"
+                            }
+                          },
+                          "required": ["colorSchemeKey", "hex"]
+                        }
+                      },
+                      "required": ["color", "colorValue"]
+                    },
+                    "border": {
+                      "type": "object",
+                      "properties": {
+                        "color": {
+                          "type": "string"
+                        },
+                        "colorValue": {
+                          "type": "object",
+                          "properties": {
+                            "hex": {
+                              "type": "string"
+                            }
+                          },
+                          "required": ["hex"]
+                        },
+                        "style": {
+                          "type": "string"
+                        }
+                      },
+                      "required": ["color", "colorValue", "style"]
+                    },
+                    "orientation": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["background", "border", "orientation"]
+                },
+                "components": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "commonData": {
+                        "type": "object",
+                        "properties": {},
+                        "required": []
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "landscape": {
+                        "type": "object",
+                        "properties": {
+                          "height": {
+                            "type": "integer"
+                          },
+                          "imageShape": {
+                            "type": "string"
+                          },
+                          "width": {
+                            "type": "integer"
+                          },
+                          "x": {
+                            "type": "integer"
+                          },
+                          "y": {
+                            "type": "integer"
+                          },
+                          "zIndex": {
+                            "type": "integer"
+                          },
+                          "layoutAlignment": {
+                            "type": "string"
+                          },
+                          "dateLayout": {
+                            "type": "string"
+                          },
+                          "textStyle": {
+                            "type": "string"
+                          },
+                          "nameLines": {
+                            "type": "string"
+                          },
+                          "nameParts": {
+                            "type": "string"
+                          }
+                        },
+                        "required": ["height", "width", "x", "y", "zIndex"]
+                      },
+                      "portrait": {
+                        "type": "object",
+                        "properties": {
+                          "height": {
+                            "type": "integer"
+                          },
+                          "imageShape": {
+                            "type": "string"
+                          },
+                          "width": {
+                            "type": "integer"
+                          },
+                          "x": {
+                            "type": "integer"
+                          },
+                          "y": {
+                            "type": "integer"
+                          },
+                          "zIndex": {
+                            "type": "integer"
+                          },
+                          "layoutAlignment": {
+                            "type": "string"
+                          },
+                          "dateLayout": {
+                            "type": "string"
+                          },
+                          "textStyle": {
+                            "type": "string"
+                          },
+                          "nameLines": {
+                            "type": "string"
+                          },
+                          "nameParts": {
+                            "type": "string"
+                          }
+                        },
+                        "required": ["height", "width", "x", "y", "zIndex"]
+                      },
+                      "type": {
+                        "type": "string"
+                      }
+                    },
+                    "required": ["commonData", "id", "landscape", "portrait", "type"]
+                  }
+                },
+                "designedFor": {
+                  "type": "string"
+                },
+                "featureMode": {
+                  "type": "string"
+                }
+              },
+              "required": ["badgeStyles", "components", "designedFor", "featureMode"]
+            },
+            "badgeImageIds": {
+              "type": "array"
+            },
+            "blocksPrinting": {
+              "type": "boolean"
+            },
+            "checkApplicantVisitorType": {
+              "type": "boolean"
+            },
+            "checkInOutConfig": {
+              "type": "string"
+            },
+            "contactUserIds": {
+              "type": "array"
+            },
+            "displayConfigBySite": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object",
+                "properties": {
+                  "hidden": {
+                    "type": "boolean"
+                  },
+                  "hideFromDevice": {
+                    "type": "boolean"
+                  },
+                  "hideFromInvite": {
+                    "type": "boolean"
+                  },
+                  "hideFromReceptionist": {
+                    "type": "boolean"
+                  },
+                  "hideFromWeb": {
+                    "type": "boolean"
+                  },
+                  "inviteAlias": {
+                    "type": "string"
+                  },
+                  "order": {
+                    "type": "integer"
+                  },
+                  "siteId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "hidden",
+                  "hideFromDevice",
+                  "hideFromInvite",
+                  "hideFromReceptionist",
+                  "hideFromWeb",
+                  "inviteAlias",
+                  "order",
+                  "siteId"
+                ]
+              }
+            },
+            "enableFaceMatch": {
+              "type": "boolean"
+            },
+            "enableFastpass": {
+              "type": "boolean"
+            },
+            "form": {
+              "type": "object",
+              "properties": {
+                "deleted": {
+                  "type": "boolean"
+                },
+                "formId": {
+                  "type": "string"
+                },
+                "formType": {
+                  "type": "string"
+                },
+                "nextVersion": {},
+                "orgId": {
+                  "type": "string"
+                },
+                "published": {
+                  "type": "boolean"
+                },
+                "replacedWith": {},
+                "scanIdStep": {},
+                "siteId": {
+                  "type": "string"
+                },
+                "startingStepId": {
+                  "type": "string"
+                },
+                "steps": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "object",
+                    "properties": {
+                      "blockPrinting": {
+                        "type": "boolean"
+                      },
+                      "nextStepId": {
+                        "type": "string"
+                      },
+                      "shouldRemember": {
+                        "type": "boolean"
+                      },
+                      "stableKey": {
+                        "type": "string"
+                      },
+                      "stepId": {
+                        "type": "string"
+                      },
+                      "stepType": {
+                        "type": "string"
+                      },
+                      "requireEitherPhoneOrEmail": {
+                        "type": "boolean"
+                      },
+                      "requireEmail": {
+                        "type": "boolean"
+                      },
+                      "requirePhone": {
+                        "type": "boolean"
+                      },
+                      "detectFace": {
+                        "type": "boolean"
+                      },
+                      "identityListId": {}
+                    },
+                    "required": [
+                      "blockPrinting",
+                      "nextStepId",
+                      "shouldRemember",
+                      "stableKey",
+                      "stepId",
+                      "stepType"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "deleted",
+                "formId",
+                "formType",
+                "nextVersion",
+                "orgId",
+                "published",
+                "replacedWith",
+                "scanIdStep",
+                "siteId",
+                "startingStepId",
+                "steps"
+              ]
+            },
+            "guestSelfSignOut": {
+              "type": "string"
+            },
+            "hasReceptionistForm": {
+              "type": "boolean"
+            },
+            "hidden": {},
+            "invitesEnabled": {
+              "type": "boolean"
+            },
+            "issueWifiCredentials": {
+              "type": "boolean"
+            },
+            "minimumAppVersion": {},
+            "orgId": {
+              "type": "string"
+            },
+            "printBadge": {
+              "type": "boolean"
+            },
+            "receptionistForm": {},
+            "reviewVisitInformation": {
+              "type": "boolean"
+            },
+            "securityScreenReviewers": {
+              "type": "array"
+            },
+            "sendHostWifiCredentials": {
+              "type": "boolean"
+            },
+            "siteId": {
+              "type": "string"
+            },
+            "smsWifiCredentials": {
+              "type": "boolean"
+            },
+            "translations": {
+              "type": "object",
+              "properties": {
+                "en_US": {
+                  "type": "object",
+                  "properties": {
+                    "closingMessage": {
+                      "type": "string"
+                    },
+                    "locale": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "welcomeInfo": {}
+                  },
+                  "required": ["closingMessage", "locale", "name", "welcomeInfo"]
+                }
+              },
+              "required": ["en_US"]
+            },
+            "visitorTypeAccessControl": {},
+            "visitorTypeId": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "accessControlVisitorType",
+            "allowIntercomCheckIn",
+            "allowSelfSignOut",
+            "applicantVisitorTypeIds",
+            "attendance",
+            "attendanceCode",
+            "badgeConfig",
+            "badgeConfigV2",
+            "badgeImageIds",
+            "blocksPrinting",
+            "checkApplicantVisitorType",
+            "checkInOutConfig",
+            "contactUserIds",
+            "displayConfigBySite",
+            "enableFaceMatch",
+            "enableFastpass",
+            "form",
+            "guestSelfSignOut",
+            "hasReceptionistForm",
+            "hidden",
+            "invitesEnabled",
+            "issueWifiCredentials",
+            "minimumAppVersion",
+            "orgId",
+            "printBadge",
+            "receptionistForm",
+            "reviewVisitInformation",
+            "securityScreenReviewers",
+            "sendHostWifiCredentials",
+            "siteId",
+            "smsWifiCredentials",
+            "translations",
+            "visitorTypeAccessControl",
+            "visitorTypeId"
+          ]
+        }
+      },
+      "required": ["visitorType"]
+    },
+    "example": {
+      "visitorType": {
+        "accessControlVisitorType": null,
+        "allowIntercomCheckIn": false,
+        "allowSelfSignOut": false,
+        "applicantVisitorTypeIds": [],
+        "attendance": null,
+        "attendanceCode": null,
+        "badgeConfig": {
+          "badgeBorderColor": {
+            "defaultSelectedValue": "#000000",
+            "rules": []
+          },
+          "badgeBorderTreatment": {
+            "defaultSelectedValue": "NONE",
+            "rules": []
+          },
+          "badgeOrientationPortrait": {
+            "defaultSelectedValue": false,
+            "rules": []
+          },
+          "enableBotd": true,
+          "printHost": true,
+          "printName": true,
+          "printPhoto": true,
+          "printQuestionResponse": null
+        },
+        "badgeConfigV2": {
+          "badgeStyles": {
+            "background": {
+              "color": "",
+              "colorValue": {
+                "colorSchemeKey": "backgroundColor",
+                "hex": ""
+              }
+            },
+            "border": {
+              "color": "#000000",
+              "colorValue": {
+                "hex": "#000000"
+              },
+              "style": "NONE"
+            },
+            "orientation": "landscape"
+          },
+          "components": [
+            {
+              "commonData": {},
+              "id": "guestPhoto-a7ba8af2-4094-43df-999b-16ba3d9ccc99",
+              "landscape": {
+                "height": 15,
+                "imageShape": "circle",
+                "width": 15,
+                "x": 17,
+                "y": 0,
+                "zIndex": 0
+              },
+              "portrait": {
+                "height": 14,
+                "imageShape": "circle",
+                "width": 14,
+                "x": 0,
+                "y": 8,
+                "zIndex": 0
+              },
+              "type": "guestPhoto"
+            },
+            {
+              "commonData": {},
+              "id": "logo-c5c3513a-e520-4002-b985-f6a7057b2e1f",
+              "landscape": {
+                "height": 3,
+                "layoutAlignment": "flex-start",
+                "width": 13,
+                "x": 0,
+                "y": 0,
+                "zIndex": 0
+              },
+              "portrait": {
+                "height": 3,
+                "layoutAlignment": "flex-start",
+                "width": 12,
+                "x": 0,
+                "y": 0,
+                "zIndex": 0
+              },
+              "type": "logo"
+            },
+            {
+              "commonData": {},
+              "id": "badgeDate-f280b3e0-70b6-48d8-8115-74cd2f5710a6",
+              "landscape": {
+                "dateLayout": "vertical",
+                "height": 7,
+                "textStyle": "transparentBackground",
+                "width": 5,
+                "x": 27,
+                "y": 17,
+                "zIndex": 0
+              },
+              "portrait": {
+                "dateLayout": "vertical",
+                "height": 7,
+                "textStyle": "transparentBackground",
+                "width": 5,
+                "x": 19,
+                "y": 0,
+                "zIndex": 0
+              },
+              "type": "badgeDate"
+            },
+            {
+              "commonData": {},
+              "id": "guestType-5392228b-a57f-46f4-b318-7b755fdd2346",
+              "landscape": {
+                "height": 4,
+                "layoutAlignment": "flex-start",
+                "width": 16,
+                "x": 0,
+                "y": 4,
+                "zIndex": 0
+              },
+              "portrait": {
+                "height": 3,
+                "layoutAlignment": "flex-start",
+                "width": 17,
+                "x": 0,
+                "y": 4,
+                "zIndex": 0
+              },
+              "type": "guestType"
+            },
+            {
+              "commonData": {},
+              "id": "guestName-4f90cd88-da37-45a4-9265-c4894879c8e8",
+              "landscape": {
+                "height": 9,
+                "layoutAlignment": "flex-start",
+                "nameLines": "double",
+                "nameParts": "full",
+                "textStyle": "transparentBackground",
+                "width": 27,
+                "x": 0,
+                "y": 15,
+                "zIndex": 0
+              },
+              "portrait": {
+                "height": 9,
+                "layoutAlignment": "flex-start",
+                "nameLines": "double",
+                "nameParts": "full",
+                "textStyle": "transparentBackground",
+                "width": 24,
+                "x": 0,
+                "y": 23,
+                "zIndex": 0
+              },
+              "type": "guestName"
+            }
+          ],
+          "designedFor": "monochrome",
+          "featureMode": "basic"
+        },
+        "badgeImageIds": [],
+        "blocksPrinting": false,
+        "checkApplicantVisitorType": false,
+        "checkInOutConfig": "CHECK_IN_AND_OUT",
+        "contactUserIds": [],
+        "displayConfigBySite": {
+          "a7779867-99a9-47ef-b061-f21a0904c95d": {
+            "hidden": false,
+            "hideFromDevice": false,
+            "hideFromInvite": false,
+            "hideFromReceptionist": false,
+            "hideFromWeb": false,
+            "inviteAlias": "guesttypename",
+            "order": 0,
+            "siteId": "a7779867-99a9-47ef-b061-f21a0904c95d"
+          }
+        },
+        "enableFaceMatch": false,
+        "enableFastpass": true,
+        "form": {
+          "deleted": false,
+          "formId": "924844fb-3cdb-4e53-91d9-b6ff7eb1075f",
+          "formType": "STANDARD",
+          "nextVersion": null,
+          "orgId": "12f68738-490f-4261-9878-0ca6352c4f8d",
+          "published": false,
+          "replacedWith": null,
+          "scanIdStep": null,
+          "siteId": "a7779867-99a9-47ef-b061-f21a0904c95d",
+          "startingStepId": "919deea7-a122-4610-922f-bda0bea7292a",
+          "steps": {
+            "5fb23446-d30b-4e60-bfbc-1495812aa9fb": {
+              "blockPrinting": false,
+              "nextStepId": "b6110bec-c0e5-4445-82bf-496d953be491",
+              "shouldRemember": false,
+              "stableKey": "131da13b-d1c8-44bb-a4f1-45e0d8e60d7f",
+              "stepId": "5fb23446-d30b-4e60-bfbc-1495812aa9fb",
+              "stepType": "VisitorNameStep"
+            },
+            "919deea7-a122-4610-922f-bda0bea7292a": {
+              "blockPrinting": false,
+              "nextStepId": "5fb23446-d30b-4e60-bfbc-1495812aa9fb",
+              "requireEitherPhoneOrEmail": true,
+              "requireEmail": false,
+              "requirePhone": false,
+              "shouldRemember": true,
+              "stableKey": "b2067db5-395d-4bd2-a4c5-f21d2249ebbc",
+              "stepId": "919deea7-a122-4610-922f-bda0bea7292a",
+              "stepType": "ContactInfoStep"
+            },
+            "b6110bec-c0e5-4445-82bf-496d953be491": {
+              "blockPrinting": false,
+              "detectFace": false,
+              "identityListId": null,
+              "nextStepId": null,
+              "shouldRemember": false,
+              "stableKey": "8ead45e0-d773-4f10-8755-926f849abee5",
+              "stepId": "b6110bec-c0e5-4445-82bf-496d953be491",
+              "stepType": "GuestPhotoStep"
+            }
+          }
+        },
+        "guestSelfSignOut": "ANYWHERE",
+        "hasReceptionistForm": false,
+        "hidden": null,
+        "invitesEnabled": true,
+        "issueWifiCredentials": false,
+        "minimumAppVersion": null,
+        "orgId": "12f68738-490f-4261-9878-0ca6352c4f8d",
+        "printBadge": true,
+        "receptionistForm": null,
+        "reviewVisitInformation": true,
+        "securityScreenReviewers": [],
+        "sendHostWifiCredentials": false,
+        "siteId": "a7779867-99a9-47ef-b061-f21a0904c95d",
+        "smsWifiCredentials": false,
+        "translations": {
+          "en_US": {
+            "closingMessage": "Thank you for signing into Site 1",
+            "locale": "en_US",
+            "name": "GuestTypeName",
+            "welcomeInfo": null
+          }
+        },
+        "visitorTypeAccessControl": null,
+        "visitorTypeId": "a74b5bf8-3b12-4ac3-ad6c-f667c1f7b9f3"
+      }
+    }
+  },
+  "tags": ["guest_type"],
+  "source": {
+    "from": "vCommander",
+    "note": "In vCommander's endpoint registry; its client doesn't call it."
+  },
+  "updated": "2026-10-23"
+}

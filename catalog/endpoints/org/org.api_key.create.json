@@ -1,0 +1,65 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "org.api_key.create",
+  "title": "Create a public-API key (expires at expires_at)",
+  "api": "command",
+  "host": "apiadmin",
+  "method": "POST",
+  "path": "admin/orgs/{{org_id}}/v2/granular_apikeys",
+  "effect": "create",
+  "params": {
+    "api_key_name": {
+      "example": "endpoint-checker 20261023-142501"
+    },
+    "expires_at": {
+      "description": "Unix seconds",
+      "example": "{{$now+3600}}"
+    }
+  },
+  "request": {
+    "body": {
+      "api_key_name": "{{api_key_name}}",
+      "expires_at": "{{expires_at}}",
+      "roles": [
+        "PUBLIC_API_CAMERA_READ_WRITE",
+        "PUBLIC_API_SENSORS_READ_WRITE",
+        "PUBLIC_API_ACCESS_READ_WRITE",
+        "PUBLIC_API_ALARMS_READ_WRITE",
+        "PUBLIC_API_CORE_READ_WRITE",
+        "PUBLIC_API_HELIX_READ_WRITE",
+        "PUBLIC_API_WORKPLACE_READ_WRITE",
+        "PUBLIC_API_INTERCOM_READ_WRITE",
+        "PUBLIC_API_CAMERA_AUDIO"
+      ]
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "apiKey": {
+          "type": ["string", "number", "boolean"]
+        },
+        "apiKeyId": {
+          "type": ["string", "number", "boolean"]
+        },
+        "apiKeyName": {
+          "type": ["string", "number", "boolean"]
+        }
+      },
+      "required": ["apiKey", "apiKeyId", "apiKeyName"]
+    },
+    "example": {
+      "apiKey": "<api_key>",
+      "apiKeyId": "<api_key_id>",
+      "apiKeyName": "<api_key_name>"
+    }
+  },
+  "tags": ["org"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["create_external_api_key"]
+  },
+  "updated": "2026-10-23"
+}

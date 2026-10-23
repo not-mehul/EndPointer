@@ -1,0 +1,66 @@
+{
+  "$schema": "schema/catalog.schema.json",
+  "format": "endpoint-catalog/1",
+  "name": "Verkada Command",
+  "description": "Endpoints of Verkada Command's internal API (what the web app calls) and the public API (apidocs.verkada.com), with request templates, response shapes and check scenarios.",
+  "apis": {
+    "command": {
+      "title": "Command internal API",
+      "base_url": "https://{{host}}.command.verkada.com/__v/{{org_short_name}}/",
+      "headers": {
+        "Accept": "*/*",
+        "x-verkada-organization-id": "{{org_id}}",
+        "x-verkada-token": "{{csrf_token}}",
+        "x-verkada-user-id": "{{user_id}}",
+        "origin": "https://{{org_short_name}}.command.verkada.com",
+        "referer": "https://{{org_short_name}}.command.verkada.com/"
+      },
+      "cookies": {
+        "auth": "{{user_token}}",
+        "org": "{{org_id}}",
+        "usr": "{{user_id}}",
+        "token": "{{csrf_token}}"
+      }
+    },
+    "public": {
+      "title": "Public API",
+      "base_url": "https://{{region}}.verkada.com/",
+      "headers": {
+        "accept": "application/json",
+        "x-verkada-auth": "{{public_token}}"
+      },
+      "setup": "public-api-access"
+    }
+  },
+  "login": {
+    "endpoint": "auth.login",
+    "success": {"path": "loggedIn", "equals": true},
+    "save": {
+      "csrf_token": "csrfToken",
+      "user_token": "userToken",
+      "org_id": "organizationId",
+      "user_id": "userId"
+    },
+    "mfa": {
+      "when_message_contains": "2FA invalid",
+      "otp_field": "otp",
+      "sms_enabled": "data.smsEnabled?",
+      "sms_endpoint": "auth.twofactor.sms.new",
+      "sms_contact": "smsSent?"
+    }
+  },
+  "defaults": {
+    "region": "api",
+    "shard": "prod1",
+    "address_label": "406 E 3rd Ave, San Mateo, CA 94401, USA",
+    "latitude": 37.56613979999999,
+    "longitude": -122.3210929,
+    "alarm_street": "406 East 3rd Avenue",
+    "alarm_city": "San Mateo",
+    "alarm_state": "CA",
+    "alarm_zipcode": "94401",
+    "country": "US",
+    "address_timezone": "America/Los_Angeles",
+    "guest_address": "406 East 3rd Avenue, San Mateo, CA, USA"
+  }
+}

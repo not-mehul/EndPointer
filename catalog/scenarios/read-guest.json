@@ -1,0 +1,16 @@
+{
+  "$schema": "../schema/scenario.schema.json",
+  "id": "read-guest",
+  "title": "Guest listings",
+  "kind": "read",
+  "description": "Guest endpoints need a guest site: uses the org's first one. Steps are skipped when the org has none.",
+  "steps": [
+    {"name": "List guest sites", "call": "public.guest_sites.list", "save": {"guest_site_id": "guest_sites[0].site_id?"}},
+    {
+      "name": "Guest visits in the last 24 hours",
+      "call": "public.guest_visits.list",
+      "with": {"site_id": "{{guest_site_id}}", "start_time": "{{$now-86400}}", "end_time": "{{$now}}"}
+    },
+    {"name": "Guest types of the first guest site", "call": "guest_type.list", "with": {"site_id": "{{guest_site_id}}"}}
+  ]
+}

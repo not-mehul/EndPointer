@@ -1,0 +1,79 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "scenario.create",
+  "title": "Create scenario",
+  "api": "command",
+  "host": "vcerberus",
+  "method": "POST",
+  "path": "access/v2/user/lockdowns",
+  "effect": "create",
+  "params": {
+    "access_group_id": {},
+    "scenario_message": {},
+    "scenario_name": {},
+    "scenario_type": {},
+    "site_id": {}
+  },
+  "request": {
+    "body": {
+      "name": "{{scenario_name}}",
+      "sites": ["{{site_id}}"],
+      "doorConfigurations": [],
+      "userGroupsWithDoorAccess": [],
+      "userGroupsWithEnableAccess": ["{{access_group_id}}"],
+      "userGroupsWithDisableAccess": ["{{access_group_id}}"],
+      "message": "{{scenario_message}}",
+      "scenarioType": "{{scenario_type}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "lockdowns": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "lockdownId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "message": {
+                "type": "string"
+              },
+              "name": {
+                "type": ["string", "number", "boolean"]
+              },
+              "organizationId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "scenarioType": {
+                "type": ["string", "number", "boolean"]
+              }
+            },
+            "required": ["lockdownId", "message", "name", "organizationId", "scenarioType"]
+          }
+        }
+      },
+      "required": ["lockdowns"]
+    },
+    "example": {
+      "lockdowns": [
+        {
+          "lockdownId": "<scenario_id>",
+          "message": "",
+          "name": "<scenario_name>",
+          "organizationId": "<org_id>",
+          "scenarioType": "<scenario_type>"
+        }
+      ]
+    }
+  },
+  "tags": ["scenario"],
+  "source": {
+    "from": "vCommander",
+    "note": "In vCommander's endpoint registry; its client doesn't call it."
+  },
+  "updated": "2026-10-23"
+}

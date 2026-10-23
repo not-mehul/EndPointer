@@ -1,0 +1,32 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "intercom.delete",
+  "title": "Delete intercom",
+  "api": "command",
+  "host": "api",
+  "method": "DELETE",
+  "path": "vinter/v1/user/async/organization/{{org_id}}/device/{{device_id}}",
+  "effect": "delete",
+  "params": {
+    "device_id": {}
+  },
+  "request": {
+    "body": {
+      "sharding": true
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object"
+    },
+    "example": {}
+  },
+  "tags": ["intercom"],
+  "notes": "Needs a real device on the org. Same request as desk_station.delete; vCommander reads a different part of the response.",
+  "source": {
+    "from": "vCommander",
+    "methods": ["delete_intercom"]
+  },
+  "updated": "2026-10-23"
+}

@@ -1,0 +1,78 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "alarm.expander.create",
+  "title": "Attaches an alarm output expander to an existing alarm system",
+  "api": "command",
+  "host": "vproconfig",
+  "method": "POST",
+  "path": "unassigned_device/set_up_alarm_device",
+  "effect": "create",
+  "params": {
+    "alarm_system_id": {},
+    "device_id": {},
+    "expander_name": {},
+    "serial_number": {}
+  },
+  "request": {
+    "body": {
+      "alarmSystemId": "{{alarm_system_id}}",
+      "deviceId": "{{device_id}}",
+      "name": "{{expander_name}}",
+      "serialNumber": "{{serial_number}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "device": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": ["string", "number", "boolean"]
+            },
+            "alarmSystemId": {
+              "type": ["string", "number", "boolean"]
+            },
+            "name": {
+              "type": ["string", "number", "boolean"]
+            },
+            "type": {
+              "type": "string"
+            },
+            "verkadaDeviceConfig": {
+              "type": "object",
+              "properties": {
+                "serialNumber": {
+                  "type": ["string", "number", "boolean"]
+                }
+              },
+              "required": ["serialNumber"]
+            }
+          },
+          "required": ["alarmSystemId", "id", "name", "type", "verkadaDeviceConfig"]
+        }
+      },
+      "required": ["device"]
+    },
+    "example": {
+      "device": {
+        "id": "<alarm_expander_id>",
+        "alarmSystemId": "<alarm_system_id>",
+        "name": "<alarm_expander_name>",
+        "type": "KURIBO",
+        "verkadaDeviceConfig": {
+          "serialNumber": "<serial_number>"
+        }
+      }
+    }
+  },
+  "tags": ["alarm"],
+  "notes": "Needs a real device on the org.",
+  "source": {
+    "from": "vCommander",
+    "methods": ["configure_alarm_expander"]
+  },
+  "updated": "2026-10-23"
+}

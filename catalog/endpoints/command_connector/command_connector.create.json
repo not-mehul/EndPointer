@@ -1,0 +1,63 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "command_connector.create",
+  "title": "Configures a Command Connector (vfortress box)",
+  "api": "command",
+  "host": "vprovision",
+  "method": "POST",
+  "path": "vfortress/update_box",
+  "effect": "create",
+  "params": {
+    "connector_name": {},
+    "device_id": {},
+    "site_id": {}
+  },
+  "request": {
+    "body": {
+      "deviceId": "{{device_id}}",
+      "locationLabel": "{{address_label}}",
+      "locationLat": "{{latitude}}",
+      "locationLon": "{{longitude}}",
+      "name": "{{connector_name}}",
+      "siteId": "{{site_id}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "deviceId": {
+          "type": ["string", "number", "boolean"]
+        },
+        "organizationId": {
+          "type": ["string", "number", "boolean"]
+        },
+        "name": {
+          "type": ["string", "number", "boolean"]
+        },
+        "siteId": {
+          "type": ["string", "number", "boolean"]
+        },
+        "claimedSerialNumber": {
+          "type": ["string", "number", "boolean"]
+        }
+      },
+      "required": ["claimedSerialNumber", "deviceId", "name", "organizationId", "siteId"]
+    },
+    "example": {
+      "deviceId": "<command_connector_id>",
+      "organizationId": "<org_id>",
+      "name": "<command_connector_name>",
+      "siteId": "<site_id>",
+      "claimedSerialNumber": "<serial_number>"
+    }
+  },
+  "tags": ["command_connector"],
+  "notes": "Needs a real device on the org.",
+  "source": {
+    "from": "vCommander",
+    "methods": ["configure_connector"]
+  },
+  "updated": "2026-10-23"
+}

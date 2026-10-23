@@ -1,0 +1,33 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "sensor.delete",
+  "title": "Delete sensor",
+  "api": "command",
+  "host": "vsensor",
+  "method": "POST",
+  "path": "devices/decommission",
+  "effect": "delete",
+  "params": {
+    "device_id": {}
+  },
+  "request": {
+    "body": {
+      "deviceId": "{{device_id}}",
+      "sharding": true
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object"
+    },
+    "example": {}
+  },
+  "tags": ["sensor"],
+  "notes": "Needs a real device on the org.",
+  "source": {
+    "from": "vCommander",
+    "methods": ["delete_sensor"]
+  },
+  "updated": "2026-10-23"
+}

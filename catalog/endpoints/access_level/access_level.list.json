@@ -1,0 +1,60 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "access_level.list",
+  "title": "List access levels",
+  "api": "command",
+  "host": "api",
+  "method": "GET",
+  "path": "organizations/{{org_id}}/schedules",
+  "effect": "read",
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "schedules": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "doors": {
+                "type": "array",
+                "items": {
+                  "type": ["string", "number", "boolean"]
+                }
+              },
+              "name": {
+                "type": ["string", "number", "boolean"]
+              },
+              "organizationId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "scheduleId": {
+                "type": ["string", "number", "boolean"]
+              }
+            },
+            "required": ["name", "organizationId", "scheduleId"]
+          }
+        }
+      },
+      "required": ["schedules"]
+    },
+    "example": {
+      "schedules": [
+        {
+          "doors": ["<door_id>"],
+          "name": "<access_level_name>",
+          "organizationId": "<org_id>",
+          "scheduleId": "<schedule_id>"
+        }
+      ]
+    }
+  },
+  "tags": ["access_level"],
+  "notes": "Same request as schedule.list; vCommander reads a different part of the response.",
+  "source": {
+    "from": "vCommander",
+    "methods": ["get_access_level"]
+  },
+  "updated": "2026-10-23"
+}

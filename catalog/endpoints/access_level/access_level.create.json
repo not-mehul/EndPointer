@@ -1,0 +1,131 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "access_level.create",
+  "title": "Creates a 24/7 access level (schedule) for the given door",
+  "api": "command",
+  "host": "vcerberus",
+  "method": "POST",
+  "path": "access/v2/user/schedules",
+  "effect": "create",
+  "params": {
+    "access_level_name": {},
+    "door_id": {},
+    "group_id": {},
+    "site_id": {}
+  },
+  "request": {
+    "body": {
+      "defaultDoorLockState": "ACCESS_CONTROL",
+      "defaultDoorPermissionState": "DENY",
+      "deleted": false,
+      "doors": ["{{door_id}}"],
+      "endDateTime": null,
+      "events": [
+        {
+          "doorPermissionState": "ALLOW",
+          "weekday": 7,
+          "date": null,
+          "startTime": "00:00:00.000",
+          "endTime": "23:59:59.999"
+        },
+        {
+          "doorPermissionState": "ALLOW",
+          "weekday": 1,
+          "date": null,
+          "startTime": "00:00:00.000",
+          "endTime": "23:59:59.999"
+        },
+        {
+          "doorPermissionState": "ALLOW",
+          "weekday": 2,
+          "date": null,
+          "startTime": "00:00:00.000",
+          "endTime": "23:59:59.999"
+        },
+        {
+          "doorPermissionState": "ALLOW",
+          "weekday": 3,
+          "date": null,
+          "startTime": "00:00:00.000",
+          "endTime": "23:59:59.999"
+        },
+        {
+          "doorPermissionState": "ALLOW",
+          "weekday": 4,
+          "date": null,
+          "startTime": "00:00:00.000",
+          "endTime": "23:59:59.999"
+        },
+        {
+          "doorPermissionState": "ALLOW",
+          "weekday": 5,
+          "date": null,
+          "startTime": "00:00:00.000",
+          "endTime": "23:59:59.999"
+        },
+        {
+          "doorPermissionState": "ALLOW",
+          "weekday": 6,
+          "date": null,
+          "startTime": "00:00:00.000",
+          "endTime": "23:59:59.999"
+        }
+      ],
+      "name": "{{access_level_name}}",
+      "priority": "SCHEDULE",
+      "sites": ["{{site_id}}"],
+      "startDateTime": null,
+      "type": "USER",
+      "userGroups": ["{{group_id}}"]
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "schedules": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "doors": {
+                "type": "array",
+                "items": {
+                  "type": ["string", "number", "boolean"]
+                }
+              },
+              "name": {
+                "type": ["string", "number", "boolean"]
+              },
+              "organizationId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "scheduleId": {
+                "type": ["string", "number", "boolean"]
+              }
+            },
+            "required": ["doors", "name", "organizationId", "scheduleId"]
+          }
+        }
+      },
+      "required": ["schedules"]
+    },
+    "example": {
+      "schedules": [
+        {
+          "doors": ["<door_id>"],
+          "name": "<access_level_name>",
+          "organizationId": "<org_id>",
+          "scheduleId": "<schedule_id>"
+        }
+      ]
+    }
+  },
+  "tags": ["access_level"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["create_access_level"]
+  },
+  "updated": "2026-10-23"
+}

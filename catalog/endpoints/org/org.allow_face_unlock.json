@@ -1,0 +1,30 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "org.allow_face_unlock",
+  "title": "Allow face unlock across the organization",
+  "api": "command",
+  "host": "api",
+  "method": "POST",
+  "path": "organization/config/set",
+  "effect": "update",
+  "request": {
+    "body": {
+      "organizationId": "{{org_id}}",
+      "paramName": "face-unlock-enabled",
+      "paramValue": true
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object"
+    },
+    "example": {}
+  },
+  "tags": ["org"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["enable_org_face_unlock"]
+  },
+  "updated": "2026-10-23"
+}

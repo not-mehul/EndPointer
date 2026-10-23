@@ -1,0 +1,45 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "camera.create.feature",
+  "title": "Turn camera features on (analytics, LPR)",
+  "api": "command",
+  "host": "vdeviceconfig",
+  "method": "POST",
+  "path": "user/camera/feature/set",
+  "effect": "update",
+  "params": {
+    "camera_ids": {},
+    "features": {
+      "examples": [
+        {
+          "people-history": true,
+          "person-attributes": true,
+          "face-detection": true
+        },
+        {
+          "license-plate-recognition": true
+        }
+      ]
+    }
+  },
+  "request": {
+    "body": {
+      "cameraIds": "{{camera_ids}}",
+      "params": "{{features}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object"
+    },
+    "example": {}
+  },
+  "tags": ["camera"],
+  "notes": "Needs a real device on the org.",
+  "source": {
+    "from": "vCommander",
+    "methods": ["enable_camera_analytics", "enable_camera_lpr"]
+  },
+  "updated": "2026-10-23"
+}

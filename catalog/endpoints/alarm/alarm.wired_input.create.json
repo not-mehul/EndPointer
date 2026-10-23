@@ -1,0 +1,102 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "alarm.wired_input.create",
+  "title": "Creates a wired input on a panel pin",
+  "api": "command",
+  "host": "vproconfig",
+  "method": "POST",
+  "path": "device/create_wired_input",
+  "effect": "create",
+  "params": {
+    "alarm_system_id": {},
+    "name": {},
+    "panel_id": {},
+    "partition_id": {},
+    "pin_num": {}
+  },
+  "request": {
+    "body": {
+      "device": {
+        "name": "{{name}}",
+        "type": "WIRED_CONTACT_SENSOR",
+        "sensorConfig": {
+          "wiredContactSensorConfig": {
+            "type": "DOOR",
+            "doorHeldOpenDelay": 0
+          }
+        }
+      },
+      "alarmSystemId": "{{alarm_system_id}}",
+      "partitionId": "{{partition_id}}",
+      "hubId": "{{panel_id}}",
+      "pinNum": "{{pin_num}}",
+      "normalState": "CLOSED"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "device": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": ["string", "number", "boolean"]
+            },
+            "alarmSystemId": {
+              "type": ["string", "number", "boolean"]
+            },
+            "name": {
+              "type": ["string", "number", "boolean"]
+            },
+            "type": {
+              "type": "string"
+            },
+            "partitionId": {
+              "type": ["string", "number", "boolean"]
+            },
+            "wiredInputConfig": {
+              "type": "object",
+              "properties": {
+                "hubId": {
+                  "type": ["string", "number", "boolean"]
+                },
+                "pinNum": {
+                  "type": "integer"
+                },
+                "normalState": {
+                  "type": "string"
+                }
+              },
+              "required": ["hubId", "normalState", "pinNum"]
+            }
+          },
+          "required": ["alarmSystemId", "id", "name", "partitionId", "type", "wiredInputConfig"]
+        }
+      },
+      "required": ["device"]
+    },
+    "example": {
+      "device": {
+        "id": "<wired_input_id>",
+        "alarmSystemId": "<alarm_system_id>",
+        "name": "<wired_input_name>",
+        "type": "WIRED_CONTACT_SENSOR",
+        "partitionId": "<partition_id>",
+        "wiredInputConfig": {
+          "hubId": "<alarm_panel_id>",
+          "pinNum": 0,
+          "normalState": "CLOSED"
+        }
+      }
+    }
+  },
+  "tags": ["alarm"],
+  "notes": "Needs a real device on the org.",
+  "source": {
+    "from": "vCommander",
+    "methods": ["create_wired_input"]
+  },
+  "updated": "2026-10-23"
+}

@@ -1,0 +1,75 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "user.list",
+  "title": "List users (active and invited)",
+  "api": "command",
+  "host": "vprovision",
+  "method": "POST",
+  "path": "organization/{{org_id}}/users/search",
+  "effect": "read",
+  "request": {
+    "body": {
+      "paging": {
+        "pageSize": 1000,
+        "sortOrder": ["full_name:asc"]
+      },
+      "isVisitor": false,
+      "status": ["active", "invited"],
+      "organizationId": "{{org_id}}",
+      "userDirectoryIds": [],
+      "includeRoleGrants": true,
+      "includeGroups": true,
+      "useEs": true
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "users": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "email": {
+                "type": ["string", "number", "boolean"]
+              },
+              "firstName": {
+                "type": ["string", "number", "boolean"]
+              },
+              "lastName": {
+                "type": ["string", "number", "boolean"]
+              },
+              "isOrganizationAdmin": {
+                "type": "boolean"
+              },
+              "userId": {
+                "type": ["string", "number", "boolean"]
+              }
+            },
+            "required": ["email", "firstName", "isOrganizationAdmin", "lastName", "userId"]
+          }
+        }
+      },
+      "required": ["users"]
+    },
+    "example": {
+      "users": [
+        {
+          "email": "<email>",
+          "firstName": "<FirstName>",
+          "lastName": "<LastName>",
+          "isOrganizationAdmin": true,
+          "userId": "<user_id>"
+        }
+      ]
+    }
+  },
+  "tags": ["user"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["get_user"]
+  },
+  "updated": "2026-10-23"
+}

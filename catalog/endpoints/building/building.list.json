@@ -1,0 +1,81 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "building.list",
+  "title": "List buildings",
+  "api": "command",
+  "host": "vprovision",
+  "method": "GET",
+  "path": "buildings",
+  "effect": "read",
+  "request": {
+    "query": {
+      "organizationId": "{{org_id}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "address": {
+            "type": ["string", "number", "boolean"]
+          },
+          "buildingId": {
+            "type": ["string", "number", "boolean"]
+          },
+          "cacheId": {
+            "type": ["string", "number", "boolean"]
+          },
+          "floors": {
+            "type": "array",
+            "items": {
+              "type": ["string", "number", "boolean"]
+            }
+          },
+          "latitude": {
+            "type": "number"
+          },
+          "longitude": {
+            "type": "number"
+          },
+          "name": {
+            "type": ["string", "number", "boolean"]
+          },
+          "organizationId": {
+            "type": ["string", "number", "boolean"]
+          }
+        },
+        "required": [
+          "address",
+          "buildingId",
+          "cacheId",
+          "floors",
+          "latitude",
+          "longitude",
+          "name",
+          "organizationId"
+        ]
+      }
+    },
+    "example": [
+      {
+        "address": "<address>",
+        "buildingId": "<building_id>",
+        "cacheId": "<building_id>",
+        "floors": ["<floor_id>"],
+        "latitude": 0.0,
+        "longitude": 0.0,
+        "name": "<building_name>",
+        "organizationId": "<org_id>"
+      }
+    ]
+  },
+  "tags": ["building"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["get_building"]
+  },
+  "updated": "2026-10-23"
+}

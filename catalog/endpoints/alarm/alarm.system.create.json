@@ -1,0 +1,56 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "alarm.system.create",
+  "title": "Creates an empty alarm system on a site",
+  "api": "command",
+  "host": "vproconfig",
+  "method": "POST",
+  "path": "alarm_system/create",
+  "effect": "create",
+  "params": {
+    "site_id": {}
+  },
+  "request": {
+    "body": {
+      "orgId": "{{org_id}}",
+      "siteId": "{{site_id}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "alarmSystem": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": ["string", "number", "boolean"]
+            },
+            "organizationId": {
+              "type": ["string", "number", "boolean"]
+            },
+            "siteId": {
+              "type": ["string", "number", "boolean"]
+            }
+          },
+          "required": ["id", "organizationId", "siteId"]
+        }
+      },
+      "required": ["alarmSystem"]
+    },
+    "example": {
+      "alarmSystem": {
+        "id": "<alarm_system_id>",
+        "organizationId": "<org_id>",
+        "siteId": "<site_id>"
+      }
+    }
+  },
+  "tags": ["alarm"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["create_alarm_system"]
+  },
+  "updated": "2026-10-23"
+}

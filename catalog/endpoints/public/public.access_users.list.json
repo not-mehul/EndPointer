@@ -1,0 +1,56 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "public.access_users.list",
+  "title": "List access users",
+  "api": "public",
+  "method": "GET",
+  "path": "access/v1/access_users",
+  "effect": "read",
+  "request": {
+    "query": {
+      "page_size": "200"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "access_members": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "user_id": {
+                "type": ["string", "number", "boolean"]
+              },
+              "full_name": {
+                "type": ["string", "number", "boolean"]
+              },
+              "email": {
+                "type": ["string", "number", "boolean"]
+              }
+            },
+            "required": ["email", "full_name", "user_id"]
+          }
+        }
+      },
+      "required": ["access_members"]
+    },
+    "example": {
+      "access_members": [
+        {
+          "user_id": "<user_id>",
+          "full_name": "<full_name>",
+          "email": "<email>"
+        }
+      ]
+    }
+  },
+  "tags": ["public", "access_users"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["get_users"]
+  },
+  "updated": "2026-10-23"
+}

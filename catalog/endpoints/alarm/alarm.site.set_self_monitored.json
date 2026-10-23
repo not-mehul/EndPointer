@@ -1,0 +1,81 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "alarm.site.set_self_monitored",
+  "title": "Set an alarm response config to self-monitored",
+  "api": "command",
+  "host": "vagent",
+  "method": "POST",
+  "path": "response/config/update",
+  "effect": "update",
+  "params": {
+    "response_config_id": {},
+    "site_id": {}
+  },
+  "request": {
+    "body": {
+      "siteId": "{{site_id}}",
+      "responseConfigId": "{{response_config_id}}",
+      "updateType": "CONFIG_UPDATE_TYPE_UPDATE_RESPONSE_LEVEL",
+      "updateResponseLevelInput": {
+        "responseLevel": "RESPONSE_LEVEL_SELF_MONITORED"
+      }
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "responseConfig": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": ["string", "number", "boolean"]
+            },
+            "responseSiteId": {
+              "type": ["string", "number", "boolean"]
+            },
+            "locationId": {
+              "type": ["string", "number", "boolean"]
+            },
+            "responseLevel": {
+              "type": "string"
+            },
+            "name": {
+              "type": ["string", "number", "boolean"]
+            }
+          },
+          "required": ["id", "locationId", "name", "responseLevel", "responseSiteId"]
+        },
+        "location": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": ["string", "number", "boolean"]
+            }
+          },
+          "required": ["id"]
+        }
+      },
+      "required": ["location", "responseConfig"]
+    },
+    "example": {
+      "responseConfig": {
+        "id": "<alarm_response_id>",
+        "responseSiteId": "<alarm_site_id>",
+        "locationId": "<location_id>",
+        "responseLevel": "RESPONSE_LEVEL_SELF_MONITORED",
+        "name": "<response_name>"
+      },
+      "location": {
+        "id": "<location_id>"
+      }
+    }
+  },
+  "tags": ["alarm"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["set_alarm_self_monitored"]
+  },
+  "updated": "2026-10-23"
+}

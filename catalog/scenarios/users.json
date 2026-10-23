@@ -1,0 +1,30 @@
+{
+  "$schema": "../schema/scenario.schema.json",
+  "id": "users",
+  "title": "User invite",
+  "kind": "write",
+  "description": "Invites a throwaway email address you provide as a Member (it receives an invitation email), checks the user is listed, then deletes that user.",
+  "inputs": {
+    "invite_email": {"prompt": "Throwaway email address to invite (it receives an invitation email)"}
+  },
+  "steps": [
+    {
+      "name": "Invite a test user",
+      "call": "user.create",
+      "with": {"first_name": "Endpoint", "last_name": "Check"},
+      "save": {"invited_user_id": "users[0].userId?"},
+      "cleanup": {
+        "name": "Find the invited user",
+        "call": "user.list",
+        "save": {"invited_user_id": "users[?email=={{invite_email}}].userId"},
+        "cleanup": {
+          "name": "Delete the invited user",
+          "call": "user.delete",
+          "with": {"target_user_id": "{{invited_user_id}}"},
+          "otherwise": {"name": "Delete the invited user (public API)", "call": "public.user.delete", "with": {"target_user_id": "{{invited_user_id}}"}}
+        }
+      }
+    },
+    {"name": "Find the invited user", "call": "user.list", "expect": {"contains": {"users[*].email": "{{invite_email}}"}}}
+  ]
+}

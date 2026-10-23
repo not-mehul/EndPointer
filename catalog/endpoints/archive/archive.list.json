@@ -1,0 +1,59 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "archive.list",
+  "title": "List footage archives (look-back window)",
+  "api": "command",
+  "host": "vsubmit",
+  "method": "POST",
+  "path": "library/v2/archive/list/org",
+  "effect": "read",
+  "request": {
+    "body": {
+      "organizationId": "{{org_id}}",
+      "pageSize": 99,
+      "instantLastKey": null,
+      "legacyLastKey": null,
+      "first": true,
+      "sortAscending": false,
+      "sortBy": "creation_time",
+      "filters": {
+        "footageTimeMin": 1792177925,
+        "footageTimeMax": 1792782725
+      }
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "instant": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "archiveId": {
+                "type": ["string", "number", "boolean"]
+              }
+            },
+            "required": ["archiveId"]
+          }
+        }
+      },
+      "required": ["instant"]
+    },
+    "example": {
+      "instant": [
+        {
+          "archiveId": "<archive_id>"
+        }
+      ]
+    }
+  },
+  "tags": ["archive"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["get_archive"]
+  },
+  "updated": "2026-10-23"
+}

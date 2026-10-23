@@ -1,0 +1,80 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "visitor.list",
+  "title": "List visitors",
+  "api": "command",
+  "host": "vcerberus",
+  "method": "POST",
+  "path": "access/v2/user/users/search",
+  "effect": "read",
+  "request": {
+    "body": {
+      "organizationId": "{{org_id}}",
+      "must_queries": [
+        {
+          "bool": {
+            "must": [
+              {
+                "term": {
+                  "is_visitor": true
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "status": ["access_granted"],
+      "status_filter_v2": true,
+      "paging": {
+        "pageSize": 99,
+        "sortOrder": ["first_name:asc", "email:asc"]
+      }
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "users": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "email": {
+                "type": ["string", "number", "boolean"]
+              },
+              "name": {
+                "type": ["string", "number", "boolean"]
+              },
+              "organizationId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "userId": {
+                "type": ["string", "number", "boolean"]
+              }
+            },
+            "required": ["email", "name", "organizationId", "userId"]
+          }
+        }
+      },
+      "required": ["users"]
+    },
+    "example": {
+      "users": [
+        {
+          "email": "<visitor_email>",
+          "name": "<visitor_name>",
+          "organizationId": "<org_id>",
+          "userId": "<visitor_id>"
+        }
+      ]
+    }
+  },
+  "tags": ["visitor"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["get_visitor"]
+  },
+  "updated": "2026-10-23"
+}

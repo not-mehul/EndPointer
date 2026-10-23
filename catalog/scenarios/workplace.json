@@ -1,0 +1,39 @@
+{
+  "$schema": "../schema/scenario.schema.json",
+  "id": "workplace",
+  "title": "Guest & mailroom",
+  "kind": "write",
+  "description": "Creates a test site, a guest site on it (activates the Guest trial for that site) and a mailroom site (activates the org's Mailroom trial if it isn't already), then deletes them.",
+  "vars": {
+    "name": "Endpoint check {{$stamp}}"
+  },
+  "steps": [
+    {
+      "name": "Create a test site",
+      "call": "site.create",
+      "with": {"site_name": "{{name}}"},
+      "save": {"site_id": "cameraGroups[0].cameraGroupId"},
+      "cleanup": {
+        "name": "Delete the test site",
+        "call": "site.delete",
+        "otherwise": {"name": "Rename the site that couldn't be deleted", "call": "site.rename", "with": {"new_name": "{{name}} (delete me)"}}
+      }
+    },
+    {
+      "name": "Create a guest site",
+      "call": "guest.create",
+      "save": {"guest_site_id": "siteId?"},
+      "cleanup": {"name": "Delete the guest site", "call": "guest.delete"}
+    },
+    {"name": "Activate the Guest trial for the site", "call": "guest.activate_trial"},
+    {"name": "List guest types on the guest site", "call": "guest_type.list"},
+    {"name": "Activate the Mailroom trial", "call": "mailroom.activate_trial"},
+    {
+      "name": "Create a mailroom site",
+      "call": "mailroom.create",
+      "save": {"mailroom_id": "packageLocationId?"},
+      "cleanup": {"name": "Delete the mailroom site", "call": "mailroom.delete"}
+    },
+    {"name": "Find the mailroom site", "call": "mailroom.list", "expect": {"contains": {"package_sites[*].siteId": "{{site_id}}"}}}
+  ]
+}

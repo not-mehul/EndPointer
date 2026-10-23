@@ -1,0 +1,31 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "alarm.guard.delete",
+  "title": "Delete alarm guard",
+  "api": "command",
+  "host": "vguard",
+  "method": "POST",
+  "path": "web/delete_guard",
+  "effect": "delete",
+  "params": {
+    "guard_id": {}
+  },
+  "request": {
+    "body": {
+      "guardId": "{{guard_id}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object"
+    },
+    "example": {}
+  },
+  "tags": ["alarm"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["delete_alarm_guard"]
+  },
+  "updated": "2026-10-23"
+}

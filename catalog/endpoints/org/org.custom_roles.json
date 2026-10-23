@@ -1,0 +1,26 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "org.custom_roles",
+  "title": "Enable custom roles",
+  "api": "command",
+  "host": "vauth",
+  "method": "POST",
+  "path": "org/{{org_id}}/custom_roles/enable",
+  "effect": "update",
+  "request": {
+    "body": {}
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object"
+    },
+    "example": {}
+  },
+  "tags": ["org"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["enable_custom_roles"]
+  },
+  "updated": "2026-10-23"
+}

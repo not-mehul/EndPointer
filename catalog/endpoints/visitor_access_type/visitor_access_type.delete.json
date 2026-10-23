@@ -1,0 +1,46 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "visitor_access_type.delete",
+  "title": "Delete a visitor access template",
+  "api": "command",
+  "host": "api",
+  "method": "DELETE",
+  "path": "access/v2/user/visit_types/{{visitor_access_type_id}}",
+  "effect": "delete",
+  "params": {
+    "visitor_access_type_id": {}
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "deleted": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": ["string", "number", "boolean"]
+        },
+        "organizationId": {
+          "type": ["string", "number", "boolean"]
+        },
+        "visitTypeId": {
+          "type": ["string", "number", "boolean"]
+        }
+      },
+      "required": ["deleted", "name", "organizationId", "visitTypeId"]
+    },
+    "example": {
+      "deleted": true,
+      "name": "<visitor_access_type_name>",
+      "organizationId": "<org_id>",
+      "visitTypeId": "<visitor_access_type_id>"
+    }
+  },
+  "tags": ["visitor_access_type"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["delete_visitor_access_template"]
+  },
+  "updated": "2026-10-23"
+}

@@ -1,0 +1,80 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "guest_type.list",
+  "title": "List guest types",
+  "api": "command",
+  "host": "vdoorman",
+  "method": "GET",
+  "path": "site/settings/v2/org/{{org_id}}/site/{{site_id}}",
+  "effect": "read",
+  "params": {
+    "site_id": {}
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "sites": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "siteId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "siteName": {
+                "type": ["string", "number", "boolean"]
+              }
+            },
+            "required": ["siteId", "siteName"]
+          }
+        },
+        "standardVisitorTypes": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "orgId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "siteId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "visitorTypeId": {
+                "type": ["string", "number", "boolean"]
+              }
+            },
+            "required": ["orgId", "siteId", "visitorTypeId"]
+          }
+        },
+        "visitorTypes": {
+          "type": "array"
+        }
+      },
+      "required": ["sites", "standardVisitorTypes", "visitorTypes"]
+    },
+    "example": {
+      "sites": [
+        {
+          "siteId": "<site_id>",
+          "siteName": "<site_name>"
+        }
+      ],
+      "standardVisitorTypes": {
+        "<guest_type_id>": {
+          "orgId": "<org_id>",
+          "siteId": "<site_id>",
+          "visitorTypeId": "<guest_type_id>"
+        }
+      },
+      "visitorTypes": []
+    }
+  },
+  "tags": ["guest_type"],
+  "source": {
+    "from": "vCommander",
+    "note": "In vCommander's endpoint registry; its client doesn't call it."
+  },
+  "updated": "2026-10-23"
+}

@@ -1,0 +1,67 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "org.sign_agreement",
+  "title": "Sign an org agreement (LPR, CV analytics)",
+  "api": "command",
+  "host": "vcorgi",
+  "method": "POST",
+  "path": "{{org_id}}/sign_agreement",
+  "effect": "update",
+  "params": {
+    "agreement_key": {
+      "examples": ["LPR", "CV_ANALYTICS"]
+    }
+  },
+  "request": {
+    "body": {
+      "agreementKey": "{{agreement_key}}",
+      "userEmail": "{{email}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "orgAgreements": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "agreementKey": {
+                "type": "string"
+              },
+              "organizationId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "userEmail": {
+                "type": ["string", "number", "boolean"]
+              },
+              "userId": {
+                "type": ["string", "number", "boolean"]
+              }
+            },
+            "required": ["agreementKey", "organizationId", "userEmail", "userId"]
+          }
+        }
+      },
+      "required": ["orgAgreements"]
+    },
+    "example": {
+      "orgAgreements": [
+        {
+          "agreementKey": "CV_ANALYTICS | LPR",
+          "organizationId": "<org_id>",
+          "userEmail": "<email>",
+          "userId": "<user_id>"
+        }
+      ]
+    }
+  },
+  "tags": ["org"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["enable_org_features"]
+  },
+  "updated": "2026-10-23"
+}

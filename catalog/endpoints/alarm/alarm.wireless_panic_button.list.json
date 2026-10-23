@@ -1,0 +1,81 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "alarm.wireless_panic_button.list",
+  "title": "List alarm wireless panic buttons",
+  "api": "command",
+  "host": "vproconfig",
+  "method": "POST",
+  "path": "alarm_system/get_devices",
+  "effect": "read",
+  "params": {
+    "alarm_system_id": {}
+  },
+  "request": {
+    "body": {
+      "alarmSystemId": "{{alarm_system_id}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "devices": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": ["string", "number", "boolean"]
+              },
+              "alarmSystemId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "name": {
+                "type": ["string", "number", "boolean"]
+              },
+              "type": {
+                "type": "string"
+              },
+              "partitionId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "verkadaDeviceConfig": {
+                "type": "object",
+                "properties": {
+                  "serialNumber": {
+                    "type": ["string", "number", "boolean"]
+                  }
+                },
+                "required": ["serialNumber"]
+              }
+            },
+            "required": ["alarmSystemId", "id", "name", "type"]
+          }
+        }
+      },
+      "required": ["devices"]
+    },
+    "example": {
+      "devices": [
+        {
+          "id": "<wireless_panic_button_id>",
+          "alarmSystemId": "<alarm_system_id>",
+          "name": "<wireless_panic_button_name>",
+          "type": "WIRELESS_PANIC_BUTTON",
+          "partitionId": "<partition_id>",
+          "verkadaDeviceConfig": {
+            "serialNumber": "<serial_number>"
+          }
+        }
+      ]
+    }
+  },
+  "tags": ["alarm"],
+  "notes": "Same request as alarm.panel.list, alarm.keypad.list, alarm.expander.list, alarm.wireless_contact_sensor.list, alarm.wireless_universal_transmitter.list, alarm.wired_output.list, alarm.wired_input.list; vCommander reads a different part of the response.",
+  "source": {
+    "from": "vCommander",
+    "methods": ["get_wireless_panic_button", "get_wireless_panic_button_all"]
+  },
+  "updated": "2026-10-23"
+}

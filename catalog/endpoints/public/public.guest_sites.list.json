@@ -1,0 +1,52 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "public.guest_sites.list",
+  "title": "List guest sites",
+  "api": "public",
+  "method": "GET",
+  "path": "guest/v1/sites",
+  "effect": "read",
+  "request": {
+    "query": {
+      "page_size": "200"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guest_sites": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "site_id": {
+                "type": ["string", "number", "boolean"]
+              },
+              "site_name": {
+                "type": ["string", "number", "boolean"]
+              }
+            },
+            "required": ["site_id", "site_name"]
+          }
+        }
+      },
+      "required": ["guest_sites"]
+    },
+    "example": {
+      "guest_sites": [
+        {
+          "site_id": "<site_id>",
+          "site_name": "<site_name>"
+        }
+      ]
+    }
+  },
+  "tags": ["public", "guest_sites"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["get_guest_sites"]
+  },
+  "updated": "2026-10-23"
+}

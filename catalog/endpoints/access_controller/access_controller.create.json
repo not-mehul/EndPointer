@@ -1,0 +1,73 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "access_controller.create",
+  "title": "Sets up a newly commissioned access controller",
+  "api": "command",
+  "host": "vcerberus",
+  "method": "POST",
+  "path": "access/v2/user/access_device/setup",
+  "effect": "create",
+  "params": {
+    "controller_name": {},
+    "device_id": {},
+    "floor_id": {},
+    "site_id": {}
+  },
+  "request": {
+    "body": {
+      "configs": {
+        "acu-mode": "normal"
+      },
+      "deviceId": "{{device_id}}",
+      "enableLte": false,
+      "floorId": "{{floor_id}}",
+      "name": "{{controller_name}}",
+      "siteId": "{{site_id}}",
+      "timezone": "{{address_timezone}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "accessControllerId": {
+          "type": ["string", "number", "boolean"]
+        },
+        "floorId": {
+          "type": ["string", "number", "boolean"]
+        },
+        "name": {
+          "type": ["string", "number", "boolean"]
+        },
+        "organizationId": {
+          "type": ["string", "number", "boolean"]
+        },
+        "vconductorSerialNumber": {
+          "type": ["string", "number", "boolean"]
+        }
+      },
+      "required": [
+        "accessControllerId",
+        "floorId",
+        "name",
+        "organizationId",
+        "vconductorSerialNumber"
+      ]
+    },
+    "example": {
+      "accessControllerId": "<access_controller_id>",
+      "floorId": "<floor_id>",
+      "name": "<access_controller_name>",
+      "organizationId": "<org_id>",
+      "vconductorSerialNumber": "<serial_number>"
+    }
+  },
+  "tags": ["access_controller"],
+  "notes": "Needs a real device on the org.",
+  "source": {
+    "from": "vCommander",
+    "methods": ["configure_access_controller"]
+  },
+  "updated": "2026-10-23"
+}

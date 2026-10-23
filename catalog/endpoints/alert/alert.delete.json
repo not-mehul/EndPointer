@@ -1,0 +1,29 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "alert.delete",
+  "title": "Delete an alert rule",
+  "api": "command",
+  "host": "vlive",
+  "method": "POST",
+  "path": "alert_rules/delete",
+  "effect": "delete",
+  "params": {
+    "alert_rule_id": {}
+  },
+  "request": {
+    "body": {
+      "organizationId": "{{org_id}}",
+      "filterId": "{{alert_rule_id}}"
+    }
+  },
+  "response": {
+    "status": ["2xx", 400, 404]
+  },
+  "tags": ["alert"],
+  "notes": "Reports the rule it just removed as not found (400/404).",
+  "source": {
+    "from": "vCommander",
+    "methods": ["delete_alert"]
+  },
+  "updated": "2026-10-23"
+}

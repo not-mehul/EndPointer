@@ -1,0 +1,30 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "access_group.add_user",
+  "title": "Add a user to an access group",
+  "api": "command",
+  "host": "api",
+  "method": "POST",
+  "path": "user_groups/bulk_add_users",
+  "effect": "update",
+  "params": {
+    "group_id": {},
+    "target_user_id": {}
+  },
+  "request": {
+    "body": {
+      "userIds": ["{{target_user_id}}"],
+      "groupIds": ["{{group_id}}"],
+      "organizationId": "{{org_id}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"]
+  },
+  "tags": ["access_group"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["add_user_to_access_group"]
+  },
+  "updated": "2026-10-23"
+}

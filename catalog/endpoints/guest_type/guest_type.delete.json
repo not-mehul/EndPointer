@@ -1,0 +1,33 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "guest_type.delete",
+  "title": "Delete guest type",
+  "api": "command",
+  "host": "vdoorman",
+  "method": "DELETE",
+  "path": "visitor_type/v2/standard/org/{{org_id}}/site/{{site_id}}",
+  "effect": "delete",
+  "params": {
+    "guest_type_id": {},
+    "site_id": {}
+  },
+  "request": {
+    "query": {
+      "visitorTypeId": "{{guest_type_id}}"
+    },
+    "body": {}
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object"
+    },
+    "example": {}
+  },
+  "tags": ["guest_type"],
+  "source": {
+    "from": "vCommander",
+    "note": "In vCommander's endpoint registry; its client doesn't call it."
+  },
+  "updated": "2026-10-23"
+}

@@ -1,0 +1,43 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "camera.create.ptz_install_disable",
+  "title": "Turn install mode off on cameras",
+  "api": "command",
+  "host": "vdeviceconfig",
+  "method": "POST",
+  "path": "user/camera/config/set",
+  "effect": "update",
+  "params": {
+    "camera_ids": {}
+  },
+  "request": {
+    "body": {
+      "cameraIds": "{{camera_ids}}",
+      "params": {
+        "peripheral-motor-ctrl.disable-pan-tilt": false
+      },
+      "consumable": false
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
+    },
+    "example": {
+      "<camera_id>": {}
+    }
+  },
+  "tags": ["camera"],
+  "notes": "Needs a real device on the org.",
+  "source": {
+    "from": "vCommander",
+    "methods": ["disable_camera_install_mode"]
+  },
+  "updated": "2026-10-23"
+}

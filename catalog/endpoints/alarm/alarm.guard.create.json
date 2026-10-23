@@ -1,0 +1,177 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "alarm.guard.create",
+  "title": "Creates a camera guard on an alarm site",
+  "api": "command",
+  "host": "vguard",
+  "method": "POST",
+  "path": "web/create_guard",
+  "effect": "create",
+  "params": {
+    "__list__camera_ids": {},
+    "camera_ids": {},
+    "name": {},
+    "response_config_id": {},
+    "site_id": {}
+  },
+  "request": {
+    "body": {
+      "siteId": "{{site_id}}",
+      "organizationId": "{{org_id}}",
+      "name": "{{name}}",
+      "cameraIds": "{{camera_ids}}",
+      "cameras": [
+        {
+          "cameraId": "{{__list__camera_ids}}",
+          "cameraType": "C_M42_SECURE"
+        }
+      ],
+      "schedules": [
+        {
+          "startDay": 0,
+          "startMinute": 1110,
+          "startSecond": 0,
+          "endDay": 1,
+          "endMinute": 390,
+          "endSecond": 0
+        },
+        {
+          "startDay": 1,
+          "startMinute": 1110,
+          "startSecond": 0,
+          "endDay": 2,
+          "endMinute": 390,
+          "endSecond": 0
+        },
+        {
+          "startDay": 2,
+          "startMinute": 1110,
+          "startSecond": 0,
+          "endDay": 3,
+          "endMinute": 390,
+          "endSecond": 0
+        },
+        {
+          "startDay": 3,
+          "startMinute": 1110,
+          "startSecond": 0,
+          "endDay": 4,
+          "endMinute": 390,
+          "endSecond": 0
+        },
+        {
+          "startDay": 4,
+          "startMinute": 1110,
+          "startSecond": 0,
+          "endDay": 5,
+          "endMinute": 390,
+          "endSecond": 0
+        },
+        {
+          "startDay": 5,
+          "startMinute": 1110,
+          "startSecond": 0,
+          "endDay": 6,
+          "endMinute": 390,
+          "endSecond": 0
+        },
+        {
+          "startDay": 6,
+          "startMinute": 1110,
+          "startSecond": 0,
+          "endDay": 0,
+          "endMinute": 390,
+          "endSecond": 0
+        }
+      ],
+      "responseConfigId": "{{response_config_id}}",
+      "timezoneIana": "{{address_timezone}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guard": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": ["string", "number", "boolean"]
+            },
+            "orgId": {
+              "type": ["string", "number", "boolean"]
+            },
+            "siteId": {
+              "type": ["string", "number", "boolean"]
+            },
+            "name": {
+              "type": ["string", "number", "boolean"]
+            },
+            "isActive": {
+              "type": "boolean"
+            },
+            "responseConfigId": {
+              "type": ["string", "number", "boolean"]
+            },
+            "timezoneIana": {
+              "type": ["string", "number", "boolean"]
+            }
+          },
+          "required": [
+            "id",
+            "isActive",
+            "name",
+            "orgId",
+            "responseConfigId",
+            "siteId",
+            "timezoneIana"
+          ]
+        },
+        "guardCameras": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": ["string", "number", "boolean"]
+              },
+              "guardId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "cameraId": {
+                "type": ["string", "number", "boolean"]
+              }
+            },
+            "required": ["cameraId", "guardId", "id"]
+          }
+        }
+      },
+      "required": ["guard", "guardCameras"]
+    },
+    "example": {
+      "guard": {
+        "id": "<guard_id>",
+        "orgId": "<org_id>",
+        "siteId": "<site_id>",
+        "name": "<camera_partition_name>",
+        "isActive": false,
+        "responseConfigId": "<alarm_response_id>",
+        "timezoneIana": "<timezone>"
+      },
+      "guardCameras": [
+        {
+          "id": "<guard_camera_id>",
+          "guardId": "<guard_id>",
+          "cameraId": "<camera_id>"
+        }
+      ]
+    }
+  },
+  "tags": ["alarm"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["create_alarm_guard"]
+  },
+  "updated": "2026-10-23"
+}

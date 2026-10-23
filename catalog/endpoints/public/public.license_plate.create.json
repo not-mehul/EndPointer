@@ -1,0 +1,43 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "public.license_plate.create",
+  "title": "Attaches a license plate credential to an access user",
+  "api": "public",
+  "method": "POST",
+  "path": "access/v1/credentials/license_plate",
+  "effect": "create",
+  "params": {
+    "license_plate": {},
+    "target_user_id": {}
+  },
+  "request": {
+    "query": {
+      "user_id": "{{target_user_id}}"
+    },
+    "body": {
+      "active": true,
+      "license_plate_number": "{{license_plate}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "license_plate_number": {
+          "type": ["string", "number", "boolean"]
+        }
+      },
+      "required": ["license_plate_number"]
+    },
+    "example": {
+      "license_plate_number": "<license_plate_number>"
+    }
+  },
+  "tags": ["public", "license_plate"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["add_license_plate_to_user"]
+  },
+  "updated": "2026-10-23"
+}

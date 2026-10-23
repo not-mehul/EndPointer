@@ -1,0 +1,69 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "camera.create.location",
+  "title": "Set a camera's location",
+  "api": "command",
+  "host": "vprovision",
+  "method": "POST",
+  "path": "camera/location/set",
+  "effect": "update",
+  "params": {
+    "camera_id": {}
+  },
+  "request": {
+    "body": {
+      "cameraId": "{{camera_id}}",
+      "angle": 0,
+      "label": "{{address_label}}",
+      "lat": "{{latitude}}",
+      "lon": "{{longitude}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "cameras": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "cameraId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "name": {
+                "type": ["string", "number", "boolean"]
+              },
+              "organizationId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "serialNumber": {
+                "type": ["string", "number", "boolean"]
+              }
+            },
+            "required": ["cameraId", "name", "organizationId", "serialNumber"]
+          }
+        }
+      },
+      "required": ["cameras"]
+    },
+    "example": {
+      "cameras": [
+        {
+          "cameraId": "<camera_id>",
+          "name": "<camera_name>",
+          "organizationId": "<org_id>",
+          "serialNumber": "<serial_number>"
+        }
+      ]
+    }
+  },
+  "tags": ["camera"],
+  "notes": "Needs a real device on the org.",
+  "source": {
+    "from": "vCommander",
+    "methods": ["configure_camera"]
+  },
+  "updated": "2026-10-23"
+}

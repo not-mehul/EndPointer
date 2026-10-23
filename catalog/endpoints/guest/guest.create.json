@@ -1,0 +1,43 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "guest.create",
+  "title": "Create a guest (visitor management) site",
+  "api": "command",
+  "host": "vdoorman",
+  "method": "POST",
+  "path": "site/org/{{org_id}}",
+  "effect": "create",
+  "params": {
+    "site_id": {}
+  },
+  "request": {
+    "body": {
+      "siteId": "{{site_id}}",
+      "fullAddress": "{{guest_address}}",
+      "latitude": "{{latitude}}",
+      "longitude": "{{longitude}}",
+      "countryCode": "{{country}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "siteId": {
+          "type": ["string", "number", "boolean"]
+        }
+      },
+      "required": ["siteId"]
+    },
+    "example": {
+      "siteId": "<guest_site_id>"
+    }
+  },
+  "tags": ["guest"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["create_guest_site"]
+  },
+  "updated": "2026-10-23"
+}

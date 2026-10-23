@@ -1,0 +1,61 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "floor.list",
+  "title": "List floors",
+  "api": "command",
+  "host": "vprovision",
+  "method": "GET",
+  "path": "floors",
+  "effect": "read",
+  "request": {
+    "query": {
+      "organizationId": "{{org_id}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "buildingId": {
+            "type": ["string", "number", "boolean"]
+          },
+          "cacheId": {
+            "type": ["string", "number", "boolean"]
+          },
+          "floorId": {
+            "type": ["string", "number", "boolean"]
+          },
+          "name": {
+            "type": "string"
+          },
+          "shortName": {
+            "type": "string"
+          },
+          "sortOrder": {
+            "type": "integer"
+          }
+        },
+        "required": ["buildingId", "cacheId", "floorId", "name", "shortName", "sortOrder"]
+      }
+    },
+    "example": [
+      {
+        "buildingId": "<building_id>",
+        "cacheId": "<floor_1_id>",
+        "floorId": "<floor_1_id>",
+        "name": "G",
+        "shortName": "1",
+        "sortOrder": 0
+      }
+    ]
+  },
+  "tags": ["floor"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["get_floor"]
+  },
+  "updated": "2026-10-23"
+}

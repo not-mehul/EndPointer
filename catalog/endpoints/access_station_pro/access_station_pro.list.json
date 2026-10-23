@@ -1,0 +1,61 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "access_station_pro.list",
+  "title": "List Access Station Pros",
+  "api": "command",
+  "host": "api",
+  "method": "GET",
+  "path": "access/v3/user/access_controllers",
+  "effect": "read",
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "accessControllers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "accessControllerId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "name": {
+                "type": ["string", "number", "boolean"]
+              },
+              "organizationId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "serialNumber": {
+                "type": ["string", "number", "boolean"]
+              },
+              "vconductorModelId": {
+                "type": "string"
+              }
+            },
+            "required": ["accessControllerId", "name", "organizationId", "serialNumber"]
+          }
+        }
+      },
+      "required": ["accessControllers"]
+    },
+    "example": {
+      "accessControllers": [
+        {
+          "accessControllerId": "<access_station_pro_id>",
+          "name": "<access_station_pro_name>",
+          "organizationId": "<org_id>",
+          "serialNumber": "<serial_number>",
+          "vconductorModelId": "MOODY"
+        }
+      ]
+    }
+  },
+  "tags": ["access_station_pro"],
+  "notes": "Same request as access_controller.list; vCommander reads a different part of the response.",
+  "source": {
+    "from": "vCommander",
+    "methods": ["get_access_station_pro"]
+  },
+  "updated": "2026-10-23"
+}

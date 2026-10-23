@@ -1,0 +1,47 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "public.access_groups.list",
+  "title": "List access groups",
+  "api": "public",
+  "method": "GET",
+  "path": "access/v1/access_groups",
+  "effect": "read",
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "access_groups": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "group_id": {
+                "type": ["string", "number", "boolean"]
+              },
+              "name": {
+                "type": ["string", "number", "boolean"]
+              }
+            },
+            "required": ["group_id", "name"]
+          }
+        }
+      },
+      "required": ["access_groups"]
+    },
+    "example": {
+      "access_groups": [
+        {
+          "group_id": "<group_id>",
+          "name": "<name>"
+        }
+      ]
+    }
+  },
+  "tags": ["public", "access_groups"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["get_access_groups"]
+  },
+  "updated": "2026-10-23"
+}

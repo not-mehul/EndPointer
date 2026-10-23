@@ -1,0 +1,64 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "door.enable_face_unlock",
+  "title": "Enable face unlock on a door",
+  "api": "command",
+  "host": "api",
+  "method": "POST",
+  "path": "door/config/set",
+  "effect": "update",
+  "params": {
+    "door_id": {}
+  },
+  "request": {
+    "body": {
+      "doorId": "{{door_id}}",
+      "action": "grant",
+      "paramName": "face-unlock-enabled",
+      "paramValue": true
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "doorConfigParams": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "doorId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "paramName": {
+                "type": "string"
+              },
+              "paramValue": {
+                "type": "boolean"
+              }
+            },
+            "required": ["doorId", "paramName", "paramValue"]
+          }
+        }
+      },
+      "required": ["doorConfigParams"]
+    },
+    "example": {
+      "doorConfigParams": [
+        {
+          "doorId": "<door_id>",
+          "paramName": "face-unlock-enabled",
+          "paramValue": true
+        }
+      ]
+    }
+  },
+  "tags": ["door"],
+  "notes": "Needs a real device on the org.",
+  "source": {
+    "from": "vCommander",
+    "methods": ["enable_door_face_unlock"]
+  },
+  "updated": "2026-10-23"
+}

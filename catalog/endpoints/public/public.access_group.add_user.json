@@ -1,0 +1,45 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "public.access_group.add_user",
+  "title": "Add a user to an access group",
+  "api": "public",
+  "method": "PUT",
+  "path": "access/v1/access_groups/group/user",
+  "effect": "update",
+  "params": {
+    "group_id": {},
+    "target_user_id": {}
+  },
+  "request": {
+    "query": {
+      "group_id": "{{group_id}}"
+    },
+    "body": {
+      "user_id": "{{target_user_id}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "successful_adds": {
+          "type": "array",
+          "items": {
+            "type": ["string", "number", "boolean"]
+          }
+        }
+      },
+      "required": ["successful_adds"]
+    },
+    "example": {
+      "successful_adds": ["<user_id>"]
+    }
+  },
+  "tags": ["public", "access_group"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["add_user_to_access_group"]
+  },
+  "updated": "2026-10-23"
+}

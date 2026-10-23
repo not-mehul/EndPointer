@@ -1,0 +1,36 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "archive.delete",
+  "title": "Delete a footage archive (accepts a list)",
+  "api": "command",
+  "host": "vsubmit",
+  "method": "DELETE",
+  "path": "library/v2/archive/delete",
+  "effect": "delete",
+  "params": {
+    "archive_id": {}
+  },
+  "request": {
+    "body": {
+      "archiveIds": ["{{archive_id}}"]
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "example": {
+      "<archive_id>": "success"
+    }
+  },
+  "tags": ["archive"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["delete_archive"]
+  },
+  "updated": "2026-10-23"
+}

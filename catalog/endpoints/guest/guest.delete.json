@@ -1,0 +1,39 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "guest.delete",
+  "title": "Delete a guest site",
+  "api": "command",
+  "host": "vdoorman",
+  "method": "DELETE",
+  "path": "site/org/{{org_id}}",
+  "effect": "delete",
+  "params": {
+    "site_id": {}
+  },
+  "request": {
+    "query": {
+      "siteId": "{{site_id}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "siteId": {
+          "type": ["string", "number", "boolean"]
+        }
+      },
+      "required": ["siteId"]
+    },
+    "example": {
+      "siteId": "<site_id>"
+    }
+  },
+  "tags": ["guest"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["delete_guest_site"]
+  },
+  "updated": "2026-10-23"
+}

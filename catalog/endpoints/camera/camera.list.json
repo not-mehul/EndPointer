@@ -1,0 +1,87 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "camera.list",
+  "title": "List cameras (device search)",
+  "api": "command",
+  "host": "vconductor",
+  "method": "POST",
+  "path": "command/device/search",
+  "effect": "read",
+  "request": {
+    "body": {
+      "terms": {
+        "deviceType": ["camera"]
+      },
+      "sortField": "device_type",
+      "sortOrder": "asc",
+      "size": 1000,
+      "searchAfter": null,
+      "deviceTypes": ["camera"]
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "devices": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "deviceId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "deviceName": {
+                "type": ["string", "number", "boolean"]
+              },
+              "deviceType": {
+                "type": "string"
+              },
+              "macAddress": {
+                "type": ["string", "number", "boolean"]
+              },
+              "serialNumber": {
+                "type": ["string", "number", "boolean"]
+              },
+              "siteId": {
+                "type": ["string", "number", "boolean"]
+              }
+            },
+            "required": [
+              "deviceId",
+              "deviceName",
+              "deviceType",
+              "macAddress",
+              "serialNumber",
+              "siteId"
+            ]
+          }
+        },
+        "total": {
+          "type": "integer"
+        }
+      },
+      "required": ["devices", "total"]
+    },
+    "example": {
+      "devices": [
+        {
+          "deviceId": "<camera_id>",
+          "deviceName": "<camera_name>",
+          "deviceType": "camera",
+          "macAddress": "<mac_address>",
+          "serialNumber": "<serial_number>",
+          "siteId": "<site_id>"
+        }
+      ],
+      "total": 1
+    }
+  },
+  "tags": ["camera"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["get_camera"]
+  },
+  "updated": "2026-10-23"
+}

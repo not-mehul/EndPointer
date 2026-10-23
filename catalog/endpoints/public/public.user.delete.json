@@ -1,0 +1,26 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "public.user.delete",
+  "title": "Delete a user",
+  "api": "public",
+  "method": "DELETE",
+  "path": "core/v1/user",
+  "effect": "delete",
+  "params": {
+    "target_user_id": {}
+  },
+  "request": {
+    "query": {
+      "user_id": "{{target_user_id}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"]
+  },
+  "tags": ["public", "user"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["delete_user"]
+  },
+  "updated": "2026-10-23"
+}

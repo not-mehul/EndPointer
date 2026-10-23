@@ -1,0 +1,73 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "alarm.panel.create",
+  "title": "Attaches a commissioned alarm panel to an existing alarm system",
+  "api": "command",
+  "host": "vproconfig",
+  "method": "POST",
+  "path": "unassigned_device/setup_colossus",
+  "effect": "create",
+  "params": {
+    "alarm_system_id": {},
+    "device_id": {},
+    "panel_name": {}
+  },
+  "request": {
+    "body": {
+      "alarmSystemId": "{{alarm_system_id}}",
+      "deviceId": "{{device_id}}",
+      "name": "{{panel_name}}",
+      "replaceExistingLeader": false
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "device": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": ["string", "number", "boolean"]
+            },
+            "alarmSystemId": {
+              "type": ["string", "number", "boolean"]
+            },
+            "name": {
+              "type": ["string", "number", "boolean"]
+            },
+            "verkadaDeviceConfig": {
+              "type": "object",
+              "properties": {
+                "serialNumber": {
+                  "type": ["string", "number", "boolean"]
+                }
+              },
+              "required": ["serialNumber"]
+            }
+          },
+          "required": ["alarmSystemId", "id", "name", "verkadaDeviceConfig"]
+        }
+      },
+      "required": ["device"]
+    },
+    "example": {
+      "device": {
+        "id": "<alarm_panel_id>",
+        "alarmSystemId": "<alarm_system_id>",
+        "name": "<alarm_panel_name>",
+        "verkadaDeviceConfig": {
+          "serialNumber": "<serial_number>"
+        }
+      }
+    }
+  },
+  "tags": ["alarm"],
+  "notes": "Needs a real device on the org.",
+  "source": {
+    "from": "vCommander",
+    "methods": ["configure_alarm_panel"]
+  },
+  "updated": "2026-10-23"
+}

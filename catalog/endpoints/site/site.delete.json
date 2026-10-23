@@ -1,0 +1,31 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "site.delete",
+  "title": "Delete site",
+  "api": "command",
+  "host": "vprovision",
+  "method": "POST",
+  "path": "org/camera_group/delete",
+  "effect": "delete",
+  "params": {
+    "site_id": {}
+  },
+  "request": {
+    "body": {
+      "cameraGroupId": "{{site_id}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object"
+    },
+    "example": {}
+  },
+  "tags": ["site"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["delete_site"]
+  },
+  "updated": "2026-10-23"
+}

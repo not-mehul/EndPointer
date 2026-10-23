@@ -1,0 +1,52 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "org.unassigned_devices.list",
+  "title": "List unassigned devices",
+  "api": "command",
+  "host": "vconductor",
+  "method": "GET",
+  "path": "org/{{org_id}}/unassigned_devices",
+  "effect": "read",
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "devices": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "deviceId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "name": {
+                "type": ["string", "number", "boolean"]
+              },
+              "serialNumber": {
+                "type": ["string", "number", "boolean"]
+              }
+            },
+            "required": ["deviceId", "name", "serialNumber"]
+          }
+        }
+      },
+      "required": ["devices"]
+    },
+    "example": {
+      "devices": [
+        {
+          "deviceId": "<id>",
+          "name": "<name>",
+          "serialNumber": "<serial>"
+        }
+      ]
+    }
+  },
+  "tags": ["org"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["get_unassigned_device"]
+  },
+  "updated": "2026-10-23"
+}

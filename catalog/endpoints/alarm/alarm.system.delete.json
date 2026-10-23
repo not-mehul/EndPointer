@@ -1,0 +1,59 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "alarm.system.delete",
+  "title": "Delete alarm system",
+  "api": "command",
+  "host": "vproconfig",
+  "method": "POST",
+  "path": "alarm_system/delete",
+  "effect": "delete",
+  "params": {
+    "alarm_system_id": {}
+  },
+  "request": {
+    "body": {
+      "alarmSystemId": "{{alarm_system_id}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "alarmSystem": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": ["string", "number", "boolean"]
+            },
+            "organizationId": {
+              "type": ["string", "number", "boolean"]
+            },
+            "siteId": {
+              "type": ["string", "number", "boolean"]
+            },
+            "deleted": {
+              "type": "boolean"
+            }
+          },
+          "required": ["deleted", "id", "organizationId", "siteId"]
+        }
+      },
+      "required": ["alarmSystem"]
+    },
+    "example": {
+      "alarmSystem": {
+        "id": "<alarm_system_id>",
+        "organizationId": "<org_id>",
+        "siteId": "<site_id>",
+        "deleted": true
+      }
+    }
+  },
+  "tags": ["alarm"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["delete_alarm_system"]
+  },
+  "updated": "2026-10-23"
+}

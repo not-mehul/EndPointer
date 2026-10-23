@@ -1,0 +1,57 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "sensor.list",
+  "title": "List sensors",
+  "api": "command",
+  "host": "vsensor",
+  "method": "POST",
+  "path": "devices/list",
+  "effect": "read",
+  "request": {
+    "body": {
+      "organizationId": "{{org_id}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "sensorDevice": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "deviceId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "name": {
+                "type": ["string", "number", "boolean"]
+              },
+              "claimedSerialNumber": {
+                "type": ["string", "number", "boolean"]
+              }
+            },
+            "required": ["claimedSerialNumber", "deviceId", "name"]
+          }
+        }
+      },
+      "required": ["sensorDevice"]
+    },
+    "example": {
+      "sensorDevice": [
+        {
+          "deviceId": "<sensor_id>",
+          "name": "<sensor_name>",
+          "claimedSerialNumber": "<serial_number>"
+        }
+      ]
+    }
+  },
+  "tags": ["sensor"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["get_sensor"]
+  },
+  "updated": "2026-10-23"
+}

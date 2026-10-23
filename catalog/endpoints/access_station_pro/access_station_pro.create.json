@@ -1,0 +1,81 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "access_station_pro.create",
+  "title": "Sets up a newly commissioned Access Station Pro",
+  "api": "command",
+  "host": "vcerberus",
+  "method": "POST",
+  "path": "access/v2/user/access_device/setup",
+  "effect": "create",
+  "params": {
+    "device_id": {},
+    "site_id": {},
+    "station_name": {}
+  },
+  "request": {
+    "body": {
+      "deviceId": "{{device_id}}",
+      "name": "{{station_name}}",
+      "siteId": "{{site_id}}",
+      "location": {
+        "label": "{{address_label}}",
+        "lat": "{{latitude}}",
+        "lon": "{{longitude}}"
+      }
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "accessControllerId": {
+          "type": ["string", "number", "boolean"]
+        },
+        "deviceId": {
+          "type": ["string", "number", "boolean"]
+        },
+        "name": {
+          "type": ["string", "number", "boolean"]
+        },
+        "organizationId": {
+          "type": ["string", "number", "boolean"]
+        },
+        "serialNumber": {
+          "type": ["string", "number", "boolean"]
+        },
+        "timezone": {
+          "type": ["string", "number", "boolean"]
+        },
+        "vconductorModelId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "accessControllerId",
+        "deviceId",
+        "name",
+        "organizationId",
+        "serialNumber",
+        "timezone",
+        "vconductorModelId"
+      ]
+    },
+    "example": {
+      "accessControllerId": "<access_controller_id>",
+      "deviceId": "<access_station_pro_id>",
+      "name": "<access_station_pro_name>",
+      "organizationId": "<org_id>",
+      "serialNumber": "<serial_number>",
+      "timezone": "<timezone>",
+      "vconductorModelId": "MOODY"
+    }
+  },
+  "tags": ["access_station_pro"],
+  "notes": "Needs a real device on the org.",
+  "source": {
+    "from": "vCommander",
+    "methods": ["configure_access_station_pro"]
+  },
+  "updated": "2026-10-23"
+}

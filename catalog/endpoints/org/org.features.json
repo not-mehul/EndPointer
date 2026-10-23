@@ -1,0 +1,56 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "org.features",
+  "title": "Enable org features (LPR and analytics related)",
+  "api": "command",
+  "host": "vdeviceconfig",
+  "method": "POST",
+  "path": "user/org/feature/set",
+  "effect": "update",
+  "params": {
+    "features": {
+      "description": "Feature flags to turn on",
+      "examples": [
+        {
+          "ai-summarization": true,
+          "face-detection": true,
+          "license-plate-recognition": true,
+          "natural-language-search": true,
+          "people-history": true,
+          "person-attributes": true,
+          "poi-notifications": true,
+          "vehicle-history": true
+        },
+        {
+          "ai-summarization": true,
+          "license-plate-recognition": true,
+          "natural-language-search": true,
+          "vehicle-history": true
+        }
+      ]
+    }
+  },
+  "request": {
+    "body": {
+      "organizationId": "{{org_id}}",
+      "params": "{{features}}",
+      "annotations": {
+        "timestamp": "{{$now}}",
+        "userId": "{{user_id}}"
+      }
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object"
+    },
+    "example": {}
+  },
+  "tags": ["org"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["enable_org_features"]
+  },
+  "updated": "2026-10-23"
+}

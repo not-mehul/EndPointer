@@ -1,0 +1,64 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "alarm.partition.list",
+  "title": "List alarm partitions",
+  "api": "command",
+  "host": "vproconfig",
+  "method": "POST",
+  "path": "alarm_system/get_all",
+  "effect": "read",
+  "params": {
+    "alarm_system_id": {}
+  },
+  "request": {
+    "body": {
+      "alarmSystemId": "{{alarm_system_id}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "partitions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": ["string", "number", "boolean"]
+              },
+              "alarmSystemId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "name": {
+                "type": ["string", "number", "boolean"]
+              },
+              "responseConfigId": {
+                "type": ["string", "number", "boolean"]
+              }
+            },
+            "required": ["alarmSystemId", "id", "name", "responseConfigId"]
+          }
+        }
+      },
+      "required": ["partitions"]
+    },
+    "example": {
+      "partitions": [
+        {
+          "id": "<partition_id>",
+          "alarmSystemId": "<alarm_system_id>",
+          "name": "<partition_name>",
+          "responseConfigId": "<alarm_response_id>"
+        }
+      ]
+    }
+  },
+  "tags": ["alarm"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["get_alarm_partition", "get_alarm_partition_all"]
+  },
+  "updated": "2026-10-23"
+}

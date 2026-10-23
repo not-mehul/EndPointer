@@ -1,0 +1,59 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "user.hard_delete",
+  "title": "Permanently delete a user",
+  "api": "command",
+  "host": "vprovision",
+  "method": "POST",
+  "path": "core/v1/org/{{org_id}}/user:hardDelete",
+  "effect": "delete",
+  "params": {
+    "deleted_user_id": {}
+  },
+  "request": {
+    "body": {
+      "organizationId": "{{org_id}}",
+      "callingUserId": "{{user_id}}",
+      "userIds": ["{{deleted_user_id}}"],
+      "deleteAllSoftDeleted": false
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "userInfo": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "email": {
+                "type": ["string", "number", "boolean"]
+              },
+              "name": {
+                "type": ["string", "number", "boolean"]
+              }
+            },
+            "required": ["email", "name"]
+          }
+        }
+      },
+      "required": ["userInfo"]
+    },
+    "example": {
+      "userInfo": {
+        "<deleted_user_id>": {
+          "email": "<deleted_user_email>",
+          "name": "<deleted_user_name>"
+        }
+      }
+    }
+  },
+  "tags": ["user"],
+  "source": {
+    "from": "vCommander",
+    "note": "In vCommander's endpoint registry; its client doesn't call it."
+  },
+  "updated": "2026-10-23"
+}

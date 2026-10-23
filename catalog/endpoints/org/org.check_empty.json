@@ -1,0 +1,38 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "org.check_empty",
+  "title": "Is the organization empty? (org DELETE in validate-only mode)",
+  "api": "command",
+  "host": "vprovision",
+  "method": "POST",
+  "path": "org/delete",
+  "effect": "delete",
+  "warning": "This is Command's ORGANIZATION DELETE endpoint, used with validateOnly=true to ask whether the org is empty. Never call it without validateOnly.",
+  "request": {
+    "body": {
+      "organizationId": "{{org_id}}",
+      "validateOnly": true
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "orgEmpty": {
+          "type": "boolean"
+        }
+      },
+      "required": ["orgEmpty"]
+    },
+    "example": {
+      "orgEmpty": true
+    }
+  },
+  "tags": ["org"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["is_org_empty"]
+  },
+  "updated": "2026-10-23"
+}

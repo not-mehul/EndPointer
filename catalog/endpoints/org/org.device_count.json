@@ -1,0 +1,152 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "org.device_count",
+  "title": "Count devices by type",
+  "api": "command",
+  "host": "vlicensing",
+  "method": "GET",
+  "path": "org/{{org_id}}/get_device_counts",
+  "effect": "read",
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "deviceCounts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "deviceType": {
+                "type": "string"
+              },
+              "quantity": {
+                "type": "integer"
+              }
+            },
+            "required": ["deviceType", "quantity"]
+          }
+        }
+      },
+      "required": ["deviceCounts"]
+    },
+    "example": {
+      "deviceCounts": [
+        {
+          "deviceType": "Camera",
+          "quantity": 0
+        },
+        {
+          "deviceType": "Sensor",
+          "quantity": 0
+        },
+        {
+          "deviceType": "Gateway",
+          "quantity": 0
+        },
+        {
+          "deviceType": "Cellular",
+          "quantity": 0
+        },
+        {
+          "deviceType": "Desk App",
+          "quantity": 0
+        },
+        {
+          "deviceType": "Intercom",
+          "quantity": 0
+        },
+        {
+          "deviceType": "Workplace",
+          "quantity": 0
+        },
+        {
+          "deviceType": "Mobile NFC",
+          "quantity": 0
+        },
+        {
+          "deviceType": "Sensor Basic",
+          "quantity": 0
+        },
+        {
+          "deviceType": "WiFi Gateway",
+          "quantity": 0
+        },
+        {
+          "deviceType": "Alarm Speaker",
+          "quantity": 0
+        },
+        {
+          "deviceType": "Cloud Storage",
+          "quantity": 0
+        },
+        {
+          "deviceType": "Access Control",
+          "quantity": 0
+        },
+        {
+          "deviceType": "Access Station",
+          "quantity": 0
+        },
+        {
+          "deviceType": "Alarm Location",
+          "quantity": 0
+        },
+        {
+          "deviceType": "Mobile Trailer",
+          "quantity": 0
+        },
+        {
+          "deviceType": "Cellular Backup",
+          "quantity": 0
+        },
+        {
+          "deviceType": "Viewing Station",
+          "quantity": 0
+        },
+        {
+          "deviceType": "Alarm Sites Basic",
+          "quantity": 0
+        },
+        {
+          "deviceType": "Non Verkada Channel",
+          "quantity": 0
+        },
+        {
+          "deviceType": "Access IO Controller",
+          "quantity": 0
+        },
+        {
+          "deviceType": "Alarm Location Basic",
+          "quantity": 0
+        },
+        {
+          "deviceType": "Two-Camera Multisensor",
+          "quantity": 0
+        },
+        {
+          "deviceType": "CH52 Multisensor Camera",
+          "quantity": 0
+        },
+        {
+          "deviceType": "Alarm Location Monitoring",
+          "quantity": 0
+        },
+        {
+          "deviceType": "Cellular Gateway Data Plan",
+          "quantity": 0
+        },
+        {
+          "deviceType": "Advanced Video Alarms Sites",
+          "quantity": 0
+        }
+      ]
+    }
+  },
+  "tags": ["org"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["get_device_count"]
+  },
+  "updated": "2026-10-23"
+}

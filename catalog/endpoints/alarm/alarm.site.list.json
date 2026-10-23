@@ -1,0 +1,107 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "alarm.site.list",
+  "title": "Get a site's alarm response site",
+  "api": "command",
+  "host": "vagent",
+  "method": "POST",
+  "path": "response/site/get",
+  "effect": "read",
+  "params": {
+    "site_id": {}
+  },
+  "request": {
+    "body": {
+      "includeMonthlyAlarmCounts": true,
+      "includePsapInfo": true,
+      "siteId": "{{site_id}}"
+    }
+  },
+  "response": {
+    "status": ["2xx", 400, 404],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "responseSite": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": ["string", "number", "boolean"]
+            },
+            "siteId": {
+              "type": ["string", "number", "boolean"]
+            },
+            "orgId": {
+              "type": ["string", "number", "boolean"]
+            },
+            "businessName": {
+              "type": ["string", "number", "boolean"]
+            },
+            "locationId": {
+              "type": ["string", "number", "boolean"]
+            },
+            "adminContactUserId": {
+              "type": ["string", "number", "boolean"]
+            }
+          },
+          "required": ["adminContactUserId", "businessName", "id", "locationId", "orgId", "siteId"]
+        },
+        "location": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": ["string", "number", "boolean"]
+            }
+          },
+          "required": ["id"]
+        },
+        "responseConfigs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": ["string", "number", "boolean"]
+              },
+              "responseSiteId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "locationId": {
+                "type": ["string", "number", "boolean"]
+              }
+            },
+            "required": ["id", "locationId", "responseSiteId"]
+          }
+        }
+      },
+      "required": ["location", "responseConfigs", "responseSite"]
+    },
+    "example": {
+      "responseSite": {
+        "id": "<alarm_site_id>",
+        "siteId": "<site_id>",
+        "orgId": "<org_id>",
+        "businessName": "<business_name>",
+        "locationId": "<location_id>",
+        "adminContactUserId": "<user_id>"
+      },
+      "location": {
+        "id": "<location_id>"
+      },
+      "responseConfigs": [
+        {
+          "id": "<alarm_response_id>",
+          "responseSiteId": "<alarm_site_id>",
+          "locationId": "<location_id>"
+        }
+      ]
+    }
+  },
+  "tags": ["alarm"],
+  "notes": "400/404 mean the site has no alarm site; vCommander probes every site this way.",
+  "source": {
+    "from": "vCommander",
+    "methods": ["get_alarm_guard_all", "get_alarm_site"]
+  },
+  "updated": "2026-10-23"
+}

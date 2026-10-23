@@ -1,0 +1,58 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "site.rename",
+  "title": "Renames a site (camera group)",
+  "api": "command",
+  "host": "vprovision",
+  "method": "POST",
+  "path": "org/camera_group/modify",
+  "effect": "update",
+  "params": {
+    "new_name": {},
+    "site_id": {}
+  },
+  "request": {
+    "body": {
+      "cameraGroupId": "{{site_id}}",
+      "name": "{{new_name}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "cameraGroups": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": ["string", "number", "boolean"]
+              },
+              "organizationId": {
+                "type": ["string", "number", "boolean"]
+              }
+            },
+            "required": ["name", "organizationId"]
+          }
+        }
+      },
+      "required": ["cameraGroups"]
+    },
+    "example": {
+      "cameraGroups": [
+        {
+          "name": "<site_name>",
+          "organizationId": "<org_id>"
+        }
+      ]
+    }
+  },
+  "tags": ["site"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["rename_site"]
+  },
+  "updated": "2026-10-23"
+}

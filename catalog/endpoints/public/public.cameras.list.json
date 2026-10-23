@@ -1,0 +1,59 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "public.cameras.list",
+  "title": "List cameras",
+  "api": "public",
+  "method": "GET",
+  "path": "cameras/v1/devices",
+  "effect": "read",
+  "request": {
+    "query": {
+      "page_size": "200"
+    }
+  },
+  "response": {
+    "status": ["2xx", 400],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "cameras": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "camera_id": {
+                "type": ["string", "number", "boolean"]
+              },
+              "name": {
+                "type": ["string", "number", "boolean"]
+              },
+              "serial": {
+                "type": ["string", "number", "boolean"]
+              }
+            },
+            "required": ["camera_id", "name", "serial"]
+          }
+        },
+        "next_page_token": {}
+      },
+      "required": ["cameras", "next_page_token"]
+    },
+    "example": {
+      "cameras": [
+        {
+          "camera_id": "<camera_id>",
+          "name": "<name>",
+          "serial": "<serial>"
+        }
+      ],
+      "next_page_token": null
+    }
+  },
+  "tags": ["public", "cameras"],
+  "notes": "Answers 400 \"must include cameras\" when the org has no cameras.",
+  "source": {
+    "from": "vCommander",
+    "methods": ["get_cameras"]
+  },
+  "updated": "2026-10-23"
+}

@@ -1,0 +1,72 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "schedule.list",
+  "title": "List door schedules",
+  "api": "command",
+  "host": "api",
+  "method": "GET",
+  "path": "organizations/{{org_id}}/schedules",
+  "effect": "read",
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "schedules": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": ["string", "number", "boolean"]
+              },
+              "organizationId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "priority": {
+                "type": "string"
+              },
+              "scheduleId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "type": {
+                "type": "string"
+              },
+              "supervisorScheduleId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "events": {
+                "type": "array",
+                "items": {
+                  "type": ["string", "number", "boolean"]
+                }
+              }
+            },
+            "required": ["name", "organizationId", "scheduleId"]
+          }
+        }
+      },
+      "required": ["schedules"]
+    },
+    "example": {
+      "schedules": [
+        {
+          "name": "<schedule_name>",
+          "organizationId": "<org_id>",
+          "priority": "SCHEDULE",
+          "scheduleId": "<schedule_id>",
+          "type": "DOOR",
+          "supervisorScheduleId": "<supervisor_schedule_id>",
+          "events": ["<full event objects>"]
+        }
+      ]
+    }
+  },
+  "tags": ["schedule"],
+  "notes": "Same request as access_level.list; vCommander reads a different part of the response.",
+  "source": {
+    "from": "vCommander",
+    "methods": ["get_schedule"]
+  },
+  "updated": "2026-10-23"
+}

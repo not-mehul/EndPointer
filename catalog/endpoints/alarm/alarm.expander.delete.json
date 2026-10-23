@@ -1,0 +1,40 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "alarm.expander.delete",
+  "title": "Delete alarm expander",
+  "api": "command",
+  "host": "vproconfig",
+  "method": "POST",
+  "path": "device/decommission",
+  "effect": "delete",
+  "params": {
+    "device_id": {}
+  },
+  "request": {
+    "body": {
+      "deviceId": "{{device_id}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string"
+        }
+      },
+      "required": ["error"]
+    },
+    "example": {
+      "error": ""
+    }
+  },
+  "tags": ["alarm"],
+  "notes": "Needs a real device on the org. Same request as alarm.panel.delete, alarm.keypad.delete, alarm.wireless_contact_sensor.delete, alarm.wireless_panic_button.delete, alarm.wireless_universal_transmitter.delete; vCommander reads a different part of the response.",
+  "source": {
+    "from": "vCommander",
+    "methods": ["delete_alarm_expander"]
+  },
+  "updated": "2026-10-23"
+}

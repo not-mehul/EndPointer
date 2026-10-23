@@ -1,0 +1,26 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "public.access_group.delete",
+  "title": "Delete an access group",
+  "api": "public",
+  "method": "DELETE",
+  "path": "access/v1/access_groups/group",
+  "effect": "delete",
+  "params": {
+    "group_id": {}
+  },
+  "request": {
+    "query": {
+      "group_id": "{{group_id}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"]
+  },
+  "tags": ["public", "access_group"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["delete_access_group"]
+  },
+  "updated": "2026-10-23"
+}

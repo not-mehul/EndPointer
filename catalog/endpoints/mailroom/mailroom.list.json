@@ -1,0 +1,73 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "mailroom.list",
+  "title": "List mailroom sites",
+  "api": "command",
+  "host": "vdoorman",
+  "method": "GET",
+  "path": "package_site/org/{{org_id}}",
+  "effect": "read",
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "package_sites": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "orgId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "packageLocations": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "locationName": {
+                      "type": ["string", "number", "boolean"]
+                    },
+                    "packageLocationId": {
+                      "type": ["string", "number", "boolean"]
+                    }
+                  },
+                  "required": ["locationName", "packageLocationId"]
+                }
+              },
+              "siteId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "siteName": {
+                "type": ["string", "number", "boolean"]
+              }
+            },
+            "required": ["orgId", "packageLocations", "siteId", "siteName"]
+          }
+        }
+      },
+      "required": ["package_sites"]
+    },
+    "example": {
+      "package_sites": [
+        {
+          "orgId": "<org_id>",
+          "packageLocations": [
+            {
+              "locationName": "<mailroom_location_name>",
+              "packageLocationId": "<mailroom_id>"
+            }
+          ],
+          "siteId": "<site_id>",
+          "siteName": "<site_name>"
+        }
+      ]
+    }
+  },
+  "tags": ["mailroom"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["get_mailroom_site"]
+  },
+  "updated": "2026-10-23"
+}

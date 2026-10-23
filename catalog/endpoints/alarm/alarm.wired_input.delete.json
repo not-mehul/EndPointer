@@ -1,0 +1,88 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "alarm.wired_input.delete",
+  "title": "Delete alarm wired input",
+  "api": "command",
+  "host": "vproconfig",
+  "method": "POST",
+  "path": "device/delete",
+  "effect": "delete",
+  "params": {
+    "device_id": {}
+  },
+  "request": {
+    "body": {
+      "deviceId": "{{device_id}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "device": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": ["string", "number", "boolean"]
+            },
+            "alarmSystemId": {
+              "type": ["string", "number", "boolean"]
+            },
+            "name": {
+              "type": ["string", "number", "boolean"]
+            },
+            "type": {
+              "type": "string"
+            },
+            "partitionId": {
+              "type": ["string", "number", "boolean"]
+            },
+            "deleted": {
+              "type": "boolean"
+            },
+            "wiredInputConfig": {
+              "type": "object",
+              "properties": {
+                "hubId": {
+                  "type": ["string", "number", "boolean"]
+                },
+                "pinNum": {
+                  "type": "integer"
+                },
+                "normalState": {
+                  "type": "string"
+                }
+              },
+              "required": ["hubId", "normalState", "pinNum"]
+            }
+          },
+          "required": ["alarmSystemId", "deleted", "id", "name", "type"]
+        }
+      },
+      "required": ["device"]
+    },
+    "example": {
+      "device": {
+        "id": "<wired_input_id>",
+        "alarmSystemId": "<alarm_system_id>",
+        "name": "<wired_input_name>",
+        "type": "WIRED_CONTACT_SENSOR",
+        "partitionId": "<partition_id>",
+        "deleted": true,
+        "wiredInputConfig": {
+          "hubId": "<alarm_panel_id>",
+          "pinNum": 0,
+          "normalState": "CLOSED"
+        }
+      }
+    }
+  },
+  "tags": ["alarm"],
+  "notes": "Needs a real device on the org. Same request as alarm.wired_output.delete; vCommander reads a different part of the response.",
+  "source": {
+    "from": "vCommander",
+    "methods": ["delete_wired_input"]
+  },
+  "updated": "2026-10-23"
+}

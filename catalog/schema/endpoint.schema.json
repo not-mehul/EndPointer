@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "endpoint.schema.json",
+  "title": "Endpoint",
+  "description": "One API endpoint: how to call it and what it answers. Strings may contain {{variables}}.",
+  "type": "object",
+  "required": ["id", "api", "method", "path", "effect"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {"type": "string"},
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9_]+(\\.[a-z0-9_\\-]+)+$",
+      "description": "Unique id, 'area.action' (e.g. site.create). The file is endpoints/<area>/<id>.json."
+    },
+    "title": {"type": "string", "description": "One line: what the call does."},
+    "description": {"type": "string"},
+    "api": {"type": "string", "description": "A key of catalog.json 'apis' (base URL and auth headers)."},
+    "host": {"type": "string", "description": "Fills {{host}} in the API's base URL (Command subdomain, e.g. vprovision)."},
+    "method": {"enum": ["GET", "POST", "PUT", "PATCH", "DELETE"]},
+    "path": {"type": "string", "description": "Path under the base URL; may contain {{variables}}."},
+    "effect": {
+      "enum": ["read", "create", "update", "delete", "action"],
+      "description": "What calling it does. Only 'read' endpoints are called automatically."
+    },
+    "auth": {"enum": ["none"], "description": "'none' for calls made before login / with their own credentials."},
+    "autocheck": {"type": "boolean", "description": "false: don't call this read endpoint automatically."},
+    "warning": {"type": "string", "description": "Shown before the endpoint is called by hand."},
+    "params": {
+      "type": "object",
+      "description": "Variables the request needs besides the session's (org_id, user_id, email, …) and catalog defaults.",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "description": {"type": "string"},
+          "example": {},
+          "examples": {"type": "array"}
+        }
+      }
+    },
+    "request": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "query": {"type": "object"},
+        "headers": {"type": "object", "additionalProperties": {"type": "string"}},
+        "body": {"description": "JSON body template. A string that is exactly '{{name}}' keeps the variable's type."}
+      }
+    },
+    "response": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "type": "array",
+          "items": {"oneOf": [{"type": "integer"}, {"type": "string", "pattern": "^[1-5]xx$"}]},
+          "description": "Statuses that are a normal answer, e.g. [\"2xx\", 404]."
+        },
+        "schema": {"type": "object", "description": "JSON Schema of the response body (inferred from observed responses)."},
+        "example": {"description": "Sanitised example response (ids/names replaced by <field> placeholders)."}
+      }
+    },
+    "tags": {"type": "array", "items": {"type": "string"}},
+    "notes": {"type": "string"},
+    "source": {"type": "object", "description": "Where the endpoint was learned from (HAR, typed in, vCommander, …)."},
+    "updated": {"type": "string", "description": "Date of the last change (YYYY-MM-DD)."}
+  }
+}

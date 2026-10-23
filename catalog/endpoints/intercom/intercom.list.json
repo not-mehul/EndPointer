@@ -1,0 +1,53 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "intercom.list",
+  "title": "List intercoms",
+  "api": "command",
+  "host": "api",
+  "method": "GET",
+  "path": "vinter/v1/user/organization/{{org_id}}/device",
+  "effect": "read",
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "intercoms": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "deviceId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "name": {
+                "type": ["string", "number", "boolean"]
+              },
+              "serialNumber": {
+                "type": ["string", "number", "boolean"]
+              }
+            },
+            "required": ["deviceId", "name", "serialNumber"]
+          }
+        }
+      },
+      "required": []
+    },
+    "example": {
+      "intercoms": [
+        {
+          "deviceId": "<intercom_id>",
+          "name": "<intercom_name>",
+          "serialNumber": "<serial_number>"
+        }
+      ]
+    }
+  },
+  "tags": ["intercom"],
+  "notes": "Same request as desk_station.list; vCommander reads a different part of the response.",
+  "source": {
+    "from": "vCommander",
+    "methods": ["get_intercom"]
+  },
+  "updated": "2026-10-23"
+}

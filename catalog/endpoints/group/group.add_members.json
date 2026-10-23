@@ -1,0 +1,29 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "group.add_members",
+  "title": "Add users to a security group",
+  "api": "command",
+  "host": "vauth",
+  "method": "POST",
+  "path": "security_entity_group/members/add",
+  "effect": "update",
+  "params": {
+    "group_id": {},
+    "user_ids": {}
+  },
+  "request": {
+    "body": {
+      "securityEntityGroupId": "{{group_id}}",
+      "securityEntityIds": "{{user_ids}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"]
+  },
+  "tags": ["group"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["add_users_to_group"]
+  },
+  "updated": "2026-10-23"
+}

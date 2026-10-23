@@ -1,0 +1,32 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "camera.delete",
+  "title": "Delete camera",
+  "api": "command",
+  "host": "vprovision",
+  "method": "POST",
+  "path": "camera/decommission",
+  "effect": "delete",
+  "params": {
+    "camera_id": {}
+  },
+  "request": {
+    "body": {
+      "cameraId": "{{camera_id}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object"
+    },
+    "example": {}
+  },
+  "tags": ["camera"],
+  "notes": "Needs a real device on the org.",
+  "source": {
+    "from": "vCommander",
+    "methods": ["delete_camera"]
+  },
+  "updated": "2026-10-23"
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "visitor.delete",
+  "title": "Delete a visitor (accepts a list)",
+  "api": "command",
+  "host": "api",
+  "method": "POST",
+  "path": "users/delete",
+  "effect": "delete",
+  "params": {
+    "visitor_id": {}
+  },
+  "request": {
+    "body": {
+      "organizationId": "{{org_id}}",
+      "userIds": ["{{visitor_id}}"]
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object"
+    },
+    "example": {}
+  },
+  "tags": ["visitor"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["delete_visitor"]
+  },
+  "updated": "2026-10-23"
+}

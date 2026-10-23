@@ -1,0 +1,66 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "org.add_device",
+  "title": "Commissions a new device into the organization by serial number",
+  "api": "command",
+  "host": "vconductor",
+  "method": "POST",
+  "path": "vconductor/command/device/batch/commission",
+  "effect": "create",
+  "params": {
+    "device_name": {},
+    "serial_number": {}
+  },
+  "request": {
+    "body": {
+      "organizationId": "{{org_id}}",
+      "devices": [
+        {
+          "deferUpdate": true,
+          "name": "{{device_name}}",
+          "serialNumber": "{{serial_number}}",
+          "updateSchedule": null
+        }
+      ]
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "successfulDevices": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "deviceId": {
+                "type": ["string", "number", "boolean"]
+              }
+            },
+            "required": ["deviceId"]
+          }
+        },
+        "failedSerials": {
+          "type": "array"
+        }
+      },
+      "required": ["failedSerials", "successfulDevices"]
+    },
+    "example": {
+      "successfulDevices": [
+        {
+          "deviceId": "<device_id>"
+        }
+      ],
+      "failedSerials": []
+    }
+  },
+  "tags": ["org"],
+  "notes": "Needs a real device on the org.",
+  "source": {
+    "from": "vCommander",
+    "methods": ["add_device"]
+  },
+  "updated": "2026-10-23"
+}

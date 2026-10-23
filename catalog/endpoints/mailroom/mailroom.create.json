@@ -1,0 +1,46 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "mailroom.create",
+  "title": "Create a mailroom site",
+  "api": "command",
+  "host": "vdoorman",
+  "method": "POST",
+  "path": "package_site/org/{{org_id}}",
+  "effect": "create",
+  "params": {
+    "site_id": {}
+  },
+  "request": {
+    "body": {
+      "siteId": "{{site_id}}",
+      "latitude": "{{latitude}}",
+      "longitude": "{{longitude}}",
+      "fullAddress": "{{address_label}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "packageLocationId": {
+          "type": ["string", "number", "boolean"]
+        },
+        "siteId": {
+          "type": ["string", "number", "boolean"]
+        }
+      },
+      "required": ["packageLocationId", "siteId"]
+    },
+    "example": {
+      "packageLocationId": "<mailroom_id>",
+      "siteId": "<site_id>"
+    }
+  },
+  "tags": ["mailroom"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["create_mailroom_site"]
+  },
+  "updated": "2026-10-23"
+}

@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "scenario.schema.json",
+  "title": "Scenario",
+  "description": "Ordered endpoint calls, e.g. create → verify → delete. Values saved from responses feed later steps.",
+  "type": "object",
+  "required": ["id", "kind", "steps"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {"type": "string"},
+    "id": {"type": "string", "description": "File name without .json."},
+    "title": {"type": "string"},
+    "kind": {
+      "enum": ["read", "write", "settings", "setup"],
+      "description": "read: always run, read endpoints only. write: opt-in, cleans up after itself. settings: opt-in, changes are not undone. setup: run when an API needs it (catalog.json apis.<name>.setup)."
+    },
+    "description": {"type": "string", "description": "What it changes; shown before it runs."},
+    "inputs": {
+      "type": "object",
+      "description": "Values asked for before running (e.g. a throwaway email).",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {"prompt": {"type": "string"}, "example": {}}
+      }
+    },
+    "vars": {"type": "object", "description": "Scenario variables (templates, e.g. \"Endpoint check {{$stamp}}\")."},
+    "steps": {"type": "array", "items": {"$ref": "#/$defs/step"}}
+  },
+  "$defs": {
+    "step": {
+      "type": "object",
+      "required": ["call"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {"type": "string"},
+        "call": {"type": "string", "description": "Endpoint id."},
+        "with": {"type": "object", "description": "Values for the endpoint's params (templates)."},
+        "save": {
+          "type": "object",
+          "additionalProperties": {"type": "string"},
+          "description": "variable → response path, e.g. \"cameraGroups[0].cameraGroupId\". A trailing ? makes it optional."
+        },
+        "expect": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "exists": {"type": "array", "items": {"type": "string"}},
+            "contains": {"type": "object", "description": "path → value that must be among the values at path."},
+            "equals": {"type": "object", "description": "path → value the first match must equal."}
+          }
+        },
+        "cleanup": {
+          "description": "Run at the end of the scenario (last created, first removed) if this step's call succeeded. Nested cleanup steps run after it.",
+          "oneOf": [{"$ref": "#/$defs/step"}, {"type": "array", "items": {"$ref": "#/$defs/step"}}]
+        },
+        "otherwise": {"$ref": "#/$defs/step", "description": "For cleanup steps: a fallback if the step fails."}
+      }
+    }
+  }
+}

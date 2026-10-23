@@ -1,0 +1,55 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "alert.list",
+  "title": "List alert rules",
+  "api": "command",
+  "host": "vlive",
+  "method": "POST",
+  "path": "alert_rules/get",
+  "effect": "read",
+  "request": {
+    "body": {
+      "organizationId": "{{org_id}}",
+      "showSharedAlerts": true,
+      "filters": {}
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "alertRuleId": {
+            "type": ["string", "number", "boolean"]
+          },
+          "organizationId": {
+            "type": ["string", "number", "boolean"]
+          },
+          "name": {
+            "type": ["string", "number", "boolean"]
+          },
+          "ownerId": {
+            "type": ["string", "number", "boolean"]
+          }
+        },
+        "required": ["alertRuleId", "name", "organizationId", "ownerId"]
+      }
+    },
+    "example": [
+      {
+        "alertRuleId": "<alert_rule_id>",
+        "organizationId": "<org_id>",
+        "name": "<alert_name>",
+        "ownerId": "<owner_id>"
+      }
+    ]
+  },
+  "tags": ["alert"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["get_alert"]
+  },
+  "updated": "2026-10-23"
+}

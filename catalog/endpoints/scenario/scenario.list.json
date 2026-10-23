@@ -1,0 +1,60 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "scenario.list",
+  "title": "List access scenarios (lockdowns)",
+  "api": "command",
+  "host": "api",
+  "method": "GET",
+  "path": "organizations/{{org_id}}/lockdowns",
+  "effect": "read",
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "lockdowns": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "lockdownId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "message": {
+                "type": ["string", "number", "boolean"]
+              },
+              "name": {
+                "type": ["string", "number", "boolean"]
+              },
+              "organizationId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "scenarioType": {
+                "type": "string"
+              }
+            },
+            "required": ["lockdownId", "message", "name", "organizationId", "scenarioType"]
+          }
+        }
+      },
+      "required": ["lockdowns"]
+    },
+    "example": {
+      "lockdowns": [
+        {
+          "lockdownId": "<scenario_id>",
+          "message": "<scenario_message>",
+          "name": "<scenario_name>",
+          "organizationId": "<org_id>",
+          "scenarioType": "LOCKDOWN"
+        }
+      ]
+    }
+  },
+  "tags": ["scenario"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["get_scenario"]
+  },
+  "updated": "2026-10-23"
+}

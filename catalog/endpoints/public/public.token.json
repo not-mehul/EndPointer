@@ -1,0 +1,41 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "public.token",
+  "title": "Exchange an API key for a short-lived API token",
+  "api": "public",
+  "method": "POST",
+  "path": "token",
+  "effect": "action",
+  "auth": "none",
+  "params": {
+    "api_key": {
+      "description": "Public-API key (the public-api-access scenario creates one)"
+    }
+  },
+  "request": {
+    "headers": {
+      "x-api-key": "{{api_key}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": ["string", "number", "boolean"]
+        }
+      },
+      "required": ["token"]
+    },
+    "example": {
+      "token": "<token>"
+    }
+  },
+  "tags": ["public", "token"],
+  "source": {
+    "from": "vCommander",
+    "note": "In vCommander's endpoint registry; its client doesn't call it."
+  },
+  "updated": "2026-10-23"
+}

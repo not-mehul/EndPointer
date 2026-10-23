@@ -1,0 +1,45 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "auth.twofactor.sms.new",
+  "title": "Send the 2FA code by SMS (mid-login)",
+  "api": "command",
+  "host": "vauth",
+  "method": "POST",
+  "path": "auth/twofactor/sms/new",
+  "effect": "action",
+  "auth": "none",
+  "params": {
+    "password": {
+      "description": "Your Command password (prompted, never stored)"
+    }
+  },
+  "request": {
+    "body": {
+      "email": "{{email}}",
+      "password": "{{password}}",
+      "orgShortName": "{{org_short_name}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "smsSent": {
+          "type": ["string", "number", "boolean"]
+        }
+      },
+      "required": ["smsSent"]
+    },
+    "example": {
+      "smsSent": "<masked_phone_digits>"
+    }
+  },
+  "tags": ["auth"],
+  "notes": "Returns the masked phone digits in smsSent.",
+  "source": {
+    "from": "vCommander",
+    "note": "In vCommander's endpoint registry; its client doesn't call it."
+  },
+  "updated": "2026-10-23"
+}

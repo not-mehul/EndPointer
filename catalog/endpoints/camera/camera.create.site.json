@@ -1,0 +1,34 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "camera.create.site",
+  "title": "Move a camera to a site",
+  "api": "command",
+  "host": "vprovision",
+  "method": "POST",
+  "path": "camera/site/batch/set",
+  "effect": "update",
+  "params": {
+    "camera_id": {},
+    "site_id": {}
+  },
+  "request": {
+    "body": {
+      "cameraIds": ["{{camera_id}}"],
+      "destinationSiteId": "{{site_id}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object"
+    },
+    "example": {}
+  },
+  "tags": ["camera"],
+  "notes": "Needs a real device on the org.",
+  "source": {
+    "from": "vCommander",
+    "methods": ["configure_camera"]
+  },
+  "updated": "2026-10-23"
+}

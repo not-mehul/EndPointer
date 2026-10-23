@@ -1,0 +1,68 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "building.delete",
+  "title": "Delete a building",
+  "api": "command",
+  "host": "vprovision",
+  "method": "POST",
+  "path": "building/delete",
+  "effect": "delete",
+  "params": {
+    "building_id": {}
+  },
+  "request": {
+    "body": {
+      "buildingId": "{{building_id}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "buildings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "address": {
+                "type": ["string", "number", "boolean"]
+              },
+              "buildingId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "floors": {
+                "type": "array"
+              },
+              "name": {
+                "type": ["string", "number", "boolean"]
+              },
+              "organizationId": {
+                "type": ["string", "number", "boolean"]
+              }
+            },
+            "required": ["address", "buildingId", "floors", "name", "organizationId"]
+          }
+        }
+      },
+      "required": ["buildings"]
+    },
+    "example": {
+      "buildings": [
+        {
+          "address": "<address>",
+          "buildingId": "<building_id>",
+          "floors": [],
+          "name": "<building_name>",
+          "organizationId": "<org_id>"
+        }
+      ]
+    }
+  },
+  "tags": ["building"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["delete_building"]
+  },
+  "updated": "2026-10-23"
+}

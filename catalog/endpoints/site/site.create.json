@@ -1,0 +1,53 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "site.create",
+  "title": "Creates a camera group (site) in the organization",
+  "api": "command",
+  "host": "vprovision",
+  "method": "POST",
+  "path": "org/camera_group/create",
+  "effect": "create",
+  "params": {
+    "site_name": {}
+  },
+  "request": {
+    "body": {
+      "organizationId": "{{org_id}}",
+      "name": "{{site_name}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "cameraGroups": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "cameraGroupId": {
+                "type": ["string", "number", "boolean"]
+              }
+            },
+            "required": ["cameraGroupId"]
+          }
+        }
+      },
+      "required": ["cameraGroups"]
+    },
+    "example": {
+      "cameraGroups": [
+        {
+          "cameraGroupId": "<site_id>"
+        }
+      ]
+    }
+  },
+  "tags": ["site"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["create_site"]
+  },
+  "updated": "2026-10-23"
+}

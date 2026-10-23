@@ -1,0 +1,32 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "user.delete",
+  "title": "Delete user",
+  "api": "command",
+  "host": "api",
+  "method": "POST",
+  "path": "users/delete",
+  "effect": "delete",
+  "params": {
+    "target_user_id": {}
+  },
+  "request": {
+    "body": {
+      "organizationId": "{{org_id}}",
+      "userIds": ["{{target_user_id}}"]
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object"
+    },
+    "example": {}
+  },
+  "tags": ["user"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["delete_user"]
+  },
+  "updated": "2026-10-23"
+}

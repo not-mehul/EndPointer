@@ -1,0 +1,42 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "public.access_group.create",
+  "title": "Create an access group",
+  "api": "public",
+  "method": "POST",
+  "path": "access/v1/access_groups/group",
+  "effect": "create",
+  "params": {
+    "group_name": {}
+  },
+  "request": {
+    "body": {
+      "name": "{{group_name}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "group_id": {
+          "type": ["string", "number", "boolean"]
+        },
+        "name": {
+          "type": ["string", "number", "boolean"]
+        }
+      },
+      "required": ["group_id", "name"]
+    },
+    "example": {
+      "group_id": "<group_id>",
+      "name": "<group_name>"
+    }
+  },
+  "tags": ["public", "access_group"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["create_access_group"]
+  },
+  "updated": "2026-10-23"
+}

@@ -1,0 +1,33 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "alarm.site.delete",
+  "title": "Delete an alarm response site",
+  "api": "command",
+  "host": "vagent",
+  "method": "POST",
+  "path": "response/site/delete",
+  "effect": "delete",
+  "params": {
+    "alarm_site_id": {},
+    "site_id": {}
+  },
+  "request": {
+    "body": {
+      "siteId": "{{site_id}}",
+      "responseSiteId": "{{alarm_site_id}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object"
+    },
+    "example": {}
+  },
+  "tags": ["alarm"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["delete_alarm_site"]
+  },
+  "updated": "2026-10-23"
+}

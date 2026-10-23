@@ -1,0 +1,56 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "door.list",
+  "title": "List doors",
+  "api": "command",
+  "host": "api",
+  "method": "GET",
+  "path": "access/v3/user/doors",
+  "effect": "read",
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "doors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "accessControllerId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "doorId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "floorId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "name": {
+                "type": ["string", "number", "boolean"]
+              }
+            },
+            "required": ["accessControllerId", "doorId", "floorId", "name"]
+          }
+        }
+      },
+      "required": ["doors"]
+    },
+    "example": {
+      "doors": [
+        {
+          "accessControllerId": "<access_controller_id>",
+          "doorId": "<door_id>",
+          "floorId": "<floor_id>",
+          "name": "<door_name>"
+        }
+      ]
+    }
+  },
+  "tags": ["door"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["get_door"]
+  },
+  "updated": "2026-10-23"
+}

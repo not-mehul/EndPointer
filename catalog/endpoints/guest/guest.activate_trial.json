@@ -1,0 +1,55 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "guest.activate_trial",
+  "title": "Activate the Guest trial for a site",
+  "api": "command",
+  "host": "vdoorman",
+  "method": "POST",
+  "path": "guest/trial/org/{{org_id}}/site/{{site_id}}",
+  "effect": "action",
+  "params": {
+    "site_id": {}
+  },
+  "request": {
+    "body": {
+      "productType": "GUEST"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "softwareTrial": {
+          "type": "object",
+          "properties": {
+            "organizationId": {
+              "type": ["string", "number", "boolean"]
+            },
+            "productPlanType": {
+              "type": "string"
+            },
+            "siteId": {
+              "type": ["string", "number", "boolean"]
+            }
+          },
+          "required": ["organizationId", "productPlanType", "siteId"]
+        }
+      },
+      "required": ["softwareTrial"]
+    },
+    "example": {
+      "softwareTrial": {
+        "organizationId": "<org_id>",
+        "productPlanType": "GUEST",
+        "siteId": "<site_id>"
+      }
+    }
+  },
+  "tags": ["guest"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["create_guest_site"]
+  },
+  "updated": "2026-10-23"
+}

@@ -1,0 +1,38 @@
+{
+  "$schema": "../schema/scenario.schema.json",
+  "id": "sites",
+  "title": "Sites & buildings",
+  "kind": "write",
+  "description": "Creates a site and a building with one floor named 'Endpoint check <time>', checks they are listed, renames the site, then deletes them.",
+  "vars": {
+    "name": "Endpoint check {{$stamp}}"
+  },
+  "steps": [
+    {
+      "name": "Create a site",
+      "call": "site.create",
+      "with": {"site_name": "{{name}}"},
+      "save": {"site_id": "cameraGroups[0].cameraGroupId"},
+      "cleanup": {
+        "name": "Delete the site",
+        "call": "site.delete",
+        "otherwise": {"name": "Rename the site that couldn't be deleted", "call": "site.rename", "with": {"new_name": "{{name}} (delete me)"}}
+      }
+    },
+    {"name": "Find the site in the site list", "call": "site.list", "expect": {"contains": {"sites[*].siteId": "{{site_id}}"}}},
+    {"name": "Rename the site", "call": "site.rename", "with": {"new_name": "{{name}} (renamed)"}},
+    {
+      "name": "Create a building with one floor",
+      "call": "building.create",
+      "with": {"building_name": "{{name}}", "floors": ["G"]},
+      "save": {"building_id": "buildings[0].buildingId", "floor_id": "floors[0].floorId"},
+      "cleanup": {
+        "name": "Delete the floor",
+        "call": "floor.delete",
+        "cleanup": {"name": "Delete the building", "call": "building.delete"}
+      }
+    },
+    {"name": "Find the building", "call": "building.list", "expect": {"contains": {"[*].buildingId": "{{building_id}}"}}},
+    {"name": "Find the floor", "call": "floor.list", "expect": {"contains": {"[*].floorId": "{{floor_id}}"}}}
+  ]
+}

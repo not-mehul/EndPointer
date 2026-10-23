@@ -1,0 +1,31 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "group.delete",
+  "title": "Delete a security group (accepts a list)",
+  "api": "command",
+  "host": "vauth",
+  "method": "POST",
+  "path": "security_entity_group/delete",
+  "effect": "delete",
+  "params": {
+    "group_id": {}
+  },
+  "request": {
+    "body": {
+      "securityEntityGroupIds": ["{{group_id}}"]
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object"
+    },
+    "example": {}
+  },
+  "tags": ["group"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["delete_group"]
+  },
+  "updated": "2026-10-23"
+}

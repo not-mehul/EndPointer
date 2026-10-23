@@ -1,0 +1,253 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "access_station_pro.door.create",
+  "title": "Creates the door served by an Access Station Pro",
+  "api": "command",
+  "host": "api",
+  "method": "POST",
+  "path": "door/create",
+  "effect": "create",
+  "params": {
+    "access_controller_id": {},
+    "door_name": {},
+    "floor_id": {}
+  },
+  "request": {
+    "body": {
+      "accessControllerId": "{{access_controller_id}}",
+      "configs": [
+        {
+          "paramName": "default-unlock-time",
+          "paramValue": "10"
+        },
+        {
+          "paramName": "assa-extended-unlock-time",
+          "paramValue": "20"
+        },
+        {
+          "paramName": "has-door-sensor",
+          "paramValue": "True"
+        },
+        {
+          "paramName": "ignore-dpi-relock",
+          "paramValue": "False"
+        },
+        {
+          "paramName": "passthrough-dpi-enabled",
+          "paramValue": "False"
+        },
+        {
+          "paramName": "dho-enabled",
+          "paramValue": "False"
+        },
+        {
+          "paramName": "dho-trigger-time",
+          "paramValue": "60"
+        },
+        {
+          "paramName": "has-rex",
+          "paramValue": "True"
+        },
+        {
+          "paramName": "rex-unlock-time",
+          "paramValue": "3"
+        },
+        {
+          "paramName": "has-rex2",
+          "paramValue": "False"
+        },
+        {
+          "paramName": "rex2-unlock-time",
+          "paramValue": "3"
+        },
+        {
+          "paramName": "dfo-rex-cooloff-time",
+          "paramValue": "10"
+        },
+        {
+          "paramName": "ble-unlock-enabled",
+          "paramValue": "True"
+        },
+        {
+          "paramName": "ble-unlock-rssi",
+          "paramValue": "-45"
+        },
+        {
+          "paramName": "ble-connect-rssi",
+          "paramValue": "-55"
+        },
+        {
+          "paramName": "ble-unlock-cooldown-time",
+          "paramValue": "5"
+        },
+        {
+          "paramName": "tof-unlock-distance-mm",
+          "paramValue": "500"
+        },
+        {
+          "paramName": "third-party-io-baud-rate",
+          "paramValue": "14400"
+        },
+        {
+          "paramName": "badge-reader",
+          "paramValue": "True"
+        },
+        {
+          "paramName": "mobile-unlock-enabled",
+          "paramValue": "True"
+        },
+        {
+          "paramName": "door-api-unlock-enabled",
+          "paramValue": "False"
+        },
+        {
+          "paramName": "nfc-enabled",
+          "paramValue": "True"
+        },
+        {
+          "paramName": "lpr-unlock-enabled",
+          "paramValue": "False"
+        },
+        {
+          "paramName": "lpr-unlock-cooldown-time",
+          "paramValue": "0"
+        },
+        {
+          "paramName": "ignore-outbound-reader-ac",
+          "paramValue": "False"
+        },
+        {
+          "paramName": "lf-card-reading-enabled",
+          "paramValue": "True"
+        },
+        {
+          "paramName": "c3po-in1-type",
+          "paramValue": "NONE"
+        },
+        {
+          "paramName": "c3po-in2-type",
+          "paramValue": "NONE"
+        },
+        {
+          "paramName": "replace-ios-with-security-relay",
+          "paramValue": "False"
+        },
+        {
+          "paramName": "face-unlock-enabled",
+          "paramValue": "True"
+        }
+      ],
+      "deviceIos": [
+        {
+          "configs": {},
+          "ioDeviceTypeName": "ad31",
+          "ioSlotIndex": 0,
+          "ioSlotType": "rs485"
+        },
+        {
+          "configs": {},
+          "ioDeviceTypeName": "reader",
+          "ioSlotIndex": 0,
+          "ioSlotType": "wiegand"
+        },
+        {
+          "configs": {},
+          "ioDeviceTypeName": "lock",
+          "ioSlotIndex": 0,
+          "ioSlotType": "lock"
+        },
+        {
+          "configs": {
+            "signalConfig": "NO"
+          },
+          "ioDeviceTypeName": "dpi",
+          "ioSlotIndex": 0,
+          "ioSlotType": "dpi"
+        },
+        {
+          "configs": {
+            "signalConfig": "NO"
+          },
+          "ioDeviceTypeName": "rex",
+          "ioSlotIndex": 0,
+          "ioSlotType": "rex"
+        },
+        {
+          "configs": {
+            "signalConfig": "NO"
+          },
+          "ioDeviceTypeName": "rex2",
+          "ioSlotIndex": 0,
+          "ioSlotType": "rex2"
+        }
+      ],
+      "doorType": "moody_as_acu",
+      "floorId": "{{floor_id}}",
+      "name": "{{door_name}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "doors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "accessControllerId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "doorId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "floorId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "name": {
+                "type": ["string", "number", "boolean"]
+              },
+              "nearbyCameras": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "cameraId": {
+                      "type": ["string", "number", "boolean"]
+                    }
+                  },
+                  "required": ["cameraId"]
+                }
+              }
+            },
+            "required": ["accessControllerId", "doorId", "floorId", "name", "nearbyCameras"]
+          }
+        }
+      },
+      "required": ["doors"]
+    },
+    "example": {
+      "doors": [
+        {
+          "accessControllerId": "<access_station_pro_id>",
+          "doorId": "<door_id>",
+          "floorId": "<floor_id>",
+          "name": "<door_name>",
+          "nearbyCameras": [
+            {
+              "cameraId": "<access_station_pro_id>"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "tags": ["access_station_pro"],
+  "notes": "Needs a real device on the org.",
+  "source": {
+    "from": "vCommander",
+    "methods": ["create_access_station_pro_door"]
+  },
+  "updated": "2026-10-23"
+}

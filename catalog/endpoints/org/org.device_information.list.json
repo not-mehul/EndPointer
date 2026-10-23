@@ -1,0 +1,98 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "org.device_information.list",
+  "title": "List device information",
+  "api": "command",
+  "host": "vlicensing",
+  "method": "POST",
+  "path": "device/batch/information",
+  "effect": "read",
+  "params": {
+    "serial_number": {}
+  },
+  "request": {
+    "body": {
+      "serialNumbers": "{{serial_number}}",
+      "organizationId": "{{org_id}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "devices": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "deviceId": {},
+              "deviceModelId": {
+                "type": "string"
+              },
+              "deviceType": {
+                "type": "string"
+              },
+              "modelNumber": {
+                "type": "string"
+              },
+              "organizationId": {},
+              "registered": {
+                "type": "boolean"
+              },
+              "serialNumber": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "deviceId",
+              "deviceModelId",
+              "deviceType",
+              "modelNumber",
+              "organizationId",
+              "registered",
+              "serialNumber"
+            ]
+          }
+        },
+        "invalidSerialNumbers": {
+          "type": "array"
+        },
+        "restrictedSerialNumbers": {
+          "type": "array"
+        },
+        "unclaimableSerialNumbers": {
+          "type": "array"
+        }
+      },
+      "required": [
+        "devices",
+        "invalidSerialNumbers",
+        "restrictedSerialNumbers",
+        "unclaimableSerialNumbers"
+      ]
+    },
+    "example": {
+      "devices": [
+        {
+          "deviceId": null,
+          "deviceModelId": "",
+          "deviceType": "camera",
+          "modelNumber": "2100",
+          "organizationId": null,
+          "registered": false,
+          "serialNumber": "NMCC-QXN6-Q7E4"
+        }
+      ],
+      "invalidSerialNumbers": [],
+      "restrictedSerialNumbers": [],
+      "unclaimableSerialNumbers": []
+    }
+  },
+  "tags": ["org"],
+  "source": {
+    "from": "vCommander",
+    "note": "In vCommander's endpoint registry; its client doesn't call it."
+  },
+  "updated": "2026-10-23"
+}

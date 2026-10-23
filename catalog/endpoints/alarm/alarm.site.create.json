@@ -1,0 +1,109 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "alarm.site.create",
+  "title": "Create an alarm response site",
+  "api": "command",
+  "host": "vagent",
+  "method": "POST",
+  "path": "response/site/create",
+  "effect": "create",
+  "params": {
+    "business_name": {},
+    "site_id": {}
+  },
+  "request": {
+    "body": {
+      "organizationId": "{{org_id}}",
+      "siteId": "{{site_id}}",
+      "businessName": "{{business_name}}",
+      "permitNumber": "",
+      "locationRequest": {
+        "apt": "",
+        "city": "{{alarm_city}}",
+        "country": "{{country}}",
+        "latitude": "{{latitude}}",
+        "longitude": "{{longitude}}",
+        "state": "{{alarm_state}}",
+        "street1": "{{alarm_street}}",
+        "street2": "",
+        "timezone": "{{address_timezone}}",
+        "zipcode": "{{alarm_zipcode}}"
+      },
+      "adminContactUserId": "{{user_id}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "responseSite": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": ["string", "number", "boolean"]
+            },
+            "siteId": {
+              "type": ["string", "number", "boolean"]
+            },
+            "orgId": {
+              "type": ["string", "number", "boolean"]
+            },
+            "businessName": {
+              "type": ["string", "number", "boolean"]
+            },
+            "locationId": {
+              "type": ["string", "number", "boolean"]
+            }
+          },
+          "required": ["businessName", "id", "locationId", "orgId", "siteId"]
+        },
+        "responseConfigs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": ["string", "number", "boolean"]
+              },
+              "responseSiteId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "locationId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "name": {
+                "type": ["string", "number", "boolean"]
+              }
+            },
+            "required": ["id", "locationId", "name", "responseSiteId"]
+          }
+        }
+      },
+      "required": ["responseConfigs", "responseSite"]
+    },
+    "example": {
+      "responseSite": {
+        "id": "<alarm_site_id>",
+        "siteId": "<site_id>",
+        "orgId": "<org_id>",
+        "businessName": "<business_name>",
+        "locationId": "<location_id>"
+      },
+      "responseConfigs": [
+        {
+          "id": "<alarm_response_id>",
+          "responseSiteId": "<alarm_site_id>",
+          "locationId": "<location_id>",
+          "name": "<response_name>"
+        }
+      ]
+    }
+  },
+  "tags": ["alarm"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["create_alarm_site"]
+  },
+  "updated": "2026-10-23"
+}

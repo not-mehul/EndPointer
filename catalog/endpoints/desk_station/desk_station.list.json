@@ -1,0 +1,53 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "desk_station.list",
+  "title": "List desk stations",
+  "api": "command",
+  "host": "api",
+  "method": "GET",
+  "path": "vinter/v1/user/organization/{{org_id}}/device",
+  "effect": "read",
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "deskApps": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "deviceId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "name": {
+                "type": ["string", "number", "boolean"]
+              },
+              "serialNumber": {
+                "type": ["string", "number", "boolean"]
+              }
+            },
+            "required": ["deviceId", "name", "serialNumber"]
+          }
+        }
+      },
+      "required": []
+    },
+    "example": {
+      "deskApps": [
+        {
+          "deviceId": "<deskstation_id>",
+          "name": "<deskstation_name>",
+          "serialNumber": "<serial_number>"
+        }
+      ]
+    }
+  },
+  "tags": ["desk_station"],
+  "notes": "Same request as intercom.list; vCommander reads a different part of the response.",
+  "source": {
+    "from": "vCommander",
+    "methods": ["get_desk_station"]
+  },
+  "updated": "2026-10-23"
+}

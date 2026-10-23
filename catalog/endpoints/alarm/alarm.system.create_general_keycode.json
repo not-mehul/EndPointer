@@ -1,0 +1,95 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "alarm.system.create_general_keycode",
+  "title": "Creates a general (all-partition) alarm keycode on an alarm system",
+  "api": "command",
+  "host": "vproconfig",
+  "method": "POST",
+  "path": "keycode/create",
+  "effect": "create",
+  "params": {
+    "alarm_system_id": {},
+    "code": {},
+    "name": {}
+  },
+  "request": {
+    "body": {
+      "alarmSystemId": "{{alarm_system_id}}",
+      "name": "{{name}}",
+      "code": "{{code}}",
+      "partitionIds": [],
+      "firePermissionScope": "FIRE_PERMISSION_SCOPE_OPERATION"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "keycode": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": ["string", "number", "boolean"]
+            },
+            "code": {
+              "type": ["string", "number", "boolean"]
+            },
+            "name": {
+              "type": ["string", "number", "boolean"]
+            },
+            "isDuressCode": {
+              "type": "boolean"
+            },
+            "alarmSystemId": {
+              "type": ["string", "number", "boolean"]
+            },
+            "isPartitionScoped": {
+              "type": "boolean"
+            },
+            "partitionScopes": {
+              "type": "array"
+            },
+            "firePermissionScope": {
+              "type": "string"
+            },
+            "isIntrusion": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "alarmSystemId",
+            "code",
+            "firePermissionScope",
+            "id",
+            "isDuressCode",
+            "isIntrusion",
+            "isPartitionScoped",
+            "name",
+            "partitionScopes"
+          ]
+        }
+      },
+      "required": ["keycode"]
+    },
+    "example": {
+      "keycode": {
+        "id": "<keycode_id>",
+        "code": "<keycode>",
+        "name": "<keycode_name>",
+        "isDuressCode": false,
+        "alarmSystemId": "<alarm_system_id>",
+        "isPartitionScoped": false,
+        "partitionScopes": [],
+        "firePermissionScope": "FIRE_PERMISSION_SCOPE_OPERATION",
+        "isIntrusion": true
+      }
+    }
+  },
+  "tags": ["alarm"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["set_alarm_keycode"]
+  },
+  "updated": "2026-10-23"
+}

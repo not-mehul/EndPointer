@@ -1,0 +1,33 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "access_station_pro.delete",
+  "title": "Delete access station pro",
+  "api": "command",
+  "host": "vcerberus",
+  "method": "POST",
+  "path": "access_device/decommission",
+  "effect": "delete",
+  "params": {
+    "device_id": {}
+  },
+  "request": {
+    "body": {
+      "deviceId": "{{device_id}}",
+      "sharding": true
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object"
+    },
+    "example": {}
+  },
+  "tags": ["access_station_pro"],
+  "notes": "Needs a real device on the org. Same request as access_controller.delete; vCommander reads a different part of the response.",
+  "source": {
+    "from": "vCommander",
+    "methods": ["delete_access_station_pro"]
+  },
+  "updated": "2026-10-23"
+}

@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "endpoint-checker"
+version = "1.0.0"
+description = "Keep a catalog of Verkada Command endpoints (method, payload, response) and check them for changes."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["requests>=2.31"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "responses>=0.25", "ruff>=0.6", "jsonschema>=4.21", "openapi-spec-validator>=0.7"]
+
+[project.scripts]
+endpoint-checker = "endpoint_checker.cli:main"
+
+[tool.setuptools]
+packages = ["endpoint_checker"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "B", "SIM", "UP", "RUF", "PERF"]
+ignore = [
+    "E501",    # long strings in prompts and messages
+    "PERF203", # try/except per item is deliberate
+    "PERF401", # explicit loops read better in the report code
+    "RUF001",  # deliberate unicode in output (·, —, …)
+    "RUF002",
+    "RUF003",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

@@ -1,0 +1,39 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "incident.delete",
+  "title": "Delete an investigation incident",
+  "api": "command",
+  "host": "vinvestigate",
+  "method": "POST",
+  "path": "v2/incident/delete",
+  "effect": "delete",
+  "params": {
+    "incident_id": {}
+  },
+  "request": {
+    "body": {
+      "incidentId": "{{incident_id}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": ["success"]
+    },
+    "example": {
+      "success": true
+    }
+  },
+  "tags": ["incident"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["delete_incident"]
+  },
+  "updated": "2026-10-23"
+}

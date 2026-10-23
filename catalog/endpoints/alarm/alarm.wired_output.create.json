@@ -1,0 +1,85 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "alarm.wired_output.create",
+  "title": "Creates a wired generic output on a panel pin",
+  "api": "command",
+  "host": "vproconfig",
+  "method": "POST",
+  "path": "device/create_wired_output",
+  "effect": "create",
+  "params": {
+    "alarm_system_id": {},
+    "name": {},
+    "panel_id": {},
+    "pin_num": {}
+  },
+  "request": {
+    "body": {
+      "device": {
+        "name": "{{name}}",
+        "type": "WIRED_GENERIC_OUTPUT"
+      },
+      "alarmSystemId": "{{alarm_system_id}}",
+      "hubId": "{{panel_id}}",
+      "pinNum": "{{pin_num}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "device": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": ["string", "number", "boolean"]
+            },
+            "alarmSystemId": {
+              "type": ["string", "number", "boolean"]
+            },
+            "name": {
+              "type": ["string", "number", "boolean"]
+            },
+            "type": {
+              "type": "string"
+            },
+            "wiredOutputConfig": {
+              "type": "object",
+              "properties": {
+                "hubId": {
+                  "type": ["string", "number", "boolean"]
+                },
+                "pinNum": {
+                  "type": "integer"
+                }
+              },
+              "required": ["hubId", "pinNum"]
+            }
+          },
+          "required": ["alarmSystemId", "id", "name", "type", "wiredOutputConfig"]
+        }
+      },
+      "required": ["device"]
+    },
+    "example": {
+      "device": {
+        "id": "<wired_output_id>",
+        "alarmSystemId": "<alarm_system_id>",
+        "name": "<wired_output_name>",
+        "type": "WIRED_GENERIC_OUTPUT",
+        "wiredOutputConfig": {
+          "hubId": "<alarm_panel_id>",
+          "pinNum": 0
+        }
+      }
+    }
+  },
+  "tags": ["alarm"],
+  "notes": "Needs a real device on the org.",
+  "source": {
+    "from": "vCommander",
+    "methods": ["create_wired_output"]
+  },
+  "updated": "2026-10-23"
+}

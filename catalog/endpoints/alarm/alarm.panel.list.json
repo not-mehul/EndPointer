@@ -1,0 +1,77 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "alarm.panel.list",
+  "title": "List alarm panels",
+  "api": "command",
+  "host": "vproconfig",
+  "method": "POST",
+  "path": "alarm_system/get_devices",
+  "effect": "read",
+  "params": {
+    "alarm_system_id": {}
+  },
+  "request": {
+    "body": {
+      "alarmSystemId": "{{alarm_system_id}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "devices": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": ["string", "number", "boolean"]
+              },
+              "alarmSystemId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "name": {
+                "type": ["string", "number", "boolean"]
+              },
+              "type": {
+                "type": "string"
+              },
+              "verkadaDeviceConfig": {
+                "type": "object",
+                "properties": {
+                  "serialNumber": {
+                    "type": ["string", "number", "boolean"]
+                  }
+                },
+                "required": ["serialNumber"]
+              }
+            },
+            "required": ["alarmSystemId", "id", "name", "type"]
+          }
+        }
+      },
+      "required": ["devices"]
+    },
+    "example": {
+      "devices": [
+        {
+          "id": "<alarm_panel_id>",
+          "alarmSystemId": "<alarm_system_id>",
+          "name": "<alarm_panel_name>",
+          "type": "COLOSSUS",
+          "verkadaDeviceConfig": {
+            "serialNumber": "<serial_number>"
+          }
+        }
+      ]
+    }
+  },
+  "tags": ["alarm"],
+  "notes": "Same request as alarm.keypad.list, alarm.expander.list, alarm.wireless_contact_sensor.list, alarm.wireless_panic_button.list, alarm.wireless_universal_transmitter.list, alarm.wired_output.list, alarm.wired_input.list; vCommander reads a different part of the response.",
+  "source": {
+    "from": "vCommander",
+    "methods": ["get_alarm_device", "get_alarm_panel", "get_alarm_panel_all"]
+  },
+  "updated": "2026-10-23"
+}

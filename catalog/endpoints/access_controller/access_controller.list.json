@@ -1,0 +1,61 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "access_controller.list",
+  "title": "List access controllers",
+  "api": "command",
+  "host": "api",
+  "method": "GET",
+  "path": "access/v3/user/access_controllers",
+  "effect": "read",
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object",
+      "properties": {
+        "accessControllers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "accessControllerId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "floorId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "name": {
+                "type": ["string", "number", "boolean"]
+              },
+              "organizationId": {
+                "type": ["string", "number", "boolean"]
+              },
+              "serialNumber": {
+                "type": ["string", "number", "boolean"]
+              }
+            },
+            "required": ["accessControllerId", "name", "organizationId", "serialNumber"]
+          }
+        }
+      },
+      "required": ["accessControllers"]
+    },
+    "example": {
+      "accessControllers": [
+        {
+          "accessControllerId": "<access_controller_id>",
+          "floorId": "<floor_id>",
+          "name": "<access_controller_name>",
+          "organizationId": "<org_id>",
+          "serialNumber": "<serial_number>"
+        }
+      ]
+    }
+  },
+  "tags": ["access_controller"],
+  "notes": "Same request as access_station_pro.list; vCommander reads a different part of the response.",
+  "source": {
+    "from": "vCommander",
+    "methods": ["get_access_controller"]
+  },
+  "updated": "2026-10-23"
+}

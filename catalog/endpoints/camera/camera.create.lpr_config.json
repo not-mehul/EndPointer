@@ -1,0 +1,35 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "camera.create.lpr_config",
+  "title": "Configure license plate recognition on a camera",
+  "api": "command",
+  "host": "vprovision",
+  "method": "POST",
+  "path": "user/camera/config/set",
+  "effect": "update",
+  "params": {
+    "__list__camera_ids": {}
+  },
+  "request": {
+    "body": {
+      "cameraId": "{{__list__camera_ids}}",
+      "params": {
+        "camera-config.operating-mode": "lpr"
+      }
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object"
+    },
+    "example": {}
+  },
+  "tags": ["camera"],
+  "notes": "Needs a real device on the org.",
+  "source": {
+    "from": "vCommander",
+    "methods": ["enable_camera_lpr"]
+  },
+  "updated": "2026-10-23"
+}

@@ -1,0 +1,31 @@
+{
+  "$schema": "../../schema/endpoint.schema.json",
+  "id": "alarm.site.activate_trial",
+  "title": "Activate the alarm software trial for a site",
+  "api": "command",
+  "host": "vagent",
+  "method": "POST",
+  "path": "site/software_trial/create",
+  "effect": "action",
+  "params": {
+    "site_id": {}
+  },
+  "request": {
+    "body": {
+      "siteId": "{{site_id}}"
+    }
+  },
+  "response": {
+    "status": ["2xx"],
+    "schema": {
+      "type": "object"
+    },
+    "example": {}
+  },
+  "tags": ["alarm"],
+  "source": {
+    "from": "vCommander",
+    "methods": ["create_alarm_site"]
+  },
+  "updated": "2026-10-23"
+}
