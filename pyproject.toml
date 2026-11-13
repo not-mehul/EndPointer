@@ -3,9 +3,9 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "endpoint-checker"
-version = "1.0.0"
-description = "Keep a catalog of Verkada Command endpoints (method, payload, response) and check them for changes."
+name = "endpointer"
+version = "0.1.0"
+description = "Capture the API calls a web app makes from a browser, keep the ones that matter, graph their dependencies and spot drift."
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = ["requests>=2.31"]
@@ -14,10 +14,14 @@ dependencies = ["requests>=2.31"]
 dev = ["pytest>=8", "responses>=0.25", "ruff>=0.6", "jsonschema>=4.21", "openapi-spec-validator>=0.7"]
 
 [project.scripts]
+endpointer = "endpointer.cli:main"
 endpoint-checker = "endpoint_checker.cli:main"
 
 [tool.setuptools]
-packages = ["endpoint_checker"]
+packages = ["endpointer", "endpoint_checker"]
+
+[tool.setuptools.package-data]
+endpointer = ["ui/*"]
 
 [tool.ruff]
 line-length = 110
